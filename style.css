@@ -1,0 +1,49 @@
+/* The whole page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #222;
+    margin: 40px;
+}
+
+/* Main title */
+h1 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* Section titles */
+h2 {
+    color: #3498db;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+/* Normal paragraphs */
+p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Lists */
+ul {
+    background-color: white;
+    padding: 20px 40px;
+    border-radius: 8px;
+}
+
+/* List elements */
+li {
+    margin: 8px 0;
+}
+
+/* Links */
+a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+/* What happens when you put the mouse over a link */
+a:hover {
+    text-decoration: underline;
+}
