@@ -1,0 +1,918 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<title>HTML</title>
+</head>
+
+<body>
+<header>
+<h1>HTML Notes</h1>
+<p>Fundamental concepts of HTML.</p>
+</header>
+<main><a href="..\index.html">← Back to Web Applications</a>
+
+<h1>HTML Notes</h1>
+
+<h2>Chapter 1 — Introduction to HTML</h2>
+
+<h3>Initialize</h3>
+
+<pre>
+&lt;html&gt;
+&lt;/html&gt;
+</pre>
+
+<h3>Parts of a Document</h3>
+
+<pre>
+&lt;head&gt;
+    &lt;title&gt;Here goes the title displayed in the browser tab&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;/body&gt;
+</pre>
+
+<h3>Headers</h3>
+
+<p>HTML provides six levels of headings:</p>
+
+<pre>
+&lt;h1&gt;
+&lt;h2&gt;
+&lt;h3&gt;
+&lt;h4&gt;
+&lt;h5&gt;
+&lt;h6&gt;
+</pre>
+
+<h3>Paragraphs and Text Formatting</h3>
+
+<pre>
+&lt;p&gt;
+&lt;b&gt;Bold&lt;/b&gt;
+&lt;i&gt;Italic&lt;/i&gt;
+&lt;sub&gt;Subscript&lt;/sub&gt;
+&lt;sup&gt;Superscript&lt;/sup&gt;
+</pre>
+
+<p>
+HTML collapses consecutive whitespace characters into a single space.
+To create a separate paragraph, use another <code>&lt;p&gt;</code> element.
+</p>
+
+
+<h2>Chapter 2 — Text Formatting and Semantic Elements</h2>
+
+<h3>Line Breaks</h3>
+
+<pre>
+&lt;br&gt;
+</pre>
+
+<p>Creates a line break.</p>
+
+<pre>
+&lt;hr&gt;
+</pre>
+
+<p>Creates a thematic horizontal rule.</p>
+
+<h3>Strong and Emphasis</h3>
+
+<pre>
+&lt;strong&gt;Strong importance&lt;/strong&gt;
+&lt;em&gt;Emphasized text&lt;/em&gt;
+</pre>
+
+<ul>
+    <li><code>&lt;strong&gt;</code> indicates that the content has strong importance.</li>
+    <li><code>&lt;em&gt;</code> indicates emphasis that can change the meaning or interpretation of a sentence.</li>
+</ul>
+
+<h3>Quotations</h3>
+
+<pre>
+&lt;blockquote&gt;
+    &lt;p&gt;A longer quotation.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;q&gt;A short quotation.&lt;/q&gt;
+</pre>
+
+<ul>
+    <li><code>&lt;blockquote&gt;</code> is used for longer quotations.</li>
+    <li><code>&lt;q&gt;</code> is used for short inline quotations.</li>
+</ul>
+
+<p>
+The <code>cite</code> attribute can be used to indicate the URL of the source
+of a quotation.
+</p>
+
+<pre>
+&lt;blockquote cite="https://example.com"&gt;
+    &lt;p&gt;Quotation text.&lt;/p&gt;
+&lt;/blockquote&gt;
+</pre>
+
+<h3>Abbreviations</h3>
+
+<pre>
+&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;
+</pre>
+
+<p>
+The <code>title</code> attribute provides the expanded meaning of an abbreviation.
+</p>
+
+<h3>Citations and Definitions</h3>
+
+<pre>
+&lt;cite&gt;Title of a work&lt;/cite&gt;
+
+&lt;dfn&gt;Term being defined&lt;/dfn&gt;
+</pre>
+
+<ul>
+    <li><code>&lt;cite&gt;</code> identifies the title of a cited creative work or source.</li>
+    <li><code>&lt;dfn&gt;</code> identifies a term being defined.</li>
+</ul>
+
+<h3>Author Details</h3>
+
+<pre>
+&lt;address&gt;
+    Author contact information
+&lt;/address&gt;
+</pre>
+
+<p>
+The <code>&lt;address&gt;</code> element contains contact information for the
+author or owner of a page or article.
+</p>
+
+<h3>Changes to Content</h3>
+
+<pre>
+&lt;ins&gt;Inserted content&lt;/ins&gt;
+
+&lt;del&gt;Deleted content&lt;/del&gt;
+
+&lt;s&gt;Content that is no longer accurate&lt;/s&gt;
+</pre>
+
+<ul>
+    <li><code>&lt;ins&gt;</code> represents content that has been inserted.</li>
+    <li><code>&lt;del&gt;</code> represents content that has been deleted.</li>
+    <li><code>&lt;s&gt;</code> represents content that is no longer accurate or relevant.</li>
+</ul>
+
+
+<h2>Chapter 3 — Lists</h2>
+
+<h3>List Items</h3>
+
+<p>
+Individual terms or items inside ordered and unordered lists are written
+using the <code>&lt;li&gt;</code> element.
+</p>
+
+<h3>Ordered Lists</h3>
+
+<pre>
+&lt;ol&gt;
+    &lt;li&gt;First item&lt;/li&gt;
+    &lt;li&gt;Second item&lt;/li&gt;
+&lt;/ol&gt;
+</pre>
+
+<p>
+An ordered list displays its items in a particular sequence, usually using numbers.
+</p>
+
+<h3>Unordered Lists</h3>
+
+<pre>
+&lt;ul&gt;
+    &lt;li&gt;Item one&lt;/li&gt;
+    &lt;li&gt;Item two&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+
+<p>
+An unordered list displays its items without a specific numerical order.
+</p>
+
+<h3>Definition Lists</h3>
+
+<pre>
+&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+&lt;/dl&gt;
+</pre>
+
+<ul>
+    <li><code>&lt;dl&gt;</code> creates the definition list.</li>
+    <li><code>&lt;dt&gt;</code> defines the term or title.</li>
+    <li><code>&lt;dd&gt;</code> contains the description or definition.</li>
+</ul>
+
+<h3>Nested Lists</h3>
+
+<p>
+A list can contain another list inside one of its <code>&lt;li&gt;</code> elements.
+This is called a nested list.
+</p>
+
+
+<h2>Chapter 4 — Links</h2>
+
+<p>
+Links allow users to navigate between webpages, websites, files, or different
+parts of the same page.
+</p>
+
+<h3>Creating Links</h3>
+
+<pre>
+&lt;a href="URL"&gt;Text the user clicks&lt;/a&gt;
+</pre>
+
+<h3>Absolute and Relative URLs</h3>
+
+<p>
+An absolute URL contains the complete address of a resource.
+</p>
+
+<pre>
+https://example.com/about.html
+</pre>
+
+<p>
+A relative URL specifies the location of a resource relative to the current page.
+</p>
+
+<pre>
+about.html
+pages/about.html
+../about.html
+</pre>
+
+<p>
+Relative URLs are commonly used when linking between pages within the same website.
+The pages do not necessarily have to be in the same folder.
+</p>
+
+<h3>Directory Structure</h3>
+
+<p>
+A website commonly has an <code>index.html</code> file as its main or home page.
+Folders can contain their own pages and resources.
+</p>
+
+<pre>
+website/
+│
+├── index.html
+│
+├── about/
+│   └── index.html
+│
+├── projects/
+│   ├── index.html
+│   └── project1.html
+│
+└── images/
+</pre>
+
+<h3>Parent and Grandparent Folders</h3>
+
+<pre>
+../
+</pre>
+
+<p>Moves to the parent directory.</p>
+
+<pre>
+../../
+</pre>
+
+<p>Moves to the grandparent directory.</p>
+
+<h3>Email Links</h3>
+
+<pre>
+&lt;a href="mailto:example@email.com"&gt;
+    Send me an email
+&lt;/a&gt;
+</pre>
+
+<p>
+The <code>mailto:</code> scheme can be used to create a link that opens the
+user's default email application.
+</p>
+
+<h3>Target Attribute</h3>
+
+<pre>
+&lt;a href="https://example.com" target="_blank"&gt;
+    Open website
+&lt;/a&gt;
+</pre>
+
+<p>
+The <code>target</code> attribute determines where the linked resource opens.
+<code>_blank</code> commonly opens it in a new browsing context.
+</p>
+
+<h3>Links to Specific Parts of a Page</h3>
+
+<p>
+An element can have an <code>id</code> that can be used as a destination for a link.
+</p>
+
+<pre>
+&lt;h2 id="projects"&gt;Projects&lt;/h2&gt;
+
+&lt;a href="#projects"&gt;Go to Projects&lt;/a&gt;
+</pre>
+
+<h3>Links to a Specific Part of Another Page</h3>
+
+<p>
+The same technique can be used with another page by adding the fragment
+identifier after the URL.
+</p>
+
+<pre>
+&lt;a href="about.html#projects"&gt;
+    Go to Projects
+&lt;/a&gt;
+</pre>
+
+
+<h2>Chapter 5 — Images</h2>
+
+<h3>Adding Images</h3>
+
+<pre>
+&lt;img src="image.jpg" alt="Description of the image" title="Image title"&gt;
+</pre>
+
+<ul>
+    <li><code>src</code> specifies the path or URL of the image.</li>
+    <li><code>alt</code> provides alternative text describing the image.</li>
+    <li><code>title</code> can provide additional information about the image.</li>
+</ul>
+
+<p>
+The <code>&lt;img&gt;</code> element is a void element, so it does not require
+a closing tag.
+</p>
+
+<h3>Image Alignment</h3>
+
+<p>
+Older HTML versions allowed attributes such as <code>align</code> to control
+image positioning. This is obsolete in modern HTML. CSS should be used for
+image positioning and layout.
+</p>
+
+<h3>Image Formats</h3>
+
+<ul>
+    <li><strong>JPEG/JPG:</strong> commonly used for photographs.</li>
+    <li><strong>PNG:</strong> supports transparency and lossless compression.</li>
+    <li><strong>GIF:</strong> supports simple animations and a limited color palette.</li>
+    <li><strong>SVG:</strong> a vector format commonly used for logos, icons, and illustrations.</li>
+</ul>
+
+<p>
+For web images, the important factors are pixel dimensions, file size,
+compression, and the appropriate image format. A specific PPI value such
+as 72 PPI is not required for web images.
+</p>
+
+<h3>Vector Images</h3>
+
+<p>
+Vector images can be represented using formats such as SVG. Unlike bitmap
+images, vector graphics can scale to different sizes without losing their
+mathematical definition.
+</p>
+
+<h3>Animated GIFs</h3>
+
+<p>
+Animated GIFs contain multiple frames that are displayed sequentially to
+create simple animations. File size should be considered because large GIFs
+can increase page loading time.
+</p>
+
+<h3>Figures and Captions</h3>
+
+<pre>
+&lt;figure&gt;
+    &lt;img src="image.jpg" alt="Description"&gt;
+    &lt;figcaption&gt;Caption for the image&lt;/figcaption&gt;
+&lt;/figure&gt;
+</pre>
+
+<p>
+The <code>&lt;figure&gt;</code> element groups self-contained content such as
+images, diagrams, or illustrations. <code>&lt;figcaption&gt;</code> provides
+a caption for that content.
+</p>
+
+
+<h2>Chapter 6 — Tables</h2>
+
+<h3>Basic Table Structure</h3>
+
+<pre>
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Data&lt;/td&gt;
+        &lt;td&gt;Data&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+<ul>
+    <li><code>&lt;table&gt;</code> creates the table.</li>
+    <li><code>&lt;tr&gt;</code> creates a table row.</li>
+    <li><code>&lt;td&gt;</code> creates a data cell.</li>
+    <li><code>&lt;th&gt;</code> creates a header cell.</li>
+</ul>
+
+<h3>Table Headers and Scope</h3>
+
+<pre>
+&lt;th scope="col"&gt;Name&lt;/th&gt;
+&lt;th scope="row"&gt;Student 1&lt;/th&gt;
+</pre>
+
+<p>
+The <code>scope</code> attribute helps identify whether a header applies to
+a column or a row and improves the semantic structure and accessibility of tables.
+</p>
+
+<h3>Spanning Columns and Rows</h3>
+
+<pre>
+&lt;td colspan="2"&gt;
+    Cell spanning two columns
+&lt;/td&gt;
+</pre>
+
+<p>
+The <code>colspan</code> attribute specifies how many columns a cell should span.
+</p>
+
+<pre>
+&lt;td rowspan="2"&gt;
+    Cell spanning two rows
+&lt;/td&gt;
+</pre>
+
+<p>
+The <code>rowspan</code> attribute specifies how many rows a cell should span.
+</p>
+
+<h3>Organizing Long Tables</h3>
+
+<pre>
+&lt;table&gt;
+
+    &lt;thead&gt;
+        ...
+    &lt;/thead&gt;
+
+    &lt;tbody&gt;
+        ...
+    &lt;/tbody&gt;
+
+    &lt;tfoot&gt;
+        ...
+    &lt;/tfoot&gt;
+
+&lt;/table&gt;
+</pre>
+
+<ul>
+    <li><code>&lt;thead&gt;</code> contains the header rows.</li>
+    <li><code>&lt;tbody&gt;</code> contains the main table data.</li>
+    <li><code>&lt;tfoot&gt;</code> contains footer or summary rows.</li>
+</ul>
+
+<p>
+Older HTML versions included presentation-related table attributes such as
+<code>border</code>, <code>bgcolor</code>, <code>cellpadding</code>,
+<code>cellspacing</code>, and <code>width</code>. In modern HTML, CSS should
+be used for presentation and layout.
+</p>
+
+
+<h2>Chapter 7 — Forms</h2>
+
+<h3>Form Element</h3>
+
+<pre>
+&lt;form action="URL" method="post"&gt;
+
+    ...
+
+&lt;/form&gt;
+</pre>
+
+<p>
+The <code>&lt;form&gt;</code> element contains form controls and defines how
+their data is submitted.
+</p>
+
+<h3>Form Attributes</h3>
+
+<ul>
+    <li>
+        <strong>action:</strong> specifies the URL where the form data should
+        be submitted.
+    </li>
+    <li>
+        <strong>method:</strong> specifies how the form data is submitted.
+        The standard HTML form methods are <code>GET</code> and <code>POST</code>.
+    </li>
+    <li>
+        <strong>id:</strong> uniquely identifies the form and can be referenced
+        by other elements or scripts.
+    </li>
+</ul>
+
+<h3>Input Element</h3>
+
+<pre>
+&lt;input type="text" name="username"&gt;
+</pre>
+
+<p>
+The <code>&lt;input&gt;</code> element creates different types of form controls
+depending on its <code>type</code> attribute.
+</p>
+
+<h3>Important Input Attributes</h3>
+
+<ul>
+    <li>
+        <strong>type:</strong> determines the type of form control.
+    </li>
+    <li>
+        <strong>name:</strong> identifies the form field when its data is submitted.
+    </li>
+    <li>
+        <strong>id:</strong> uniquely identifies the individual control.
+    </li>
+    <li>
+        <strong>maxlength:</strong> specifies the maximum number of characters
+        allowed in text input.
+    </li>
+    <li>
+        <strong>value:</strong> specifies the value associated with the control.
+    </li>
+    <li>
+        <strong>placeholder:</strong> displays temporary guidance inside certain
+        form controls.
+    </li>
+    <li>
+        <strong>required:</strong> indicates that the user must provide a value
+        before submitting the form.
+    </li>
+</ul>
+
+<h3>Input Types</h3>
+
+<h4>Text</h4>
+
+<pre>
+&lt;input type="text" name="name"&gt;
+</pre>
+
+<p>Creates a single-line text input.</p>
+
+<h4>Password</h4>
+
+<pre>
+&lt;input type="password" name="password"&gt;
+</pre>
+
+<p>
+Displays entered characters in a masked form. This does not by itself make
+the data secure. Secure transmission requires appropriate server and transport
+security, such as HTTPS.
+</p>
+
+<h4>Radio</h4>
+
+<pre>
+&lt;input type="radio" name="gender" value="female"&gt;
+&lt;input type="radio" name="gender" value="male"&gt;
+</pre>
+
+<p>
+Radio buttons are used when the user should select one option from a group.
+Radio buttons that belong to the same group normally share the same
+<code>name</code>.
+</p>
+
+<pre>
+&lt;input type="radio" name="gender" value="female" checked&gt;
+</pre>
+
+<p>
+The <code>checked</code> attribute specifies that a checkbox or radio button
+is selected by default.
+</p>
+
+<h4>Checkbox</h4>
+
+<pre>
+&lt;input type="checkbox" name="interest" value="programming"&gt;
+</pre>
+
+<p>
+Checkboxes allow the user to independently select or deselect options.
+Multiple checkboxes can be selected.
+</p>
+
+<h4>File</h4>
+
+<pre>
+&lt;input type="file" name="document"&gt;
+</pre>
+
+<p>
+Creates a control that allows the user to select a file from their device.
+</p>
+
+<h4>Submit</h4>
+
+<pre>
+&lt;input type="submit" value="Submit"&gt;
+</pre>
+
+<p>
+Creates a button that submits the form.
+</p>
+
+<h4>Image</h4>
+
+<pre>
+&lt;input type="image" src="submit.png" alt="Submit"&gt;
+</pre>
+
+<p>
+Creates a graphical submit control using an image.
+</p>
+
+<h4>Hidden</h4>
+
+<pre>
+&lt;input type="hidden" name="userID" value="123"&gt;
+</pre>
+
+<p>
+Creates a form control that is not displayed to the user but can still be
+included when the form is submitted. Hidden inputs are not secure or secret;
+their values can be inspected and modified by the user.
+</p>
+
+<h4>Date</h4>
+
+<pre>
+&lt;input type="date" name="birthdate"&gt;
+</pre>
+
+<p>Provides a control for selecting a date.</p>
+
+<h4>Email</h4>
+
+<pre>
+&lt;input type="email" name="email"&gt;
+</pre>
+
+<p>
+Allows the user to enter an email address and provides built-in browser
+validation when appropriate.
+</p>
+
+<h4>URL</h4>
+
+<pre>
+&lt;input type="url" name="website"&gt;
+</pre>
+
+<p>
+Allows the user to enter a URL and provides built-in browser validation
+when appropriate.
+</p>
+
+<h4>Search</h4>
+
+<pre>
+&lt;input type="search" name="query" placeholder="Search..."&gt;
+</pre>
+
+<p>
+Creates a single-line search field. The <code>placeholder</code> attribute
+can display temporary instructional text inside the control.
+</p>
+
+
+<h3>Textarea</h3>
+
+<pre>
+&lt;textarea name="message"&gt;&lt;/textarea&gt;
+</pre>
+
+<p>
+The <code>&lt;textarea&gt;</code> element creates a multiline text input.
+Its visual dimensions can be controlled using HTML attributes or CSS.
+Form data should always be validated on the server, regardless of any
+client-side validation.
+</p>
+
+
+<h3>Select and Option</h3>
+
+<pre>
+&lt;select name="country"&gt;
+    &lt;option value="ec"&gt;Ecuador&lt;/option&gt;
+    &lt;option value="us"&gt;United States&lt;/option&gt;
+    &lt;option value="ca"&gt;Canada&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<ul>
+    <li><code>&lt;select&gt;</code> creates a dropdown or selection control.</li>
+    <li><code>&lt;option&gt;</code> defines an available option.</li>
+    <li><code>value</code> defines the value submitted for the selected option.</li>
+</ul>
+
+<h4>Selected Option</h4>
+
+<pre>
+&lt;option value="ec" selected&gt;Ecuador&lt;/option&gt;
+</pre>
+
+<p>
+The <code>selected</code> attribute makes an option selected by default.
+It does not by itself prevent an empty value from being submitted.
+</p>
+
+<h4>Multiple Selection</h4>
+
+<pre>
+&lt;select name="interests" multiple&gt;
+    &lt;option value="programming"&gt;Programming&lt;/option&gt;
+    &lt;option value="research"&gt;Research&lt;/option&gt;
+    &lt;option value="painting"&gt;Digital Painting&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<p>
+The <code>multiple</code> attribute allows the user to select more than one option.
+The <code>size</code> attribute can control how many options are visible at once.
+</p>
+
+
+<h3>Button</h3>
+
+<pre>
+&lt;button type="submit"&gt;Submit&lt;/button&gt;
+</pre>
+
+<p>
+The <code>&lt;button&gt;</code> element creates a button and provides more
+flexibility than <code>&lt;input type="submit"&gt;</code> because content such
+as text and other HTML can be placed inside it.
+</p>
+
+
+<h3>Labels</h3>
+
+<pre>
+&lt;label&gt;
+    Age:
+    &lt;input type="text" name="age"&gt;
+&lt;/label&gt;
+</pre>
+
+<p>
+The <code>&lt;label&gt;</code> element indicates that text describes a specific
+form control. Labels improve accessibility and make forms easier to use.
+</p>
+
+<h4>Two Ways to Associate a Label with a Control</h4>
+
+<h5>Method 1 — Put the Input Inside the Label</h5>
+
+<pre>
+&lt;label&gt;
+    Age:
+    &lt;input type="text" name="age"&gt;
+&lt;/label&gt;
+</pre>
+
+<p>
+The relationship is automatic because the form control is contained inside
+the <code>&lt;label&gt;</code>.
+</p>
+
+<h5>Method 2 — Use the for Attribute</h5>
+
+<pre>
+&lt;label for="age"&gt;Age:&lt;/label&gt;
+&lt;input type="text" id="age" name="age"&gt;
+</pre>
+
+<p>
+The <code>for</code> attribute connects the label to the form control whose
+<code>id</code> has the same value.
+</p>
+
+<pre>
+for="age"
+    ↓
+id="age"
+</pre>
+
+<p>
+This allows users to click the label to activate or focus the associated
+form control.
+</p>
+
+
+<h3>Grouping Form Elements</h3>
+
+<pre>
+&lt;fieldset&gt;
+
+    &lt;legend&gt;Personal Information&lt;/legend&gt;
+
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name"&gt;
+
+&lt;/fieldset&gt;
+</pre>
+
+<ul>
+    <li>
+        <code>&lt;fieldset&gt;</code> groups related form controls together.
+    </li>
+    <li>
+        <code>&lt;legend&gt;</code> provides a caption or title for the fieldset.
+    </li>
+</ul>
+
+
+<h3>Form Validation</h3>
+
+<p>
+HTML5 provides several built-in validation mechanisms, so basic validation
+does not always require JavaScript.
+</p>
+
+<pre>
+&lt;input type="email" required&gt;
+</pre>
+
+<p>
+The <code>required</code> attribute indicates that the user must provide
+a value before submitting the form.
+</p>
+
+<p>
+Other HTML validation attributes include:
+</p>
+
+<ul>
+    <li><code>required</code> — value must be provided.</li>
+    <li><code>minlength</code> — minimum number of characters.</li>
+    <li><code>maxlength</code> — maximum number of characters.</li>
+    <li><code>min</code> — minimum numerical or date value.</li>
+    <li><code>max</code> — maximum numerical or date value.</li>
+    <li><code>pattern</code> — value must match a specified pattern.</li>
+    <li><code>type="email"</code> — provides email-oriented validation.</li>
+    <li><code>type="url"</code> — provides URL-oriented validation.</li>
+</ul>
+
+<p>
+Client-side HTML validation improves the user experience, but it should not
+replace server-side validation. Data received by a server should always be
+validated on the server because client-side controls can be bypassed.
+</p>
