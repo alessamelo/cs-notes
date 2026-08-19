@@ -1,0 +1,450 @@
+<section>
+    <h2>15. Types of Reinforcement Learning Tasks</h2>
+
+    <p>
+        Reinforcement learning environments can be classified according to
+        whether the task has a defined ending and whether the outcomes of
+        actions are predictable or uncertain.
+    </p>
+
+
+    <h3>Episodic Tasks</h3>
+
+    <p>
+        An <strong>episodic task</strong> is a task in which an agent interacts
+        with an environment until it reaches a <strong>terminal state</strong>.
+        Each episode has a clear beginning and end.
+    </p>
+
+    <p>
+        Once the terminal state is reached, the episode finishes and a new
+        episode can begin.
+    </p>
+
+    <h4>Examples</h4>
+
+    <ul>
+        <li>Videogames with a defined end.</li>
+        <li>Board games.</li>
+        <li>Maze-solving tasks.</li>
+        <li>Spider Solitaire games, where individual games are independent episodes.</li>
+    </ul>
+
+    <p>
+        The important characteristic is that there is a
+        <strong>terminal state</strong>.
+    </p>
+
+    <pre>
+Episode
+
+Start
+  ↓
+State → Action → State → Action → State
+                                      ↓
+                              Terminal State
+                                      ↓
+                                  Episode ends
+    </pre>
+
+
+    <h3>Continuing Tasks</h3>
+
+    <p>
+        A <strong>continuing task</strong> does not have a terminal state.
+        The agent continues interacting with the environment indefinitely
+        or for as long as the system operates.
+    </p>
+
+    <p>
+        There is therefore no predefined final state that terminates the
+        task.
+    </p>
+
+    <h4>Examples</h4>
+
+    <ul>
+        <li>Managing a continuous industrial process.</li>
+        <li>Traffic control.</li>
+        <li>Energy management.</li>
+        <li>Some robotic control systems.</li>
+    </ul>
+
+    <pre>
+State → Action → State → Action → State → Action → ...
+                 ↑                              │
+                 └──────────────────────────────┘
+                       No terminal state
+    </pre>
+
+
+    <h2>16. Deterministic vs. Stochastic Tasks</h2>
+
+    <h3>Deterministic Environment</h3>
+
+    <p>
+        An environment is <strong>deterministic</strong> when the result of
+        an action is completely determined by the current state and the
+        selected action.
+    </p>
+
+    <p>
+        In other words, if the agent knows the current state and the action
+        it performs, the resulting next state is predictable.
+    </p>
+
+    <pre>
+Current State + Action
+          ↓
+     Transition
+          ↓
+    Known Next State
+    </pre>
+
+    <p>
+        Mathematically, a deterministic transition function can be written as:
+    </p>
+
+    <pre>
+s' = T(s, a)
+    </pre>
+
+    <p>
+        Where:
+    </p>
+
+    <ul>
+        <li><strong>s</strong> = current state</li>
+        <li><strong>a</strong> = selected action</li>
+        <li><strong>s'</strong> = resulting next state</li>
+        <li><strong>T</strong> = transition function</li>
+    </ul>
+
+
+    <h4>Example: Grid World</h4>
+
+    <p>
+        Consider a simple grid in which an agent must reach the goal.
+        The environment has no randomness: moving right always moves the
+        agent to the cell immediately to the right.
+    </p>
+
+    <pre>
+┌───┬───┬───┬───┬───┐
+│   │   │   │   │ G │
+├───┼───┼───┼───┼───┤
+│   │   │   │   │   │
+├───┼───┼───┼───┼───┤
+│ S │   │   │   │   │
+└───┴───┴───┴───┴───┘
+
+S = Start
+G = Goal
+
+Example:
+
+State (3,1) + Action RIGHT
+            ↓
+        State (3,2)
+    </pre>
+
+    <p>
+        If the agent is in the same state and performs the same action again,
+        the result will always be the same.
+    </p>
+
+    <h4>Characteristics</h4>
+
+    <ul>
+        <li>No randomness in the transition.</li>
+        <li>The next state can be predicted exactly.</li>
+        <li>Rewards can also be fixed.</li>
+        <li>A transition function can describe the environment.</li>
+        <li>Learning can generally be easier because outcomes are predictable.</li>
+    </ul>
+
+
+    <h3>Stochastic Environment</h3>
+
+    <p>
+        An environment is <strong>stochastic</strong> when the same state
+        and action can lead to different possible outcomes.
+    </p>
+
+    <p>
+        Instead of knowing exactly which state will occur, the agent can
+        determine the <strong>probability</strong> of each possible outcome.
+    </p>
+
+    <pre>
+Current State + Action
+          ↓
+   Probability Distribution
+       /       |       \
+      /        |        \
+     ↓         ↓         ↓
+ State A    State B    State C
+  0.60        0.30       0.10
+    </pre>
+
+    <p>
+        The transition is therefore represented using probabilities:
+    </p>
+
+    <pre>
+P(s' | s, a)
+    </pre>
+
+    <p>
+        This represents the probability of reaching state
+        <strong>s'</strong> given the current state <strong>s</strong>
+        and action <strong>a</strong>.
+    </p>
+
+    <h4>Example</h4>
+
+    <p>
+        Suppose an agent chooses to move right in a grid. Because of
+        uncertainty, the action could have the following outcomes:
+    </p>
+
+    <ul>
+        <li>Move right → 70% probability</li>
+        <li>Stay in the same position → 20% probability</li>
+        <li>Move up → 10% probability</li>
+    </ul>
+
+    <p>
+        The agent cannot know exactly which outcome will occur. It must
+        learn how the probabilities affect its decisions.
+    </p>
+
+    <h4>Characteristics</h4>
+
+    <ul>
+        <li>There is randomness or uncertainty.</li>
+        <li>The same action can produce different outcomes.</li>
+        <li>Transitions can be represented using probability distributions.</li>
+        <li>The agent may need to update its estimates from experience.</li>
+        <li>Learning can be more difficult or slower because outcomes are uncertain.</li>
+    </ul>
+
+
+    <h3>Deterministic vs. Stochastic</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Characteristic</th>
+                <th>Deterministic</th>
+                <th>Stochastic</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Outcome</td>
+                <td>Predictable</td>
+                <td>Uncertain</td>
+            </tr>
+
+            <tr>
+                <td>Randomness</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+
+            <tr>
+                <td>Transition</td>
+                <td>s' = T(s, a)</td>
+                <td>P(s' | s, a)</td>
+            </tr>
+
+            <tr>
+                <td>Same state + action</td>
+                <td>Same result</td>
+                <td>Potentially different results</td>
+            </tr>
+
+            <tr>
+                <td>Learning</td>
+                <td>Generally simpler</td>
+                <td>Generally more difficult due to uncertainty</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h3>Important: Deterministic Problems Can Be Modeled as Stochastic</h3>
+
+    <p>
+        A problem that is naturally deterministic can still be represented
+        using a stochastic model.
+    </p>
+
+    <p>
+        For example, if moving right always produces the same result, its
+        probability can simply be represented as:
+    </p>
+
+    <pre>
+P(Right | State, Action) = 1.0
+    </pre>
+
+    <p>
+        This means that the transition occurs with 100% probability.
+        Therefore, a deterministic environment can be considered a special
+        case of a stochastic model in which one outcome has probability 1.
+    </p>
+
+
+    <h2>17. Model-Free vs. Model-Based Reinforcement Learning</h2>
+
+    <h3>Model-Free RL</h3>
+
+    <p>
+        In <strong>model-free reinforcement learning</strong>, the agent
+        does not have a complete model of the environment.
+    </p>
+
+    <p>
+        The agent learns primarily from direct interaction, observing states,
+        performing actions, and receiving rewards.
+    </p>
+
+    <pre>
+State
+  ↓
+Action
+  ↓
+Environment
+  ↓
+Reward + New State
+  ↓
+Learning
+    </pre>
+
+    <p>
+        The agent does not need to explicitly model all of the environment's
+        dynamics before learning.
+    </p>
+
+    <h4>Example</h4>
+
+    <p>
+        An Atari Breakout agent can learn which paddle movements tend to
+        produce higher rewards without explicitly constructing a complete
+        mathematical model of the ball's physics.
+    </p>
+
+
+    <h3>Model-Based RL</h3>
+
+    <p>
+        In <strong>model-based reinforcement learning</strong>, the agent
+        has or learns a model that describes the environment.
+    </p>
+
+    <p>
+        The model can describe:
+    </p>
+
+    <ul>
+        <li>How the environment transitions between states.</li>
+        <li>What rewards are obtained from actions.</li>
+        <li>How the environment changes over time.</li>
+    </ul>
+
+    <p>
+        The agent can use this model to predict possible future states and
+        evaluate potential actions before executing them.
+    </p>
+
+    <pre>
+Current State
+      +
+    Action
+      ↓
+ Environment Model
+      ↓
+Predicted Next State
+      +
+Predicted Reward
+      ↓
+Select Action
+    </pre>
+
+    <h3>Model-Free vs. Model-Based</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Characteristic</th>
+                <th>Model-Free RL</th>
+                <th>Model-Based RL</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Environment model</td>
+                <td>Not explicitly available</td>
+                <td>Available or learned</td>
+            </tr>
+
+            <tr>
+                <td>Learning</td>
+                <td>Primarily from experience and rewards</td>
+                <td>Can learn from experience and predictions</td>
+            </tr>
+
+            <tr>
+                <td>Prediction</td>
+                <td>Does not explicitly predict environment dynamics</td>
+                <td>Predicts possible future states and rewards</td>
+            </tr>
+
+            <tr>
+                <td>Planning</td>
+                <td>Limited or indirect</td>
+                <td>Can use the model for planning</td>
+            </tr>
+
+            <tr>
+                <td>Example</td>
+                <td>Learning paddle movements from rewards</td>
+                <td>Predicting the ball trajectory before moving the paddle</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h3>Overall Classification</h3>
+
+    <p>
+        Reinforcement learning problems can therefore be described along
+        several dimensions:
+    </p>
+
+    <pre>
+                    RL TASK
+                       │
+          ┌────────────┴────────────┐
+          ↓                         ↓
+      Episodic                  Continuing
+          │                         │
+     Terminal state           No terminal state
+          │
+          ↓
+   ┌──────┴──────┐
+   ↓             ↓
+Deterministic  Stochastic
+   │             │
+Predictable   Probabilistic
+   │             │
+   └──────┬──────┘
+          ↓
+   Model-Free / Model-Based
+    </pre>
+
+</section>

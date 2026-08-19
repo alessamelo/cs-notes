@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Agents - Introduction</title>
+</head>
+<body>
+    <header>
+        <h1>Reinforcement Learning</h1>
+        <p>Historical journey</p>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+        <!-- Recap -->
+        <section>
+            <h2>1. Recap of Previous Class</h2>
+
+            <h3>What is an Agent?</h3>
+
+            <p>
+                An <strong>agent</strong> is a software entity that performs tasks
+                autonomously and on behalf of users.
+            </p>
+
+            <h3>What Tasks Can Intelligent Agents Struggle With?</h3>
+
+            <ul>
+                <li>
+                    <strong>Complex decision-making:</strong>
+                    Some situations involve many possible actions, changing
+                    conditions, obstacles, and ethical considerations.
+                    For example, self-driving cars must make decisions while
+                    dealing with many obstacles and unpredictable situations.
+                </li>
+
+                <li>
+                    <strong>Large-scale autonomous systems:</strong>
+                    An example is a network of drones that could coordinate
+                    deliveries for companies such as Amazon.
+                </li>
+
+                <li>
+                    <strong>Understanding human emotions:</strong>
+                    Agents can communicate with humans, but they do not
+                    genuinely understand human emotions. Human users may
+                    nevertheless establish emotional communication with agents,
+                    which can be problematic if the limitations of the system
+                    are ignored.
+                </li>
+
+                <li>
+                    <strong>Ethical decision-making:</strong>
+                    Some agents can be trained using ethical considerations,
+                    but engineers cannot guarantee that an AI system will
+                    correctly handle every ethical situation.
+                </li>
+            </ul>
+        </section>
+
+
+        <!-- Agenda -->
+        <section>
+            <h1> Today's Agenda: Reinforcement Learning Principles</h1>
+
+            <p>
+                <strong>Reinforcement Learning (RL)</strong> studies how an
+                agent can learn to make decisions by interacting with an
+                environment.
+            </p>
+
+            <div>
+                <p><strong>Basic interaction:</strong></p>
+
+                <pre>
+Agent → Action → Environment
+  ↑                  │
+  │                  ↓
+  └── State ← Reward
+                </pre>
+            </div>
+
+            <p>
+                The agent performs actions in an environment. The environment
+                responds by providing information about the resulting
+                <strong>state</strong> and a <strong>reward</strong>.
+            </p>
+
+            <p>
+                The reward can be positive or negative. Through this interaction,
+                the agent learns which actions are more useful for achieving
+                its objective.
+            </p>
+
+            <p>
+                To construct a reinforcement learning system, we need to
+                model the:
+            </p>
+
+            <ul>
+                <li>Environment</li>
+                <li>States</li>
+                <li>Actions</li>
+                <li>Rewards</li>
+            </ul>
+        </section>
+
+
+        <!-- Agent Environment -->
+        <section>
+            <h2>3. Agent–Environment Relationship</h2>
+
+            <p>
+                In reinforcement learning, the agent interacts continuously
+                with its environment.
+            </p>
+
+            <pre>
+             Action
+    Agent ───────────────→ Environment
+      ↑                       │
+      │                       │
+      │                       ↓
+      └──── State + Reward ───┘
+            </pre>
+
+            <p>
+                The agent learns mainly through <strong>trial and error</strong>.
+                When it makes a good decision, it receives a positive reward.
+                When it makes a bad decision, it may receive a negative reward
+                or penalty.
+            </p>
+
+            <p>
+                The general goal is to:
+                <strong>maximize the cumulative positive reward</strong>.
+            </p>
+
+            <p>
+                Reinforcement learning is inspired in part by the way
+                humans and animals learn from consequences.
+            </p>
+        </section>
+
+
+        <!-- Psychological foundations -->
+        <section>
+            <h2>4. Psychological Foundations of Reinforcement Learning</h2>
+
+            <p>
+                Reinforcement learning has connections with psychological
+                theories of learning.
+            </p>
+
+            <h3>Classical Conditioning</h3>
+
+            <p>
+                A neutral stimulus becomes associated with a natural response.
+            </p>
+
+            <h3>Operant Conditioning</h3>
+
+            <p>
+                A behavior becomes more or less likely depending on
+                reinforcement or punishment.
+            </p>
+
+            <h3>Observational Learning</h3>
+
+            <p>
+                Learning occurs through observing the behavior of others and
+                its consequences.
+            </p>
+        </section>
+
+
+        <!-- Environment -->
+        <section>
+            <h2>5. Environment</h2>
+
+            <p>
+                The <strong>environment</strong> is the world in which the
+                agent operates.
+            </p>
+
+            <p>It can be:</p>
+
+            <ul>
+                <li>
+                    <strong>Physical:</strong>
+                    For example, a robot navigating through a maze.
+                </li>
+
+                <li>
+                    <strong>Virtual:</strong>
+                    For example, a videogame or computer simulation.
+                </li>
+            </ul>
+
+            <h3>What Does the Environment Provide?</h3>
+
+            <p>
+                The environment provides two important pieces of information:
+            </p>
+
+            <ol>
+                <li><strong>State</strong></li>
+                <li><strong>Reward</strong></li>
+            </ol>
+
+            <h3>State</h3>
+
+            <p>
+                The <strong>state</strong> describes the relevant information
+                about the environment that the agent needs to make a decision.
+            </p>
+
+            <p>
+                For example, in a maze, the state could include the agent's
+                current position, nearby obstacles, and the location of the
+                goal.
+            </p>
+
+            <h3>Reward</h3>
+
+            <p>
+                The <strong>reward</strong> is a scalar value that indicates
+                how well the agent is performing its task.
+            </p>
+
+            <p>
+                A reward can be:
+            </p>
+
+            <ul>
+                <li>Positive → desirable outcome</li>
+                <li>Negative → undesirable outcome or penalty</li>
+                <li>Zero → no significant reward</li>
+            </ul>
+
+            <h3>Environment Dynamics</h3>
+
+            <p>
+                The environment has its own rules, which determine how it
+                changes when the agent performs an action. These are called
+                the <strong>dynamics of the environment</strong>.
+            </p>
+
+            <p>
+                In many cases, the agent does not have direct access to the
+                underlying dynamics and must discover them through
+                <strong>trial and error</strong>.
+            </p>
+
+            <h3>Different Types of Environments</h3>
+
+            <ul>
+                <li>
+                    <strong>Known environments:</strong>
+                    The rules and dynamics are explicitly defined or known.
+                    For example, many videogames have clearly defined rules.
+                </li>
+
+                <li>
+                    <strong>Unknown or changing environments:</strong>
+                    The agent may not know the complete rules and must learn
+                    from interaction. Autonomous driving is an example because
+                    traffic, pedestrians, weather, and road conditions can
+                    continuously change.
+                </li>
+            </ul>
+        </section>
+
+
+        <!-- Rational Agent -->
+        <section>
+            <h2>6. What Makes an Agent Rational?</h2>
+
+            <p>
+                A rational agent chooses actions that are expected to maximize
+                its performance according to the information available to it.
+            </p>
+
+            <h3>Performance Measure</h3>
+
+            <p>
+                The agent needs a criterion for determining how successful
+                its behavior is. This criterion is called the
+                <strong>performance measure</strong>.
+            </p>
+
+            <p>
+                The performance measure defines what the agent is trying to
+                maximize or achieve.
+            </p>
+
+            <h3>Knowledge of the Environment</h3>
+
+            <p>
+                The agent also needs information about:
+            </p>
+
+            <ul>
+                <li>What actions it can perform.</li>
+                <li>What states it can encounter.</li>
+                <li>What consequences its actions may produce.</li>
+                <li>What sequences of actions may lead to better results.</li>
+            </ul>
+
+            <h3>Rationality</h3>
+
+            <p>
+                A rational agent attempts to choose a strategy that
+                <strong>maximizes its expected performance</strong> in a
+                particular environment.
+            </p>
+        </section>
+
+
+        <!-- Structure -->
+        <section>
+            <h2>7. Structure of an Agent</h2>
+
+            <pre>
+                    ENVIRONMENT
+                         │
+                         ↓
+                      Sensors
+                         │
+                         ↓
+                       AGENT
+                         │
+                         ↓
+                     Actuators
+                         │
+                         ↓
+                    ENVIRONMENT
+            </pre>
+
+            <p>
+                <strong>Sensors</strong> allow the agent to perceive information
+                from the environment.
+            </p>
+
+            <p>
+                <strong>Actuators</strong> allow the agent to perform actions
+                that affect the environment.
+            </p>
+        </section>
+
+
+        <!-- Reflex Agent -->
+        <section>
+            <h2>8. Reflex Agent</h2>
+
+            <p>
+                There are many types of agents. One important type is the
+                <strong>reflex agent</strong>.
+            </p>
+
+            <p>
+                A reflex agent selects actions based only on the
+                <strong>current percept</strong>, ignoring the history of
+                previous percepts.
+            </p>
+
+            <p>
+                Therefore, its decision depends on the information currently
+                available to it.
+            </p>
+
+            <h3>Simple Reflex Agent</h3>
+
+            <pre>
+function SIMPLE-REFLEX-AGENT(percept) returns an action
+
+    state ← INTERPRET-INPUT(percept)
+
+    rule ← RULE-MATCH(state, rules)
+
+    action ← rule.action
+
+    return action
+            </pre>
+
+            <h3>Persistent Rules</h3>
+
+            <p>
+                A reflex agent can use a set of
+                <strong>condition–action rules</strong>.
+            </p>
+
+            <pre>
+IF condition
+THEN perform action
+            </pre>
+        </section>
+
+
+        <!-- Policy -->
+        <section>
+            <h2>9. Policy</h2>
+
+            <p>
+                In reinforcement learning, a <strong>policy</strong> defines
+                how an agent chooses actions based on the state or observation
+                of the environment.
+            </p>
+
+            <p>
+                As the agent learns, its policy can improve so that it chooses
+                actions that maximize its expected cumulative reward.
+            </p>
+
+            <p>
+                In simple terms:
+            </p>
+
+            <pre>
+State → Policy → Action
+            </pre>
+
+            <p>
+                The policy guides the agent's interaction with the environment.
+            </p>
+        </section>
+
+
+        <!-- Model -->
+        <section>
+            <h2>10. Model</h2>
+
+            <p>
+                A <strong>model</strong> is a mathematical description of the
+                environment's dynamics and reward function.
+            </p>
+
+            <h3>Dynamic Function</h3>
+
+            <p>
+                The dynamic function describes how the environment evolves
+                from one state to another after an action is performed.
+            </p>
+
+            <pre>
+Current State + Action → Next State
+            </pre>
+
+            <h3>Reward Function</h3>
+
+            <p>
+                The reward function specifies the reward that the agent
+                receives for taking a particular action in a particular state.
+            </p>
+
+            <pre>
+State + Action → Reward
+            </pre>
+
+            <p>
+                Therefore, the model provides a mathematical representation
+                of how the environment behaves.
+            </p>
+        </section>
+
+
+        <!-- When to use RL -->
+        <section>
+            <h2>11. When Should We Use Reinforcement Learning?</h2>
+
+            <p>
+                Reinforcement learning is particularly appropriate when the
+                problem involves <strong>sequential decision-making</strong>.
+            </p>
+
+            <h3>Sequential Decision-Making</h3>
+
+            <p>
+                The decisions made at one point influence future states,
+                observations, and possible decisions.
+            </p>
+
+            <h3>Learning Through Rewards and Penalties</h3>
+
+            <p>
+                RL does not require direct supervision for every action.
+                Instead, the agent learns from rewards and penalties produced
+                by the environment.
+            </p>
+
+            <h3>Example: Videogames</h3>
+
+            <p>
+                A videogame is a good example because:
+            </p>
+
+            <ul>
+                <li>The agent performs a sequence of actions.</li>
+                <li>Actions influence future states.</li>
+                <li>The agent receives points or rewards.</li>
+                <li>The agent can lose lives or receive penalties.</li>
+                <li>The agent attempts to maximize its final score.</li>
+            </ul>
+
+            <h3>When RL Is Not Appropriate</h3>
+
+            <p>
+                Reinforcement learning is generally not the natural choice for
+                tasks such as simple object recognition when there is no
+                sequential decision-making or interaction with an environment.
+            </p>
+
+            <p>
+                For example, classifying whether an image contains a cat or a
+                dog is normally better treated as a supervised learning
+                problem.
+            </p>
+        </section>
+
+
+        <!-- Applications -->
+        <section>
+            <h2>12. Reinforcement Learning Applications</h2>
+
+            <h3>Robotics</h3>
+
+            <ul>
+                <li>Robot locomotion and walking.</li>
+                <li>Object manipulation.</li>
+                <li>Navigation.</li>
+            </ul>
+
+            <h3>Finance</h3>
+
+            <ul>
+                <li>Trading optimization.</li>
+                <li>Investment strategies.</li>
+                <li>Portfolio optimization.</li>
+                <li>Maximizing expected returns under defined objectives.</li>
+            </ul>
+
+            <h3>Autonomous Vehicles</h3>
+
+            <ul>
+                <li>Improving driving decisions.</li>
+                <li>Enhancing safety and efficiency.</li>
+                <li>Minimizing accident risks.</li>
+                <li>Learning navigation and control strategies.</li>
+            </ul>
+
+            <h3>Chatbot Development</h3>
+
+            <ul>
+                <li>Improving conversational strategies.</li>
+                <li>Optimizing responses based on feedback.</li>
+                <li>Improving user experience.</li>
+            </ul>
+        </section>
+
+
+        <!-- Summary -->
+        <section>
+            <h2>13. Key Concepts Summary</h2>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Agent</td>
+                        <td>
+                            Entity that interacts with an environment and
+                            performs actions.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Environment</td>
+                        <td>
+                            The world in which the agent operates.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>State</td>
+                        <td>
+                            Relevant information describing the current
+                            situation of the environment.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Action</td>
+                        <td>
+                            A decision or behavior performed by the agent.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Reward</td>
+                        <td>
+                            A scalar value indicating how desirable an outcome
+                            is.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Policy</td>
+                        <td>
+                            Strategy that determines which action the agent
+                            should take given a state.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Model</td>
+                        <td>
+                            Mathematical representation of environment dynamics
+                            and rewards.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Performance Measure</td>
+                        <td>
+                            Criterion used to evaluate how successfully an
+                            agent performs its task.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+   
+    </main>
+</body>
+</html>

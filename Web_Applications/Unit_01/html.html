@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<title>Unit 1 - HTML</title>
+</head>
+
+<body>
+<header>
+<h1>Unit 1: HTML</h1>
+<p>Html fundamentals </p>
+</header>
+<main><a href="..\index.html">← Back to Web Applications</a>
+
+<h1>HTML</h1>
+
+<p><strong>Date:</strong> August 18, 2026</p>
+
+
+<h2>What is HTML?</h2>
+
+<p>
+    <strong>HTML</strong> stands for <strong>HyperText Markup Language</strong>.
+    It is a markup language used to structure and describe documents on the
+    World Wide Web.
+</p>
+
+<ul>
+    <li>HTML is <strong>not a programming language</strong>.</li>
+    <li>HTML is a <strong>markup language</strong>.</li>
+    <li>It is used to create and structure documents displayed on the web.</li>
+    <li>HTML documents are normally stored using the <code>.html</code> extension.</li>
+</ul>
+
+<p>
+    Other technologies such as PHP can generate HTML dynamically. The browser
+    ultimately receives and interprets the resulting HTML document.
+</p>
+
+
+<h3>Platform Independence</h3>
+
+<p>
+    HTML is platform independent. HTML documents can be accessed from systems
+    such as Windows, Linux, Android, and iOS, provided that an appropriate
+    browser or application is available.
+</p>
+
+<p>
+    Platform independence does not automatically mean that a webpage will look
+    identical on every device. Responsive and adaptive design techniques are
+    used to make webpages work appropriately across different screen sizes
+    and devices.
+</p>
+
+
+<h3>HTML Documents and Elements</h3>
+
+<p>
+    HTML uses elements to organize the content of a document. Common elements
+    include headings, paragraphs, lists, tables, images, links, and forms.
+</p>
+
+<p>
+    HTML5 separates document structure from presentation. Many presentation
+    attributes that were previously written directly in HTML are now handled
+    using CSS.
+</p>
+
+<p>
+    Some older HTML attributes are deprecated and should not be used in
+    modern HTML.
+</p>
+
+
+<h2>How HTML Works</h2>
+
+<p>
+    HTML documents are interpreted by a <strong>web browser</strong>.
+    The browser parses the HTML and uses its structure to display text,
+    images, links, forms, and other content.
+</p>
+
+<p>
+    HTML can also contain hyperlinks, which allow users to navigate from one
+    document or section to another.
+</p>
+
+<h3>Plain Text</h3>
+
+<p>
+    Plain text refers to text without markup or specific formatting.
+    It can be read directly as text without requiring a particular document
+    structure or presentation format.
+</p>
+
+
+<h2>HTML Terminology</h2>
+
+<h3>HTML Editor</h3>
+
+<p>
+    An HTML editor is a program used to create and edit HTML files.
+    Almost any text editor can be used to write HTML, including simple
+    text editors and specialized code editors.
+</p>
+
+<h3>Browser</h3>
+
+<p>
+    A web browser is software that parses HTML documents and renders their
+    content as a webpage. It can also process CSS, JavaScript, images,
+    audio, video, and other web resources.
+</p>
+
+
+<h2>Tags</h2>
+
+<p>
+    HTML uses tags to define the structure of elements in a document.
+    Tags are written using angle brackets.
+</p>
+
+<pre>
+&lt;html&gt;
+</pre>
+
+<p>
+    HTML tags are generally written in lowercase as a best practice.
+    HTML itself is not case-sensitive for tag names, but consistent lowercase
+    syntax is recommended.
+</p>
+
+
+<h3>Paired Elements</h3>
+
+<p>
+    Most HTML elements have an opening tag and a closing tag.
+</p>
+
+<pre>
+&lt;p&gt;This is a paragraph.&lt;/p&gt;
+</pre>
+
+<p>
+    The opening tag is <code>&lt;p&gt;</code> and the closing tag is
+    <code>&lt;/p&gt;</code>.
+</p>
+
+
+<h3>Void Elements</h3>
+
+<p>
+    Some HTML elements do not have closing tags. These are commonly called
+    <strong>void elements</strong>.
+</p>
+
+<pre>
+&lt;img src="image.jpg" alt="Example"&gt;
+
+&lt;br&gt;
+
+&lt;hr&gt;
+
+&lt;input type="text"&gt;
+</pre>
+
+<p>
+    In HTML5, the slash in forms such as <code>&lt;br /&gt;</code> is optional.
+    The modern HTML syntax is commonly written as <code>&lt;br&gt;</code>.
+</p>
+
+
+<h2>Attributes</h2>
+
+<p>
+    An attribute provides additional information about an HTML element.
+    Attributes are written inside the opening tag.
+</p>
+
+<pre>
+&lt;img src="photo.jpg" alt="A photograph"&gt;
+</pre>
+
+<p>
+    In this example:
+</p>
+
+<ul>
+    <li><code>src</code> specifies the image location.</li>
+    <li><code>alt</code> provides alternative text for the image.</li>
+</ul>
+
+<p>
+    Attributes generally follow the form:
+</p>
+
+<pre>
+attribute="value"
+</pre>
+
+
+<h2>DTD and DOCTYPE</h2>
+
+<h3>Document Type Declaration</h3>
+
+<p>
+    A document type declaration tells the browser which HTML standard the
+    document is intended to use.
+</p>
+
+<p>
+    Modern HTML documents normally begin with:
+</p>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+</pre>
+
+<p>
+    This declaration activates standards mode in modern browsers.
+</p>
+
+<p>
+    Historically, HTML used more complex DTD (Document Type Definition)
+    declarations to define the structure and rules of a document. HTML5
+    simplified the declaration to the form shown above.
+</p>
+
+
+<h2>Structure of an HTML Document</h2>
+
+<p>
+    A basic HTML document can be structured as follows:
+</p>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+
+&lt;html lang="en"&gt;
+
+    &lt;head&gt;
+        &lt;title&gt;Page Title&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+
+        &lt;h1&gt;Page Heading&lt;/h1&gt;
+        &lt;p&gt;Page content.&lt;/p&gt;
+
+    &lt;/body&gt;
+
+&lt;/html&gt;
+</pre>
+
+
+<h3>&lt;html&gt;</h3>
+
+<p>
+    The <code>&lt;html&gt;</code> element is the root element of an HTML
+    document. It contains the document's <code>&lt;head&gt;</code> and
+    <code>&lt;body&gt;</code>.
+</p>
+
+<p>
+    The <code>lang</code> attribute can be used to specify the primary language
+    of the document.
+</p>
+
+<pre>
+&lt;html lang="en"&gt;
+</pre>
+
+
+<h3>&lt;head&gt;</h3>
+
+<p>
+    The <code>&lt;head&gt;</code> contains information and resources associated
+    with the document that are not normally displayed as the main page content.
+</p>
+
+<p>
+    It can contain elements such as:
+</p>
+
+<ul>
+    <li><code>&lt;title&gt;</code></li>
+    <li><code>&lt;meta&gt;</code></li>
+    <li><code>&lt;link&gt;</code></li>
+    <li><code>&lt;style&gt;</code></li>
+    <li><code>&lt;script&gt;</code></li>
+</ul>
+
+
+<h3>&lt;title&gt;</h3>
+
+<pre>
+&lt;title&gt;My Webpage&lt;/title&gt;
+</pre>
+
+<p>
+    The title is displayed in the browser tab and is also used by browsers
+    and search engines to identify the document.
+</p>
+
+
+<h3>&lt;body&gt;</h3>
+
+<p>
+    The <code>&lt;body&gt;</code> contains the main content of the webpage,
+    including text, headings, images, links, tables, forms, and other visible
+    or interactive content.
+</p>
+
+
+<h2>Ways to Open an HTML Document</h2>
+
+<h3>Opening a File Locally</h3>
+
+<p>
+    An HTML document can be opened directly from the local filesystem using
+    a web browser.
+</p>
+
+<pre>
+file:///path/to/index.html
+</pre>
+
+<p>
+    In this situation, the browser loads the document directly from the
+    filesystem rather than requesting it from an HTTP web server.
+</p>
+
+
+<h3>Using a Web Server</h3>
+
+<p>
+    HTML files can also be served through a web server such as Apache.
+    In this case, the browser makes an HTTP or HTTPS request to the server,
+    and the server returns the requested resource.
+</p>
+
+<pre>
+Browser
+   ↓
+HTTP / HTTPS
+   ↓
+Apache Web Server
+   ↓
+HTML File
+   ↓
+Browser renders the HTML
+</pre>
+
+
+<h2>Apache</h2>
+
+<p>
+    <strong>Apache HTTP Server</strong> is a web server that can receive HTTP
+    requests and serve files such as HTML documents, images, CSS, and other
+    resources.
+</p>
+
+<p>
+    Apache can also be configured to host multiple websites on the same server
+    using <strong>Virtual Hosts</strong>.
+</p>
+
+
+<h3>HTTP and HTTPS</h3>
+
+<p>
+    <strong>HTTP</strong> is a protocol used for communication between web
+    clients and servers.
+</p>
+
+<p>
+    <strong>HTTPS</strong> is HTTP transmitted over an encrypted TLS connection.
+    A server requires an appropriate certificate and private key to provide
+    HTTPS.
+</p>
+
+<pre>
+Browser
+   ↓
+HTTPS
+   ↓
+Apache
+   ↓
+HTML / Web Application
+</pre>
+
+
+<h2>Apache Configuration</h2>
+
+<p>
+    The exact configuration directory depends on the operating system and
+    Apache installation.
+</p>
+
+<h3>Common Linux Locations</h3>
+
+<ul>
+    <li>
+        Debian/Ubuntu commonly use
+        <code>/etc/apache2/</code>.
+    </li>
+    <li>
+        RHEL/CentOS/Fedora-based systems commonly use
+        <code>/etc/httpd/</code>.
+    </li>
+</ul>
+
+
+<h3>HTTP Virtual Host</h3>
+
+<pre>
+&lt;VirtualHost *:80&gt;
+    ServerName webapp.yachaytech.edu.ec
+
+    DocumentRoot /home/webapp
+
+    ErrorLog /var/log/apache2/webapp-error.log
+&lt;/VirtualHost&gt;
+</pre>
+
+<p>
+    Important directives include:
+</p>
+
+<ul>
+    <li>
+        <code>&lt;VirtualHost *:80&gt;</code> defines a virtual host listening
+        on HTTP port 80.
+    </li>
+    <li>
+        <code>ServerName</code> specifies the hostname associated with the site.
+    </li>
+    <li>
+        <code>DocumentRoot</code> specifies the directory containing the
+        website's files.
+    </li>
+    <li>
+        <code>ErrorLog</code> specifies where Apache should record errors.
+    </li>
+</ul>
+
+
+<h3>HTTPS Virtual Host</h3>
+
+<pre>
+&lt;VirtualHost *:443&gt;
+    ServerName webapp.yachaytech.edu.ec
+
+    DocumentRoot /home/webapp
+
+    SSLEngine on
+    SSLCertificateFile /path/to/certificate.crt
+    SSLCertificateKeyFile /path/to/private.key
+
+    ErrorLog /var/log/apache2/webapp-ssl-error.log
+&lt;/VirtualHost&gt;
+</pre>
+
+<p>
+    Port <code>443</code> is commonly used for HTTPS.
+    The exact Apache directives and certificate configuration depend on the
+    operating system and Apache version.
+</p>
+
+
+<h3>Redirecting HTTP to HTTPS</h3>
+
+<pre>
+&lt;VirtualHost *:80&gt;
+    ServerName webapp.yachaytech.edu.ec
+
+    Redirect permanent / https://webapp.yachaytech.edu.ec/
+&lt;/VirtualHost&gt;
+</pre>
+
+<p>
+    This configuration redirects requests made using HTTP to the HTTPS
+    version of the website.
+</p>
+
+
+<h2>Index Files</h2>
+
+<p>
+    When a user requests a directory without specifying a particular file,
+    the web server can look for a default document.
+</p>
+
+<p>
+    A common default document is:
+</p>
+
+<pre>
+index.html
+</pre>
+
+<p>
+    For example, requesting:
+</p>
+
+<pre>
+https://example.com/
+</pre>
+
+<p>
+    may cause the server to look for:
+</p>
+
+<pre>
+index.html
+</pre>
+
+<p>
+    The exact default file is determined by the server configuration.
+</p>
+
+
+<h2>Testing a Server Without DNS</h2>
+
+<p>
+    During development, a hostname can be mapped to an IP address locally
+    using the operating system's <code>hosts</code> file. This allows a
+    domain name to resolve to a test server without requiring public DNS
+    configuration.
+</p>
+
+<p>
+    For example, a hosts file can contain:
+</p>
+
+<pre>
+192.168.1.100    webapp.example.local
+</pre>
+
+<p>
+    The appropriate IP address depends on where the server is running.
+    For a local network test, this would commonly be the server's local
+    network IP rather than its public IP.
+</p>
+
+
+<h2>Self-Signed Certificates</h2>
+
+<p>
+    A self-signed certificate is a certificate generated and signed by the
+    server or developer rather than by a publicly trusted Certificate Authority.
+</p>
+
+<p>
+    Self-signed certificates can be useful for development and testing,
+    but browsers will normally display a security warning because the
+    certificate is not trusted by a public Certificate Authority.
+</p>
+
+<p>
+    For production websites, certificates issued by a trusted Certificate
+    Authority are normally used.
+</p>
+
+
+<h2>Viewing the HTML Source of a Website</h2>
+
+<p>
+    Browsers provide ways to inspect the HTML source of a webpage.
+    For example, a browser may support:
+</p>
+
+<pre>
+view-source:https://yachaytech.edu.ec
+</pre>
+
+<p>
+    This allows the user to view the HTML source received by the browser.
+    It does not necessarily show every piece of code used by the server to
+    generate the page, because server-side code is executed before the
+    resulting HTML is sent to the browser.
+</p>
+
+
+<h2>Deprecated HTML Attributes</h2>
+
+<p>
+    Older versions of HTML included attributes that were used to control
+    presentation directly from HTML. Modern HTML separates structure from
+    presentation and uses CSS for visual styling.
+</p>
+
+<p>Examples of deprecated or obsolete presentation attributes include:</p>
+
+<ul>
+    <li><code>bgcolor</code></li>
+    <li><code>text</code></li>
+    <li><code>background</code></li>
+    <li><code>align</code></li>
+    <li><code>border</code> for presentation purposes</li>
+    <li><code>cellpadding</code></li>
+    <li><code>cellspacing</code></li>
+    <li>font color and font size attributes</li>
+    <li><code>face</code> for specifying fonts</li>
+</ul>
+
+<p>
+    These presentation concerns should generally be handled using CSS.
+</p>
+
+
+<h2>Important Concepts to Remember</h2>
+
+<ul>
+    <li>
+        <strong>HTML:</strong> describes the structure and meaning of web content.
+    </li>
+    <li>
+        <strong>CSS:</strong> controls presentation and visual appearance.
+    </li>
+    <li>
+        <strong>JavaScript:</strong> provides programming and dynamic behavior
+        in the browser.
+    </li>
+    <li>
+        <strong>Browser:</strong> parses and renders HTML and other web resources.
+    </li>
+    <li>
+        <strong>Web server:</strong> receives requests and provides resources
+        to clients.
+    </li>
+    <li>
+        <strong>HTTP/HTTPS:</strong> protocols used for communication between
+        clients and servers.
+    </li>
+    <li>
+        <strong>DNS:</strong> translates domain names into IP addresses.
+    </li>
+    <li>
+        <strong>Apache:</strong> a web server that can serve websites and
+        applications.
+    </li>
+</ul>
+
+
+<h2>Workshop Preparation</h2>
+
+<p>
+    The next workshop will involve creating and hosting a web application
+    using a web server. Topics to review include:
+</p>
+
+<ul>
+    <li>HTML document structure</li>
+    <li>Apache configuration</li>
+    <li>Virtual Hosts</li>
+    <li>HTTP and HTTPS</li>
+    <li>DNS and hostname resolution</li>
+    <li>Local hosts-file configuration</li>
+    <li>SSL/TLS certificates</li>
+    <li><code>index.html</code> and default documents</li>
+</ul>
+
+<h2>Semantic HTML</h2>
+
+<p>
+    Semantic HTML is mainly concerned with the <strong>purpose and meaning
+    of the content</strong>, rather than simply how the content looks.
+</p>
+
+<p>
+    Semantic elements communicate what a particular part of the webpage
+    represents. They allow browsers, assistive technologies, and search
+    engines to better understand the structure and meaning of the content.
+</p>
+
+
+<h3>Common Semantic Elements</h3>
+
+<h4>&lt;header&gt;</h4>
+
+<p>
+    Contains introductory content for a webpage or a particular section.
+    It can contain elements such as headings, logos, or introductory information.
+</p>
+
+<pre>
+&lt;header&gt;
+    &lt;h1&gt;My Portfolio&lt;/h1&gt;
+    &lt;p&gt;Welcome to my website.&lt;/p&gt;
+&lt;/header&gt;
+</pre>
+
+
+<h4>&lt;nav&gt;</h4>
+
+<p>
+    Represents a section containing navigation links.
+</p>
+
+<pre>
+&lt;nav&gt;
+    &lt;a href="index.html"&gt;Home&lt;/a&gt;
+    &lt;a href="about.html"&gt;About&lt;/a&gt;
+    &lt;a href="projects.html"&gt;Projects&lt;/a&gt;
+&lt;/nav&gt;
+</pre>
+
+
+<h4>&lt;main&gt;</h4>
+
+<p>
+    Contains the main content of the webpage. A document should normally
+    have only one <code>&lt;main&gt;</code> element.
+</p>
+
+<pre>
+&lt;main&gt;
+    &lt;h2&gt;My Projects&lt;/h2&gt;
+    &lt;p&gt;These are my current projects.&lt;/p&gt;
+&lt;/main&gt;
+</pre>
+
+
+<h4>&lt;section&gt;</h4>
+
+<p>
+    Represents a thematic grouping of related content. A section commonly
+    has its own heading.
+</p>
+
+<pre>
+&lt;section&gt;
+    &lt;h2&gt;Programming&lt;/h2&gt;
+    &lt;p&gt;My programming projects and experience.&lt;/p&gt;
+&lt;/section&gt;
+</pre>
+
+
+<h4>&lt;article&gt;</h4>
+
+<p>
+    Represents independent or self-contained content that could potentially
+    be distributed or reused independently from the rest of the page.
+</p>
+
+<p>
+    Examples include blog posts, news articles, forum posts, or individual
+    publications.
+</p>
+
+<pre>
+&lt;article&gt;
+    &lt;h2&gt;My Latest Project&lt;/h2&gt;
+    &lt;p&gt;Description of the project...&lt;/p&gt;
+&lt;/article&gt;
+</pre>
+
+
+<h4>&lt;footer&gt;</h4>
+
+<p>
+    Represents the closing or footer content of a webpage or section.
+    It can contain information such as author details, copyright information,
+    contact information, or additional links.
+</p>
+
+<pre>
+&lt;footer&gt;
+    &lt;p&gt;Copyright 2026&lt;/p&gt;
+&lt;/footer&gt;
+</pre>
+
+
+<h3>Why Use Semantic HTML?</h3>
+
+<ul>
+    <li>
+        <strong>Understandability:</strong> makes the structure and purpose
+        of the document easier to understand.
+    </li>
+    <li>
+        <strong>Accessibility:</strong> helps assistive technologies such as
+        screen readers understand the structure of the page.
+    </li>
+    <li>
+        <strong>Search engines:</strong> provides additional information about
+        the structure and meaning of webpage content.
+    </li>
+    <li>
+        <strong>Maintainability:</strong> makes the HTML code easier for
+        developers to understand and maintain.
+    </li>
+</ul>
+
+
+<h3>Semantic HTML and Visual Appearance</h3>
+
+<p>
+    Semantic elements do not exist primarily to make a webpage look different.
+    Their purpose is to communicate the <strong>meaning and role of the content</strong>.
+</p>
+
+<p>
+    For example, these elements may have different default browser styles,
+    but their main value comes from what they represent:
+</p>
+
+<pre>
+&lt;header&gt;
+&lt;nav&gt;
+&lt;main&gt;
+&lt;section&gt;
+&lt;article&gt;
+&lt;footer&gt;
+</pre>
+
+<p>
+    CSS is responsible for controlling the visual appearance of these elements.
+</p>
+
+
+<h3>Semantic HTML Is Not Just Code Organization</h3>
+
+<p>
+    Semantic HTML should not be confused with simply organizing source code
+    to make it easier for a developer to read.
+</p>
+
+<p>
+    Semantic elements give content a meaningful role that can be interpreted
+    by browsers, assistive technologies, search engines, and other tools.
+</p>
+
+<p>
+    For example, using:
+</p>
+
+<pre>
+&lt;nav&gt;
+    &lt;a href="about.html"&gt;About&lt;/a&gt;
+&lt;/nav&gt;
+</pre>
+
+<p>
+    communicates that the links represent a navigation section. Simply using
+    a generic <code>&lt;div&gt;</code> around the same links does not provide
+    that same semantic meaning.
+</p>
+
+
+<h2>Relative and Absolute Resource Paths</h2>
+
+<p>
+    Images, stylesheets, scripts, and other resources can be referenced using
+    either relative or absolute URLs.
+</p>
+
+<h3>Relative URL</h3>
+
+<pre>
+&lt;img src="images/photo.jpg" alt="Photo"&gt;
+</pre>
+
+<p>
+    A relative URL specifies the location of a resource relative to the
+    current document.
+</p>
+
+
+<h3>Absolute URL</h3>
+
+<pre>
+&lt;img src="https://images.example.com/photo.jpg" alt="Photo"&gt;
+</pre>
+
+<p>
+    An absolute URL specifies the complete location of a resource, including
+    its protocol and domain.
+</p>
+
+
+<h3>Why Use an Absolute URL?</h3>
+
+<p>
+    In some situations, using an absolute URL can be useful when a resource
+    is intentionally hosted on a different server or domain.
+</p>
+
+<p>
+    For example, a website could keep its images on a dedicated image server:
+</p>
+
+<pre>
+&lt;img src="https://images.example.com/photo.jpg" alt="Photo"&gt;
+</pre>
+
+<p>
+    The main website could then be moved to another server without necessarily
+    moving the image resources, because the images continue to be referenced
+    from their separate server.
+</p>
+
+<p>
+    This can be useful when resources such as images, videos, or other files
+    are intentionally hosted separately from the main web server.
+</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,609 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../style.css">
+<title>Optimization Methods</title>
+</head>
+
+<body>
+<header>
+<h1>Optimization Methods</h1>
+        <p>
+            Course notes on optimization, numerical optimization,
+            problem classification, convergence, and numerical methods.
+        </p>
+</header>
+<main><a href="..\index.html">← Back to Web Applications</a>
+
+
+
+        <!-- ==================== INTRODUCTION ==================== -->
+        <section>
+            <h2>1. Optimization</h2>
+
+            <p>
+                <strong>Optimization</strong> is the study of finding the
+                optimal points of a function or model.
+            </p>
+
+            <p>
+                The objective is usually to find:
+            </p>
+
+            <ul>
+                <li><strong>Maximum:</strong> the largest possible value of the objective function.</li>
+                <li><strong>Minimum:</strong> the smallest possible value of the objective function.</li>
+            </ul>
+
+            <p>
+                Optimization can be applied to mathematical models that
+                represent real-world problems.
+            </p>
+
+            <aside>
+                <strong>TC — Teacher Commentary:</strong>
+                We are solving problems while communicating with the client.
+                The mathematical model must represent the real problem and
+                its requirements.
+            </aside>
+        </section>
+
+
+        <!-- ==================== NUMERICAL OPTIMIZATION ==================== -->
+
+        <section>
+            <h2>2. Numerical Optimization</h2>
+
+            <p>
+                <strong>Numerical optimization</strong> is a part of applied
+                mathematics that uses numerical methods to determine good
+                or optimal solutions to problems arising from models of
+                real situations.
+            </p>
+
+            <h3>Mathematical Model</h3>
+
+            <p>
+                A <strong>model</strong> is an abstraction of a real-world
+                problem. It represents the relevant characteristics of the
+                real situation using mathematical concepts such as
+                variables, functions, objectives, and constraints.
+            </p>
+
+            <aside>
+                <strong>TC — Teacher Commentary:</strong>
+                The purpose of the course is not only to solve optimization
+                problems, but also to understand which numerical method is
+                appropriate for a specific problem.
+            </aside>
+
+        </section>
+
+
+        <!-- ==================== MATHEMATICAL VS NUMERICAL ==================== -->
+
+        <section>
+            <h2>3. Mathematical vs. Numerical Problem Solving</h2>
+
+            <p>
+                Optimization problems can be solved analytically or
+                numerically.
+            </p>
+
+            <h3>Analytical / Mathematical Solution</h3>
+
+            <p>
+                A mathematical or analytical method attempts to obtain an
+                exact solution using mathematical operations and derivations.
+            </p>
+
+            <p>
+                For example, for an unconstrained differentiable function,
+                critical points can be found by solving:
+            </p>
+
+            <p>
+                <strong>f'(x) = 0</strong>
+            </p>
+
+            <h3>Numerical Solution</h3>
+
+            <p>
+                Numerical methods approximate a solution through a sequence
+                of calculations. They are especially useful when an exact
+                analytical solution is difficult or impossible to obtain.
+            </p>
+
+            <aside>
+                <strong>TC — Required distinction:</strong>
+                The course focuses on understanding the difference between
+                solving a problem mathematically and solving it using
+                numerical methods.
+            </aside>
+        </section>
+
+
+        <!-- ==================== CLASSIFICATION ==================== -->
+
+        <section>
+            <h2>4. Classification of Optimization Problems</h2>
+
+            <p>
+                Optimization problems can be classified according to several
+                characteristics.
+            </p>
+
+            <h3>4.1 Objectives</h3>
+
+            <ul>
+                <li>
+                    <strong>Single-objective:</strong>
+                    one objective function is optimized.
+                </li>
+                <li>
+                    <strong>Multi-objective:</strong>
+                    multiple objectives must be considered simultaneously.
+                </li>
+            </ul>
+
+            <p>
+                The objective may depend on one variable or many variables.
+            </p>
+
+            <h3>4.2 Variables</h3>
+
+            <ul>
+                <li><strong>Continuous variables:</strong> can take values in a continuous interval.</li>
+                <li><strong>Integer variables:</strong> must take integer values.</li>
+                <li><strong>Mixed variables:</strong> contain both continuous and integer variables.</li>
+            </ul>
+
+            <h3>4.3 Constraints</h3>
+
+            <ul>
+                <li>
+                    <strong>Unconstrained optimization:</strong>
+                    there are no restrictions imposed on the variables.
+                </li>
+                <li>
+                    <strong>Constrained optimization:</strong>
+                    the solution must satisfy one or more restrictions.
+                </li>
+            </ul>
+
+            <h3>4.4 Landscape</h3>
+
+            <ul>
+                <li>
+                    <strong>Convex:</strong>
+                    the structure of the objective function allows optimization
+                    methods to identify a global optimum under appropriate
+                    conditions.
+                </li>
+                <li>
+                    <strong>Non-convex:</strong>
+                    the function can contain multiple local minima or maxima,
+                    making the global optimum more difficult to find.
+                </li>
+            </ul>
+
+            <h3>4.5 Techniques</h3>
+
+            <ul>
+                <li>
+                    <strong>Exact methods:</strong>
+                    seek an exact or mathematically guaranteed solution.
+                </li>
+                <li>
+                    <strong>Approximate / numerical methods:</strong>
+                    obtain an approximation to the solution using iterative
+                    calculations.
+                </li>
+            </ul>
+
+        </section>
+
+
+        <!-- ==================== CONVEXITY ==================== -->
+
+        <section>
+            <h2>5. Convex and Non-Convex Functions</h2>
+
+            <h3>Convex</h3>
+
+            <p>
+                A function is convex when its graph has a shape in which the
+                line segment connecting two points on the graph lies on or
+                above the graph.
+            </p>
+
+            <p>
+                Informally, a convex function has a "bowl-like" shape when
+                performing minimization.
+            </p>
+
+            <h3>Non-Convex</h3>
+
+            <p>
+                A non-convex function does not satisfy the convexity property.
+                Its landscape can contain several local minima and maxima.
+            </p>
+
+            <p>
+                Therefore, finding a local optimum does not necessarily mean
+                that the global optimum has been found.
+            </p>
+
+        </section>
+
+
+        <!-- ==================== CONVERGENCE ==================== -->
+
+        <section>
+            <h2>6. Convergence</h2>
+
+            <p>
+                In numerical optimization, an iterative method normally
+                generates a sequence of approximations:
+            </p>
+
+            <p>
+                <strong>x<sup>(0)</sup>, x<sup>(1)</sup>, x<sup>(2)</sup>, ...</strong>
+            </p>
+
+            <p>
+                <strong>Convergence</strong> occurs when the sequence of
+                approximations approaches the desired solution.
+            </p>
+
+            <h3>Convergence Criterion</h3>
+
+            <p>
+                A common way to measure the change between two consecutive
+                iterations is:
+            </p>
+
+            <p>
+                <strong>
+                    ||x<sup>(k)</sup> − x<sup>(k−1)</sup>||
+                </strong>
+            </p>
+
+            <p>
+                When this value becomes sufficiently small, the algorithm
+                can consider the solution to have converged.
+            </p>
+
+            <p>
+                A tolerance can be defined as:
+            </p>
+
+            <p>
+                <strong>
+                    ||x<sup>(k)</sup> − x<sup>(k−1)</sup>|| &lt; ε
+                </strong>
+            </p>
+
+            <p>
+                where <strong>ε</strong> is a predefined tolerance.
+            </p>
+
+        </section>
+
+
+        <!-- ==================== OPTIMIZATION EXAMPLE ==================== -->
+
+        <section>
+            <h2>7. Example: Finding an Optimum</h2>
+
+            <p>
+                Consider the function:
+            </p>
+
+            <p>
+                <strong>f(x) = 3x<sup>3</sup> + 2x − 3</strong>
+            </p>
+
+            <p>
+                Suppose we want to minimize this function.
+            </p>
+
+            <h3>Step 1 — Calculate the Derivative</h3>
+
+            <p>
+                The first derivative is:
+            </p>
+
+            <p>
+                <strong>
+                    f'(x) = 9x<sup>2</sup> + 2
+                </strong>
+            </p>
+
+            <h3>Step 2 — Find Critical Points</h3>
+
+            <p>
+                Critical points are obtained by solving:
+            </p>
+
+            <p>
+                <strong>
+                    f'(x) = 0
+                </strong>
+            </p>
+
+            <p>
+                Therefore:
+            </p>
+
+            <p>
+                <strong>
+                    9x<sup>2</sup> + 2 = 0
+                </strong>
+            </p>
+
+            <p>
+                This gives:
+            </p>
+
+            <p>
+                <strong>
+                    x<sup>2</sup> = −2/9
+                </strong>
+            </p>
+
+            <p>
+                There are no real solutions because the square of a real
+                number cannot be negative.
+            </p>
+
+            <h3>Conclusion</h3>
+
+            <p>
+                The function has no real critical points. In addition,
+                because the cubic term dominates for large positive and
+                negative values of x, the function is unbounded below and
+                therefore has <strong>no global minimum over ℝ</strong>.
+            </p>
+
+            <aside>
+                <strong>Important:</strong>
+                Finding f'(x) = 0 is a way of identifying possible critical
+                points. It does not automatically mean that a minimum exists.
+            </aside>
+
+        </section>
+
+
+        <!-- ==================== NUMERICAL METHODS ==================== -->
+
+        <section>
+            <h2>8. Numerical Methods</h2>
+
+            <p>
+                Several numerical methods can be used to solve mathematical
+                problems that appear inside optimization algorithms.
+            </p>
+
+            <h3>8.1 Newton's Method</h3>
+
+            <p>
+                Newton's method is an iterative numerical method used to find
+                a root of a nonlinear equation:
+            </p>
+
+            <p>
+                <strong>f(x) = 0</strong>
+            </p>
+
+            <p>
+                The classical update is:
+            </p>
+
+            <p>
+                <strong>
+                    x<sub>k+1</sub> =
+                    x<sub>k</sub> −
+                    f(x<sub>k</sub>) / f'(x<sub>k</sub>)
+                </strong>
+            </p>
+
+            <p>
+                In optimization, Newton's method can also be applied to the
+                first derivative of an objective function to search for
+                stationary points.
+            </p>
+
+            <p>
+                For example, to find a stationary point:
+            </p>
+
+            <p>
+                <strong>f'(x) = 0</strong>
+            </p>
+
+            <p>
+                Newton's method can be applied to the function
+                <strong>g(x) = f'(x)</strong>.
+            </p>
+
+
+            <h3>8.2 Gaussian Elimination</h3>
+
+            <p>
+                Gaussian elimination is a numerical method for solving
+                systems of linear equations.
+            </p>
+
+            <p>
+                A system can be represented as:
+            </p>
+
+            <p>
+                <strong>Ax = b</strong>
+            </p>
+
+            <p>
+                The method transforms the system into an equivalent
+                triangular form and then uses back substitution to obtain
+                the solution.
+            </p>
+
+            <p>
+                Gaussian elimination is particularly important because many
+                optimization algorithms require solving linear systems.
+            </p>
+
+
+            <h3>8.3 Jacobi Method</h3>
+
+            <p>
+                The Jacobi method is an iterative method for solving systems
+                of linear equations:
+            </p>
+
+            <p>
+                <strong>Ax = b</strong>
+            </p>
+
+            <p>
+                Instead of solving the system directly, the method starts
+                from an initial approximation and repeatedly calculates
+                improved approximations.
+            </p>
+
+            <p>
+                The method can be useful for large systems when an iterative
+                solution is preferable to direct elimination.
+            </p>
+
+        </section>
+
+
+        <!-- ==================== IMPORTANT DISTINCTION ==================== -->
+
+        <section>
+            <h2>9. Important Distinction: Root Finding vs. Optimization</h2>
+
+            <p>
+                Newton, Gaussian, and Jacobi methods should not be confused
+                with optimization algorithms.
+            </p>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Main Purpose</th>
+                        <th>Typical Problem</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Newton</td>
+                        <td>Find a root or solve nonlinear equations</td>
+                        <td>f(x) = 0</td>
+                    </tr>
+
+                    <tr>
+                        <td>Gaussian Elimination</td>
+                        <td>Solve a linear system</td>
+                        <td>Ax = b</td>
+                    </tr>
+
+                    <tr>
+                        <td>Jacobi</td>
+                        <td>Iteratively solve a linear system</td>
+                        <td>Ax = b</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                These methods are often <strong>components of larger
+                optimization procedures</strong>, but they do not
+                automatically minimize or maximize an arbitrary function.
+            </p>
+
+        </section>
+
+
+        <!-- ==================== KEY IDEAS ==================== -->
+
+        <section>
+            <h2>10. Key Ideas to Remember</h2>
+
+            <ul>
+                <li>
+                    Optimization searches for maximum or minimum values.
+                </li>
+
+                <li>
+                    A model is an abstraction of a real-world problem.
+                </li>
+
+                <li>
+                    Numerical optimization uses numerical procedures to
+                    approximate solutions.
+                </li>
+
+                <li>
+                    Optimization problems can be classified by objectives,
+                    variables, constraints, landscape, and solution technique.
+                </li>
+
+                <li>
+                    A constrained problem has restrictions on the feasible
+                    solutions.
+                </li>
+
+                <li>
+                    An unconstrained problem has no explicit restrictions
+                    on the variables.
+                </li>
+
+                <li>
+                    Convex problems generally have more favorable optimization
+                    properties than non-convex problems.
+                </li>
+
+                <li>
+                    Convergence means that successive approximations approach
+                    a solution.
+                </li>
+
+                <li>
+                    The quantity
+                    <strong>||x<sup>(k)</sup> − x<sup>(k−1)</sup>||</strong>
+                    can measure the change between iterations.
+                </li>
+
+                <li>
+                    Solving <strong>f'(x) = 0</strong> identifies candidate
+                    stationary points, but additional analysis is required
+                    to determine whether they are minima, maxima, or neither.
+                </li>
+
+                <li>
+                    Newton's method finds roots and can be incorporated into
+                    optimization.
+                </li>
+
+                <li>
+                    Gaussian elimination and Jacobi solve systems of linear
+                    equations and can appear as computational components of
+                    optimization algorithms.
+                </li>
+            </ul>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
+

@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Agents - Atari Breakout</title>
+</head>
+<body>
+    <header>
+        <h1>Workshop 1: Atari Breakout</h1>
+        <p>Reinforcement Learning with Atari Breakout</p>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+<section>
+    <p>
+        In this workshop, we apply the reinforcement learning concepts
+        studied in class to the Atari game <strong>Breakout</strong>.
+        The objective is to understand how each abstract RL concept
+        corresponds to a concrete component of the game.
+    </p>
+
+    <h3>The Breakout Environment</h3>
+
+    <p>
+        <strong>Reinforcement Learning (RL)</strong> is a branch of machine
+        learning in which an agent learns to make decisions by performing
+        actions in an environment in order to maximize cumulative reward.
+    </p>
+
+    <p>
+        In Atari Breakout, the agent controls the paddle and learns how
+        to move it in order to hit the ball, break bricks, and obtain
+        as many points as possible.
+    </p>
+
+    <h3>Mapping RL Concepts to Breakout</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Concept</th>
+                <th>Definition</th>
+                <th>Breakout Application</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td><strong>Agent</strong></td>
+
+                <td>
+                    The learner or decision-maker that interacts with
+                    the environment.
+                </td>
+
+                <td>
+                    The paddle or, more precisely, the software controller
+                    that decides how the paddle should move.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Environment</strong></td>
+
+                <td>
+                    The world in which the agent operates and that responds
+                    to the agent's actions.
+                </td>
+
+                <td>
+                    The Breakout game, including the game screen, ball
+                    physics, walls, paddle, and bricks.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>State</strong></td>
+
+                <td>
+                    A representation of the environment at a particular
+                    point in time.
+                </td>
+
+                <td>
+                    Information such as the position and movement of the
+                    ball, the position of the paddle, and the remaining
+                    bricks.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Action</strong></td>
+
+                <td>
+                    One of the possible decisions or movements that the
+                    agent can perform.
+                </td>
+
+                <td>
+                    The paddle can move <strong>left</strong>,
+                    <strong>right</strong>, or remain
+                    <strong>neutral (No-Op)</strong>.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Reward</strong></td>
+
+                <td>
+                    A numerical feedback signal indicating how desirable
+                    the result of an action is.
+                </td>
+
+                <td>
+                    The agent receives points for breaking bricks.
+                    Other actions may produce a reward of 0, while losing
+                    the ball can produce a negative consequence depending
+                    on the reward design.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Policy</strong></td>
+
+                <td>
+                    The strategy used by the agent to select an action
+                    based on the current state.
+                </td>
+
+                <td>
+                    A strategy for maximizing the number of points.
+                    For example, the agent may learn to position the paddle
+                    so that the ball can bounce toward the upper part of
+                    the screen and break more bricks.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Model</strong></td>
+
+                <td>
+                    A mathematical representation of how the environment
+                    behaves, including its dynamics and rewards.
+                </td>
+
+                <td>
+                    A mathematical model of the game's physics that can
+                    predict how the ball will move or where it will land
+                    after bouncing.
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <h3>Breakout Interaction</h3>
+
+    <pre>
+                    ACTION
+              ┌────────────────┐
+              │ Move Left      │
+              │ Move Right     │
+              │ Stay / No-Op   │
+              └───────┬────────┘
+                      ↓
+                  ┌───────┐
+                  │ AGENT │
+                  │Paddle │
+                  └───┬───┘
+                      │
+                      ↓
+              ┌───────────────┐
+              │  ENVIRONMENT  │
+              │    Breakout   │
+              └───────┬───────┘
+                      │
+                ┌─────┴─────┐
+                ↓           ↓
+              STATE       REWARD
+                │           │
+                │           │
+                └─────┬─────┘
+                      ↓
+                  AGENT LEARNS
+                      │
+                      ↓
+                Better Policy
+    </pre>
+
+
+    <h3>Example of the RL Cycle</h3>
+
+    <ol>
+        <li>
+            The agent observes the current state of the game.
+        </li>
+
+        <li>
+            The agent determines the position and trajectory of the ball
+            and the position of the paddle.
+        </li>
+
+        <li>
+            The policy selects an action:
+            <strong>left, right, or stay</strong>.
+        </li>
+
+        <li>
+            The paddle moves according to the selected action.
+        </li>
+
+        <li>
+            The environment changes because the ball continues moving
+            and interacting with the paddle, walls, and bricks.
+        </li>
+
+        <li>
+            The environment provides a new state and a reward.
+        </li>
+
+        <li>
+            The agent uses this experience to improve its future decisions.
+        </li>
+    </ol>
+
+
+    <h3>Policy Example</h3>
+
+    <p>
+        A simple policy could be expressed as:
+    </p>
+
+    <pre>
+IF ball is to the left of the paddle
+    → Move Left
+
+IF ball is to the right of the paddle
+    → Move Right
+
+IF ball is aligned with the paddle
+    → Stay
+    </pre>
+
+    <p>
+        However, an RL agent does not necessarily receive this strategy
+        explicitly. It can learn an effective policy through repeated
+        interaction with the game.
+    </p>
+
+
+    <h3>Model-Free vs. Model-Based Reinforcement Learning</h3>
+
+    <h4>Model-Free Reinforcement Learning</h4>
+
+    <p>
+        In <strong>model-free RL</strong>, the agent learns through
+        interaction and trial and error without explicitly learning a
+        mathematical model of the environment's physics.
+    </p>
+
+    <p>
+        The agent learns which actions tend to produce better rewards
+        without necessarily predicting the exact future state.
+    </p>
+
+    <pre>
+State → Action → Reward
+       ↓
+    Learning
+    </pre>
+
+
+    <h4>Model-Based Reinforcement Learning</h4>
+
+    <p>
+        In <strong>model-based RL</strong>, the agent learns or uses a
+        model of the environment to predict what may happen after taking
+        an action.
+    </p>
+
+    <p>
+        In Breakout, the agent could attempt to predict the trajectory
+        of the ball and determine where it will reach the paddle.
+    </p>
+
+    <pre>
+Current State
+      +
+    Action
+      ↓
+Environment Model
+      ↓
+Predicted Next State
+      ↓
+Choose Better Action
+    </pre>
+
+
+    <h3>Key Difference</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Model-Free</th>
+                <th>Model-Based</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    Learns primarily from experience and rewards.
+                </td>
+
+                <td>
+                    Uses a model to predict future states.
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Does not explicitly need to understand the game's
+                    physics.
+                </td>
+
+                <td>
+                    Attempts to represent or predict the game's dynamics.
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Trial-and-error focused.
+                </td>
+
+                <td>
+                    Prediction and planning can be used.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h3>Concept Check</h3>
+
+    <p>
+        Imagine that you are training an RL agent to play Breakout.
+        The agent receives:
+    </p>
+
+    <ul>
+        <li><strong>+10</strong> for breaking a top-row brick.</li>
+        <li><strong>-100</strong> for allowing the ball to fall past the paddle.</li>
+    </ul>
+
+    <p>
+        How will this reward structure affect the way the agent learns?
+    </p>
+
+    <h4>Expected Reasoning</h4>
+
+    <p>
+        The large negative reward for losing the ball makes avoiding failure
+        extremely important. The agent will therefore tend to learn actions
+        that increase the probability of keeping the ball in play.
+    </p>
+
+    <p>
+        At the same time, the positive reward for breaking top-row bricks
+        encourages the agent to discover strategies that allow it to reach
+        those bricks.
+    </p>
+
+    <p>
+        Because the penalty of <strong>-100</strong> is much larger than the
+        reward of <strong>+10</strong>, the agent may prioritize
+        <strong>survival and keeping the ball in play</strong> over
+        immediately maximizing the number of bricks broken.
+    </p>
+
+    <p>
+        This demonstrates an important principle of reinforcement learning:
+        <strong>the reward function strongly influences the behavior that
+        the agent learns.</strong>
+    </p>
+
+
+    <h3>Workshop Summary</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>RL Concept</th>
+                <th>Atari Breakout</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Agent</td>
+                <td>Paddle / software controller</td>
+            </tr>
+
+            <tr>
+                <td>Environment</td>
+                <td>Breakout game</td>
+            </tr>
+
+            <tr>
+                <td>State</td>
+                <td>
+                    Ball position and trajectory, paddle position,
+                    remaining bricks, and other relevant game information
+                </td>
+            </tr>
+
+            <tr>
+                <td>Action</td>
+                <td>Left, Right, or No-Op</td>
+            </tr>
+
+            <tr>
+                <td>Reward</td>
+                <td>Points for breaking bricks and penalties for undesirable outcomes</td>
+            </tr>
+
+            <tr>
+                <td>Policy</td>
+                <td>Strategy for selecting actions to maximize cumulative reward</td>
+            </tr>
+
+            <tr>
+                <td>Model</td>
+                <td>Mathematical representation of the game's dynamics and rewards</td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>
+
+   
+    </main>
+</body>
+</html>
