@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>Reinforcement Learning — Policy, Reward and Value Functions</title>
+    <style>
+        .key-point {
+            font-weight: bold;
+        }
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Reinforcement Learning — Policy, Reward and Value Functions</h1>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+
+
+    <section>
+        <h2>1. Reward</h2>
+
+        <p>
+            The <strong>reward</strong> is the immediate feedback received by
+            the agent after taking an action.
+        </p>
+
+        <p>
+            At time <strong>t</strong>, the agent receives a reward:
+        </p>
+
+        <div class="formula">
+            R<sub>t</sub>
+        </div>
+
+        <p>
+            The reward tells the agent how desirable or undesirable the immediate
+            outcome was.
+        </p>
+
+        <div class="definition">
+            <strong>Reward = immediate feedback.</strong>
+            It tells the agent what happened after an action.
+        </div>
+
+        <p>
+            The reward function is part of the environment and defines what the
+            agent should try to maximize.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>2. Return</h2>
+
+        <p>
+            The <strong>return</strong> is the total accumulated reward from a
+            particular point in time into the future.
+        </p>
+
+        <p>
+            Without discounting, the return can be written as:
+        </p>
+
+        <div class="formula">
+            G<sub>t</sub> =
+            R<sub>t</sub> +
+            R<sub>t+1</sub> +
+            R<sub>t+2</sub> + ...
+        </div>
+
+        <p>
+            Therefore, the return contains both the
+            <strong>present reward</strong> and the
+            <strong>future rewards</strong>.
+        </p>
+
+        <div class="definition">
+            <strong>Reward:</strong> what the agent receives now.<br>
+            <strong>Return:</strong> accumulated reward from now into the future.
+        </div>
+    </section>
+
+
+    <section>
+        <h2>3. The Problem with the Return</h2>
+
+        <p>
+            In a continuing task, the sequence of rewards can potentially be
+            infinite:
+        </p>
+
+        <div class="formula">
+            G<sub>t</sub> =
+            R<sub>t</sub> +
+            R<sub>t+1</sub> +
+            R<sub>t+2</sub> + ...
+        </div>
+
+        <p>
+            If rewards continue forever, the total return may become infinite
+            or fail to converge.
+        </p>
+
+        <p>
+            Reinforcement Learning therefore commonly uses a
+            <strong>discount factor</strong>, represented by
+            <strong>γ (gamma)</strong>.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>4. Discount Factor γ</h2>
+
+        <p>
+            The discount factor determines how much importance is given to
+            future rewards compared with immediate rewards.
+        </p>
+
+        <p>
+            The discounted return is:
+        </p>
+
+        <div class="formula">
+            G<sub>t</sub> =
+            R<sub>t</sub> +
+            γR<sub>t+1</sub> +
+            γ<sup>2</sup>R<sub>t+2</sub> +
+            γ<sup>3</sup>R<sub>t+3</sub> + ...
+        </div>
+
+        <p>
+            The current reward is not discounted. Future rewards are multiplied
+            by increasing powers of γ.
+        </p>
+
+        <table>
+            <tr>
+                <th>Reward</th>
+                <th>Discount</th>
+            </tr>
+
+            <tr>
+                <td>R<sub>t</sub></td>
+                <td>1</td>
+            </tr>
+
+            <tr>
+                <td>R<sub>t+1</sub></td>
+                <td>γ</td>
+            </tr>
+
+            <tr>
+                <td>R<sub>t+2</sub></td>
+                <td>γ²</td>
+            </tr>
+
+            <tr>
+                <td>R<sub>t+3</sub></td>
+                <td>γ³</td>
+            </tr>
+        </table>
+
+        <p>
+            Usually:
+        </p>
+
+        <div class="formula">
+            0 ≤ γ &lt; 1
+        </div>
+
+        <p>
+            A smaller γ makes the agent more focused on immediate rewards.
+            A value closer to 1 makes the agent consider future rewards more
+            strongly.
+        </p>
+
+        <div class="definition">
+            <strong>Gamma helps control the contribution of future rewards and,
+            for continuing tasks, helps ensure that the return converges.</strong>
+        </div>
+    </section>
+
+
+    <section>
+        <h2>5. Recursive Definition of Return</h2>
+
+        <p>
+            The return can also be expressed recursively:
+        </p>
+
+        <div class="formula">
+            G<sub>t</sub> =
+            R<sub>t</sub> +
+            γG<sub>t+1</sub>
+        </div>
+
+        <p>
+            This equation says that the return at time <strong>t</strong> is
+            composed of:
+        </p>
+
+        <div class="definition">
+            <strong>Return = Present reward + Discounted future return</strong>
+        </div>
+
+        <p>
+            This recursive relationship is fundamental to many RL algorithms.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>6. Policy</h2>
+
+        <p>
+            A <strong>policy</strong> defines how an agent chooses actions based
+            on the current state.
+        </p>
+
+        <p>
+            A policy maps a state to an action or, in the stochastic case, to
+            a probability distribution over possible actions.
+        </p>
+
+        <h3>Deterministic Policy</h3>
+
+        <p>
+            A deterministic policy always chooses the same action for a given
+            state:
+        </p>
+
+        <div class="formula">
+            a = π(s)
+        </div>
+
+        <h3>Stochastic Policy</h3>
+
+        <p>
+            A stochastic policy assigns probabilities to the possible actions:
+        </p>
+
+        <div class="formula">
+            π(a | s) = P(A<sub>t</sub> = a | S<sub>t</sub> = s)
+        </div>
+
+        <p>
+            This means:
+        </p>
+
+        <div class="definition">
+            π(a | s) is the probability that the agent takes action
+            <strong>a</strong> when it is in state <strong>s</strong>.
+        </div>
+
+        <p>
+            For every state <strong>s ∈ S</strong> and action
+            <strong>a ∈ A</strong>, the policy determines how likely that
+            action is.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>7. Policy vs. Value Function</h2>
+
+        <table>
+            <tr>
+                <th>Concept</th>
+                <th>Main Question</th>
+                <th>Output</th>
+            </tr>
+
+            <tr>
+                <td><strong>Policy</strong></td>
+                <td>
+                    "What should I do now?"
+                </td>
+                <td>
+                    An action or probability distribution over actions.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Value Function</strong></td>
+                <td>
+                    "How good is this situation?"
+                </td>
+                <td>
+                    A number representing expected future return.
+                </td>
+            </tr>
+        </table>
+
+        <div class="definition">
+            <strong>Policy → decision.</strong><br>
+            <strong>Value function → evaluation.</strong>
+        </div>
+    </section>
+
+
+    <section>
+        <h2>8. Value Functions</h2>
+
+        <p>
+            The goal of modeling RL using MDPs is to find a policy that
+            maximizes the expected cumulative reward while interacting with
+            the environment.
+        </p>
+
+        <p>
+            A value function measures the expected return when an agent follows
+            a particular policy.
+        </p>
+
+        <p>
+            There are two main value functions:
+        </p>
+
+        <ul>
+            <li><strong>State-value function V</strong></li>
+            <li><strong>State-action value function Q</strong></li>
+        </ul>
+    </section>
+
+
+    <section>
+        <h2>9. State-Value Function V</h2>
+
+        <p>
+            The state-value function measures the expected return starting from
+            a state <strong>s</strong> and then following policy
+            <strong>π</strong>.
+        </p>
+
+        <div class="formula">
+            V<sup>π</sup>(s)
+            =
+            E<sub>π</sub>[G<sub>t</sub> | S<sub>t</sub> = s]
+        </div>
+
+        <p>
+            Expanding the return:
+        </p>
+
+        <div class="formula">
+            V<sup>π</sup>(s)
+            =
+            E<sub>π</sub>
+            [ Σ<sub>k=0</sub><sup>∞</sup>
+            γ<sup>k</sup>R<sub>t+k</sub>
+            | S<sub>t</sub> = s ]
+        </div>
+
+        <p>
+            The state-value function therefore answers:
+        </p>
+
+        <div class="definition">
+            <strong>
+                "If I am currently in state s and follow policy π,
+                how much reward do I expect to receive in the future?"
+            </strong>
+        </div>
+    </section>
+
+
+    <section>
+        <h2>10. State-Action Value Function Q</h2>
+
+        <p>
+            The state-action value function evaluates a state together with
+            a specific action.
+        </p>
+
+        <div class="formula">
+            Q<sup>π</sup>(s,a)
+            =
+            E<sub>π</sub>[G<sub>t</sub>
+            | S<sub>t</sub> = s, A<sub>t</sub> = a]
+        </div>
+
+        <p>
+            Expanded:
+        </p>
+
+        <div class="formula">
+            Q<sup>π</sup>(s,a)
+            =
+            E<sub>π</sub>
+            [ Σ<sub>k=0</sub><sup>∞</sup>
+            γ<sup>k</sup>R<sub>t+k</sub>
+            | S<sub>t</sub> = s, A<sub>t</sub> = a ]
+        </div>
+
+        <p>
+            The Q function answers:
+        </p>
+
+        <div class="definition">
+            <strong>
+                "If I am in state s, take action a, and then follow policy π,
+                how much reward do I expect to receive?"
+            </strong>
+        </div>
+
+        <p>
+            The name <strong>Q-function</strong> comes from "quality":
+            it measures the quality of taking an action in a particular state.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>11. GPS Analogy</h2>
+
+        <p>
+            A GPS system provides a useful analogy for understanding the
+            difference between policy and value functions.
+        </p>
+
+        <h3>Policy</h3>
+
+        <p>
+            The policy is similar to the GPS giving you directions:
+        </p>
+
+        <div class="definition">
+            <strong>
+                "Turn left here. Continue straight. Then turn right."
+            </strong>
+        </div>
+
+        <p>
+            It tells you <strong>what action to take</strong>.
+        </p>
+
+        <h3>Value Function</h3>
+
+        <p>
+            The value function is similar to estimating the quality of your
+            current route, such as the expected travel time or likelihood of
+            successfully reaching the destination.
+        </p>
+
+        <div class="definition">
+            <strong>
+                It tells you how good the current situation is with respect
+                to future outcomes.
+            </strong>
+        </div>
+    </section>
+
+
+    <section>
+        <h2>12. Expected Value</h2>
+
+        <p>
+            The word <strong>expected</strong> means that the value is calculated
+            by considering possible future outcomes and their probabilities.
+        </p>
+
+        <p>
+            In a stochastic environment, different outcomes can occur.
+            The expected return is therefore a probability-weighted estimate
+            of the possible returns.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>13. Connection to Q-Learning</h2>
+
+        <p>
+            Q-learning is based on the <strong>Q-function</strong>.
+            Instead of only evaluating states, it evaluates the quality of
+            taking particular actions in particular states.
+        </p>
+
+        <div class="definition">
+            <strong>
+                Q(s,a) → How good is it to take action a in state s?
+            </strong>
+        </div>
+
+        <p>
+            The agent can use these values to select actions with high expected
+            future reward.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>14. Class Activity: Policy or Value Function?</h2>
+
+        <p>
+            Reinforcement Learning is not limited to games such as chess or Go.
+            The same concepts can be applied to real-world problems.
+        </p>
+
+        <p>
+            The following examples distinguish between the
+            <strong>Policy</strong> and the <strong>Value Function</strong>.
+        </p>
+
+
+        <h3>Case Study 1: Autonomous Delivery Drones</h3>
+
+        <p>
+            In logistics, drones must navigate from a warehouse to a customer's
+            location.
+        </p>
+
+        <p>
+            <strong>Policy:</strong>
+            The control system decides how much to tilt the rotors, when to
+            increase speed, and how to steer around obstacles.
+        </p>
+
+        <p>
+            <strong>Value Function:</strong>
+            Evaluates the quality of the drone's current state. For example,
+            a drone with a clear path, sufficient battery, and good altitude
+            may have a high value.
+        </p>
+
+        <div class="definition">
+            <strong>Decision Point:</strong>
+            A drone calculates that moving to a higher altitude increases the
+            probability of a safe arrival by 15%.
+            <br><br>
+            This calculation is primarily a <strong>value-related evaluation</strong>
+            because it estimates the quality or expected future outcome of the
+            state/action choice. The eventual decision to actually move upward
+            is made by the policy.
+        </div>
+
+
+        <h3>Case Study 2: E-Commerce Recommendation Engines</h3>
+
+        <p>
+            Online stores can use RL to increase customer engagement and
+            maximize long-term customer value.
+        </p>
+
+        <p>
+            <strong>Policy:</strong>
+            Decides which product should be displayed next based on the
+            customer's current state and history.
+        </p>
+
+        <p>
+            <strong>Value Function:</strong>
+            Estimates the total future reward, such as the expected customer
+            lifetime value, from the current state.
+        </p>
+
+        <div class="definition">
+            <strong>Decision Point:</strong>
+            The system chooses to show wool socks because the user has added
+            hiking boots to their cart.
+            <br><br>
+            The choice of what product to show is a
+            <strong>policy decision</strong>.
+        </div>
+
+
+        <h3>Case Study 3: Smart Power Grids</h3>
+
+        <p>
+            A smart grid must balance electricity generated from wind, solar,
+            batteries, and traditional power plants.
+        </p>
+
+        <p>
+            <strong>Policy:</strong>
+            Makes real-time decisions such as:
+            "Store 50 MW in the battery" or
+            "Release energy to the grid."
+        </p>
+
+        <p>
+            <strong>Value Function:</strong>
+            Evaluates the long-term quality of the current grid state based
+            on expected stability, costs, and future demand.
+        </p>
+
+        <div class="definition">
+            <strong>Decision Point:</strong>
+            The system evaluates a grid with full batteries during an approaching
+            storm as a high-value state because it increases the probability of
+            maintaining stability.
+            <br><br>
+            This evaluation is performed by the
+            <strong>value function</strong>.
+        </div>
+    </section>
+
+
+    <section>
+        <h2>15. Summary</h2>
+
+        <table>
+            <tr>
+                <th>Concept</th>
+                <th>Meaning</th>
+            </tr>
+
+            <tr>
+                <td><strong>Reward R<sub>t</sub></strong></td>
+                <td>
+                    Immediate feedback received after an action.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Return G<sub>t</sub></strong></td>
+                <td>
+                    Accumulated discounted future rewards.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Gamma γ</strong></td>
+                <td>
+                    Controls how strongly future rewards are discounted.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Policy π</strong></td>
+                <td>
+                    Determines which action to take in a state.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>V<sup>π</sup>(s)</strong></td>
+                <td>
+                    Expected return from state s while following policy π.
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Q<sup>π</sup>(s,a)</strong></td>
+                <td>
+                    Expected return from state s after taking action a and
+                    subsequently following policy π.
+                </td>
+            </tr>
+        </table>
+
+        <div class="definition">
+            <strong>Core distinction:</strong><br><br>
+
+            Reward → What did I receive immediately?<br>
+            Return → What total reward will I receive from here onward?<br>
+            Policy → What should I do?<br>
+            Value function → How good is this state?<br>
+            Q-function → How good is this action in this state?
+        </div>
+
+    </section>
+    </main>
+    </body>
+</html>

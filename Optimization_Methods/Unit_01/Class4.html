@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Optimization Methods</title>
+</head>
+     <style>
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            font-size: 1.2em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            border-left: 4px solid #555;
+            padding-left: 15px;
+        }
+    </style>
+
+<body>
+<header>
+<h1>Optimization Problems</h1>
+        <p>
+            Course notes on optimization, numerical optimization,
+            problem classification, convergence, and numerical methods.
+        </p>
+</header>
+<main><a href="..\index.html">← Back to Optimization Methods
+</a>
+
+
+
+    <section>
+        <h2>1. Unconstrained Numerical Methods</h2>
+
+        <p>
+            Optimization problems can be solved using numerical methods,
+            especially when an analytical solution is difficult or impossible
+            to obtain.
+        </p>
+
+        <h2>Real-World Problem: Best Design</h2>
+
+        <p>
+            Consider a residential area where we need to determine the
+            <strong>number of pipes</strong> required to cover the maximum
+            possible number of houses.
+        </p>
+
+        <p>
+            A useful relationship is:
+        </p>
+
+        <div class="formula">
+            If the diameter of a pipe is doubled, its capacity increases
+            by a factor of 4.
+        </div>
+
+        <p>
+            Therefore, the number of houses that a pipe can serve depends
+            strongly on the diameter of the pipe. This type of relationship
+            can be incorporated into an optimization problem to determine
+            the best design.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>2. Hessian Matrix and Positive Definiteness</h2>
+
+        <p>
+            One way to construct a positive definite matrix is to generate
+            a random matrix <strong>A</strong> and calculate:
+        </p>
+
+        <div class="formula">
+            H = A<sup>T</sup>A
+        </div>
+
+        <p>
+            The matrix <strong>H</strong> can be used as a Hessian matrix.
+            We can examine its eigenvalues:
+        </p>
+
+        <div class="formula">
+            eigen(H)
+        </div>
+
+        <p class="important">
+            If all eigenvalues of the Hessian matrix are positive, then
+            the Hessian is <strong>positive definite</strong>.
+        </p>
+
+        <p>
+            A positive definite Hessian indicates that the function is
+            locally strictly convex around the point being analyzed.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>3. First and Second Derivatives</h2>
+
+        <p>
+            When we calculate the first derivative of an objective function
+            and solve:
+        </p>
+
+        <div class="formula">
+            ∇G(x) = 0
+        </div>
+
+        <p>
+            we find the <strong>critical points</strong>.
+        </p>
+
+        <p>
+            However, finding a critical point does not tell us whether it is
+            a minimum, maximum, or saddle point.
+        </p>
+
+        <p>
+            To classify the critical point, we examine the
+            <strong>second derivative</strong>, or more generally, the
+            <strong>Hessian matrix</strong>.
+        </p>
+
+        <ul>
+            <li>
+                <strong>Positive definite Hessian:</strong>
+                local minimum.
+            </li>
+            <li>
+                <strong>Negative definite Hessian:</strong>
+                local maximum.
+            </li>
+            <li>
+                <strong>Indefinite Hessian:</strong>
+                saddle point.
+            </li>
+        </ul>
+    </section>
+
+
+    <section>
+        <h2>4. Steepest Descent Method</h2>
+
+        <p>
+            The steepest descent method is an unconstrained numerical
+            optimization method used to minimize a function.
+        </p>
+
+        <h3>Initial Parameters</h3>
+
+        <pre><code>function steepest()
+
+    x = 2;
+    y = 1;
+    iter = 0;
+
+    alpha = 0.1;
+    tol = 1.0e-6;
+    max_iter = 100;</code></pre>
+
+        <h3>Objective Function</h3>
+
+        <p>
+            Consider the function:
+        </p>
+
+        <div class="formula">
+            F(x,y) = x² + 2y²
+        </div>
+
+        <p>
+            In MATLAB, this can be represented as:
+        </p>
+
+        <pre><code>F = @(x,y) x^2 + 2*y^2;</code></pre>
+
+        <h3>Contour Plot</h3>
+
+        <p>
+            To visualize the function, we create a grid of values for
+            <strong>x</strong> and <strong>y</strong>:
+        </p>
+
+        <pre><code>[xm, ym] = meshgrid(-3:0.1:3, -3:0.1:3);
+
+zm = xm.^2 + 2*ym.^2;
+
+contour(xm, ym, zm);</code></pre>
+
+        <p>
+            The contour plot shows the level curves of the function.
+            Since
+            <strong>F(x,y) = x² + 2y²</strong>
+            is an elliptical bowl, its minimum occurs at:
+        </p>
+
+        <div class="formula">
+            (x, y) = (0, 0)
+        </div>
+
+        <h3>Steepest Descent Idea</h3>
+
+        <p>
+            At each iteration, the algorithm moves in the direction opposite
+            to the gradient:
+        </p>
+
+        <div class="formula">
+            x<sub>k+1</sub> = x<sub>k</sub> − α∇F(x<sub>k</sub>)
+        </div>
+
+        <p>
+            where <strong>α</strong> is the step size and
+            <strong>∇F</strong> is the gradient of the objective function.
+        </p>
+    </section>
+</main>
+</body>
+</html>

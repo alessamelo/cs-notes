@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>Reinforcement Learning — MDPs and Markov Processes</title>
+    <style>
+
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MDPs and Markov Processes: Common Terms and Challenges</h1>
+        <p>Historical journey</p>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+
+<section>
+    <h2>1. Review</h2>
+
+    <p>
+        Reinforcement Learning (RL) comes from ideas related to
+        <strong>Dynamic Programming</strong>.
+    </p>
+
+    <p>
+        One important RL algorithm is <strong>Q-learning</strong>.
+    </p>
+</section>
+
+
+<section>
+    <h2>2. Common Reinforcement Learning Terms</h2>
+
+    <h3>Episodic vs. Continuing Tasks</h3>
+
+    <ul>
+        <li>
+            <strong>Episodic task:</strong> the interaction has a defined
+            beginning and end.
+        </li>
+        <li>
+            <strong>Continuing task:</strong> the interaction does not have
+            a terminal state and can continue indefinitely.
+        </li>
+    </ul>
+
+
+    <h3>Stochastic vs. Deterministic Tasks</h3>
+
+    <ul>
+        <li>
+            <strong>Deterministic:</strong> the same state and action always
+            produce the same result.
+        </li>
+        <li>
+            <strong>Stochastic:</strong> the same state and action can lead
+            to different outcomes according to some probability distribution.
+        </li>
+    </ul>
+
+
+    <h3>Model-Free vs. Model-Based RL</h3>
+
+    <div class="definition">
+        <strong>Model-free RL:</strong>
+        the agent does not explicitly know the environment's transition
+        dynamics or reward model. It learns through interaction and
+        trial-and-error.
+    </div>
+
+    <p>
+        For example, the agent does not have an explicit function describing
+        how the environment changes after each action.
+    </p>
+
+    <div class="definition">
+        <strong>Model-based RL:</strong>
+        the agent has or learns a model of the environment's dynamics.
+        The model describes how actions affect future states and rewards.
+    </div>
+
+    <p>
+        Different algorithms can then use this model to plan future actions.
+    </p>
+</section>
+
+
+<section>
+    <h2>3. Exploration vs. Exploitation</h2>
+
+    <p>
+        A fundamental challenge in RL is deciding whether the agent should
+        explore new actions or exploit actions that are already known to
+        work well.
+    </p>
+
+    <table>
+        <tr>
+            <th>Strategy</th>
+            <th>Meaning</th>
+        </tr>
+
+        <tr>
+            <td><strong>Exploration</strong></td>
+            <td>
+                Try new actions or visit new states to learn more about
+                the environment.
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Exploitation</strong></td>
+            <td>
+                Use actions that have already demonstrated good results.
+            </td>
+        </tr>
+    </table>
+
+    <p class="important">
+        The objective is to maximize cumulative reward while finding a good
+        balance between exploration and exploitation.
+    </p>
+</section>
+
+
+<section>
+    <h2>4. Credit Assignment Problem</h2>
+
+    <p>
+        The <strong>credit assignment problem</strong> occurs when the agent
+        receives a reward after performing a sequence of actions and must
+        determine which actions were responsible for that reward.
+    </p>
+
+    <ol>
+        <li>Identify the actions that may have contributed to the reward.</li>
+        <li>Analyze the outcomes statistically.</li>
+        <li>Assign credit to the actions that contributed to success.</li>
+        <li>Adjust the agent's policy based on this information.</li>
+    </ol>
+
+    <h3>Example: Atari</h3>
+
+    <p>
+        Suppose the objective in an Atari game is to break as many blocks
+        as possible.
+    </p>
+
+    <p>
+        A good reward function should encourage behavior that actually
+        helps the agent complete the game rather than behavior that only
+        produces a short-term reward.
+    </p>
+
+    <div class="definition">
+        <strong>Reward function design is critical.</strong>
+        A poorly designed reward function can cause unexpected behavior.
+    </div>
+
+    <h3>Example: CoastRunners</h3>
+
+    <p>
+        In the Atari game <strong>CoastRunners</strong>, a reward function
+        that only rewards hitting certain objects can cause the agent to
+        repeatedly perform the same action instead of completing the race.
+    </p>
+
+    <p>
+        This illustrates the importance of designing rewards that correctly
+        represent the actual objective of the task.
+    </p>
+</section>
+
+
+<section>
+    <h2>5. Generalization</h2>
+
+    <p>
+        An RL agent acquires knowledge through interaction with an
+        environment.
+    </p>
+
+    <p>
+        A good agent should be able to apply what it has learned to
+        <strong>new situations</strong>, not simply memorize the situations
+        encountered during training.
+    </p>
+
+    <p>
+        Therefore, it is important to evaluate whether the learned policy
+        produces good results in environments or situations different from
+        those used during training.
+    </p>
+</section>
+
+
+<section>
+    <h2>6. Today's Agenda</h2>
+
+    <ul>
+        <li>Markov Decision Processes (MDPs)</li>
+        <li>Markov Property</li>
+        <li>Markov Chains</li>
+        <li>States</li>
+        <li>Actions</li>
+        <li>Transition Model</li>
+        <li>Reward Function</li>
+        <li>Policies</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>7. Markov Decision Process (MDP)</h2>
+
+    <p>
+        A <strong>Markov Decision Process (MDP)</strong> is a mathematical
+        framework used to model sequential decision-making problems under
+        uncertainty.
+    </p>
+
+    <p>
+        The agent does not have complete certainty about what will happen
+        after taking an action.
+    </p>
+
+    <p>
+        An MDP can be represented as:
+    </p>
+
+    <div class="formula">
+        MDP = (S, A, P, R)
+    </div>
+
+    <p>
+        The main objective is to find a
+        <strong>policy</strong> that maximizes the expected cumulative
+        reward.
+    </p>
+</section>
+
+
+<section>
+    <h2>8. Components of an MDP</h2>
+
+    <h3>States — S</h3>
+
+    <p>
+        A state represents the current situation of the environment.
+    </p>
+
+    <h3>Actions — A</h3>
+
+    <p>
+        The set of all possible actions that the agent can take.
+    </p>
+
+    <h3>Transition Model — P</h3>
+
+    <p>
+        The transition model describes how the environment moves from one
+        state to another after an action.
+    </p>
+
+    <p>
+        Because the environment may be stochastic, the transition is
+        represented by a probability distribution:
+    </p>
+
+    <div class="formula">
+        P(s' | s, a)
+    </div>
+
+    <p>
+        This means the probability of transitioning to state
+        <strong>s'</strong>, given that the agent is currently in state
+        <strong>s</strong> and takes action <strong>a</strong>.
+    </p>
+
+
+    <h3>Reward Function — R</h3>
+
+    <p>
+        The reward function specifies the reward or cost associated with
+        taking an action in a particular state.
+    </p>
+
+    <div class="formula">
+        R(s, a)
+    </div>
+
+    <p>
+        The reward provides feedback to the agent about the quality of
+        its decisions.
+    </p>
+
+
+    <h3>Policy — π</h3>
+
+    <p>
+        A policy specifies how the agent chooses actions based on the
+        current state.
+    </p>
+
+    <div class="formula">
+        π(a | s)
+    </div>
+
+    <p>
+        This represents the probability of selecting action
+        <strong>a</strong> when the agent is in state <strong>s</strong>.
+    </p>
+</section>
+
+
+<section>
+    <h2>9. Markov Property</h2>
+
+    <p>
+        Not every sequential decision problem can automatically be modeled
+        as an MDP. The environment must satisfy the
+        <strong>Markov property</strong>.
+    </p>
+
+    <div class="definition">
+        The future state is independent of the past given the present state
+        and action.
+    </div>
+
+    <div class="formula">
+        P(S<sub>t+1</sub> | S<sub>t</sub>, A<sub>t</sub>)
+        =
+        P(S<sub>t+1</sub> | S<sub>t</sub>, A<sub>t</sub>,
+        S<sub>t-1</sub>, A<sub>t-1</sub>, ...)
+    </div>
+
+    <p>
+        In other words, the current state must contain enough information
+        about the history to predict the future.
+    </p>
+
+    <p class="important">
+        If the current state contains all the information necessary to
+        determine the future distribution, we do not need to explicitly
+        remember previous states.
+    </p>
+</section>
+
+
+<section>
+    <h2>10. Markov Chain</h2>
+
+    <p>
+        A <strong>Markov chain</strong> is a stochastic process consisting
+        of states and transitions between those states.
+    </p>
+
+    <p>
+        The transition probabilities can be represented using a graph.
+        Each node represents a state, while the edges represent transition
+        probabilities.
+    </p>
+
+    <div class="definition">
+        A Markov chain is memoryless: the probability of the next state
+        depends only on the current state, not on the sequence of states
+        that came before it.
+    </div>
+
+    <p>
+        A Markov chain contains a sequence of states, but unlike an MDP,
+        it does not involve agent actions or rewards.
+    </p>
+
+
+    <h3>Markov Chain vs. MDP</h3>
+
+    <table>
+        <tr>
+            <th>Markov Chain</th>
+            <th>MDP</th>
+        </tr>
+
+        <tr>
+            <td>States</td>
+            <td>States</td>
+        </tr>
+
+        <tr>
+            <td>Transition probabilities</td>
+            <td>Transition probabilities</td>
+        </tr>
+
+        <tr>
+            <td>No actions</td>
+            <td>Actions</td>
+        </tr>
+
+        <tr>
+            <td>No rewards</td>
+            <td>Rewards</td>
+        </tr>
+
+        <tr>
+            <td>Passive stochastic process</td>
+            <td>Decision-making process</td>
+        </tr>
+    </table>
+</section>
+
+
+<section>
+    <h2>11. Markov Chain Example: Weather</h2>
+
+    <p>
+        Consider three possible weather states:
+    </p>
+
+    <ul>
+        <li>Sunny</li>
+        <li>Rainy</li>
+        <li>Cloudy</li>
+    </ul>
+
+    <p>
+        The transition probabilities are:
+    </p>
+
+    <table>
+        <tr>
+            <th>Current State</th>
+            <th>Sunny</th>
+            <th>Rainy</th>
+            <th>Cloudy</th>
+        </tr>
+
+        <tr>
+            <td>Sunny</td>
+            <td>0.6</td>
+            <td>0.2</td>
+            <td>0.2</td>
+        </tr>
+
+        <tr>
+            <td>Rainy</td>
+            <td>0.0</td>
+            <td>0.5</td>
+            <td>0.5</td>
+        </tr>
+
+        <tr>
+            <td>Cloudy</td>
+            <td>0.5</td>
+            <td>0.2</td>
+            <td>0.3</td>
+        </tr>
+    </table>
+
+    <p>
+        For example, if today is <strong>Sunny</strong>, the probability
+        of tomorrow being Sunny is 0.6, Rainy is 0.2, and Cloudy is 0.2.
+    </p>
+
+
+    <h3>Python Implementation</h3>
+
+    <pre><code>import random
+
+# --- Define states ---
+states = ["Sunny", "Rainy", "Cloudy"]
+
+# --- Transition probabilities ---
+transitions = {
+    "Sunny":  [0.6, 0.2, 0.2],
+    "Rainy":  [0.0, 0.5, 0.5],
+    "Cloudy": [0.5, 0.2, 0.3]
+}
+
+
+# --- Function to get next state ---
+def next_state(current_state):
+
+    if current_state not in transitions:
+        raise ValueError(f"Invalid state: {current_state}")
+
+    probs = transitions[current_state]
+
+    state = random.choices(
+        states,
+        probs,
+        k=1
+    )
+
+    return state[0]
+
+
+# --- Main simulation ---
+def run_simulation(start_state, steps=10):
+
+    state = start_state
+    sequence = [state]
+
+    for _ in range(steps):
+
+        next_state_value = next_state(state)
+
+        sequence.append(next_state_value)
+
+        state = next_state_value
+
+    return sequence
+
+
+# --- Run ---
+if __name__ == "__main__":
+
+    result = run_simulation(
+        "Cloudy",
+        steps=10
+    )
+
+    print("Weather sequence:", result)</code></pre>
+</section>
+
+
+<section>
+    <h2>12. What Breaks the Markov Property?</h2>
+
+    <p>
+        A process violates the Markov property if knowing the current state
+        is not sufficient to predict the future.
+    </p>
+
+    <h3>Example 1: Dependence on Older States</h3>
+
+    <p>
+        Suppose tomorrow's weather depends not only on today's weather but
+        also on the weather from two days ago.
+    </p>
+
+    <p>
+        For example:
+    </p>
+
+    <div class="formula">
+        If it rained two days ago → tomorrow will always be Sunny.
+    </div>
+
+    <p>
+        If the current state only contains today's weather, then it does not
+        contain enough information to determine the future. The process is
+        therefore not Markov with respect to that state representation.
+    </p>
+
+
+    <h3>Example 2: Stock Market</h3>
+
+    <p>
+        Suppose the next market state depends on the previous three days:
+    </p>
+
+    <div class="formula">
+        S<sub>t+1</sub> depends on
+        S<sub>t</sub>, S<sub>t-1</sub>, S<sub>t-2</sub>
+    </div>
+
+    <p>
+        If the state is defined only as the current day's market condition,
+        then the Markov property is violated.
+    </p>
+
+    <p>
+        However, we could redefine the state to include the necessary
+        history:
+    </p>
+
+    <div class="formula">
+        State = (S<sub>t</sub>, S<sub>t-1</sub>, S<sub>t-2</sub>)
+    </div>
+
+    <p>
+        With this expanded state representation, the process may satisfy
+        the Markov property.
+    </p>
+</section>
+
+
+<section>
+    <h2>13. Key Idea</h2>
+
+    <div class="definition">
+        <strong>
+            The Markov property is not necessarily about whether the real
+            world has memory. It is about whether the chosen representation
+            of the current state contains enough information to predict the
+            future.
+        </strong>
+    </div>
+
+    <p>
+        Therefore, if the future depends on information from the past that
+        is missing from the current state, the state representation is not
+        Markov.
+    </p>
+
+    <p>
+        In reinforcement learning, designing an appropriate state
+        representation is therefore fundamental to building a valid MDP.
+    </p>
+
+</section>
+</main>
+
+</body>
+</html>
+
+
