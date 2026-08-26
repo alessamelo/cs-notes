@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Software Engineering — From Code to Critical Infrastructure</title>
+<style>
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+
+        .definition {
+            background: #f0f0f0;
+            border-left: 4px solid #555;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: #fff4d6;
+            border-left: 4px solid #c28b00;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            text-align: center;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+<h1>Software Engineering — From Code to Critical Infrastructure</h1>
+</header>
+<main><a href="..\index.html">← Back to Neural Networks</a>
+
+<p class="subtitle">
+    Lecture 1 — Software · February 3, 2026
+</p>
+
+
+<section>
+    <h2>1. What Is Software?</h2>
+
+    <div class="definition">
+        <strong>Software</strong> is a computer program together with its
+        corresponding documentation.
+    </div>
+
+    <p>
+        It is not necessary to document every line of code. However,
+        important parts of the system should be documented so that other
+        developers can understand and maintain the software.
+    </p>
+
+    <p>Important elements to document include:</p>
+
+    <ul>
+        <li>Important blocks of code</li>
+        <li>Definitions and purpose of variables</li>
+        <li>Important design decisions</li>
+        <li>Architecture and system behavior</li>
+    </ul>
+
+    <p>
+        Documentation facilitates:
+    </p>
+
+    <ul>
+        <li>Understanding</li>
+        <li>Maintenance</li>
+        <li>Collaboration</li>
+        <li>Future evolution of the software</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>2. Software Engineering</h2>
+
+    <div class="definition">
+        <strong>Software Engineering</strong> studies all aspects involved
+        in the production and evolution of software.
+    </div>
+
+    <p>It includes:</p>
+
+    <ul>
+        <li>Software processes</li>
+        <li>Development methods</li>
+        <li>Development tools</li>
+        <li>Project and development management</li>
+        <li>Quality assurance</li>
+        <li>Software maintenance and evolution</li>
+    </ul>
+
+    <p>
+        Modern economies depend heavily on software. Technology has also
+        changed the business models of many companies.
+    </p>
+
+    <h3>Example: Netflix and Blockbuster</h3>
+
+    <p>
+        Netflix emerged as an alternative to the traditional video rental
+        model associated with companies such as Blockbuster.
+    </p>
+
+    <p>
+        The broader lesson is that companies and software systems must be
+        capable of adapting to technological and market changes.
+    </p>
+</section>
+
+
+<section>
+    <h2>3. Software in Modern Infrastructure</h2>
+
+    <p>
+        A large portion of modern infrastructure is controlled or supported
+        by computer systems.
+    </p>
+
+    <h3>Smart Grids</h3>
+
+    <p>
+        Smart electrical grids incorporate communication and computing
+        systems into electrical infrastructure, including smart meters.
+    </p>
+
+    <p>
+        Some smart meters and related infrastructure use operating systems
+        based on Linux.
+    </p>
+
+    <h3>Infrastructure and Public Services</h3>
+
+    <p>
+        Many public services and infrastructure systems depend on
+        computer-based control systems.
+    </p>
+
+    <h3>Modern Electronic Products</h3>
+
+    <p>
+        Most modern electronic products contain some form of
+        <strong>embedded software</strong>.
+    </p>
+
+    <h3>Smart Vehicles</h3>
+
+    <p>
+        Modern vehicles can use sensors and communication systems to
+        monitor their environment, traffic conditions, and vehicle state.
+    </p>
+
+    <h3>Data Analysis Systems</h3>
+
+    <p>
+        Large volumes of data can be analyzed to create profiles and support
+        automated decision-making.
+    </p>
+</section>
+
+
+<section>
+    <h2>4. Software in Everyday Life</h2>
+
+    <h3>Amazon</h3>
+
+    <p>
+        Companies such as Amazon use software to automate many processes,
+        including logistics, recommendations, and customer interactions.
+    </p>
+
+    <h3>Alexa</h3>
+
+    <p>
+        Voice assistants such as Alexa rely on cloud-based services to
+        process requests and store information.
+    </p>
+
+    <h3>Home Assistant</h3>
+
+    <p>
+        <strong>Home Assistant</strong> is an open-source home automation
+        platform.
+    </p>
+
+    <ul>
+        <li>Open-source software</li>
+        <li>Can run on devices such as Raspberry Pi</li>
+        <li>Can operate locally</li>
+        <li>Can be configured to minimize external data sharing</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>5. Software Documentation</h2>
+
+    <p>
+        Modern software development often operates under short delivery
+        cycles. As a result, developers may be tempted to reduce the amount
+        of documentation they produce.
+    </p>
+
+    <p>
+        However, documentation remains important because software is rarely
+        static.
+    </p>
+
+    <p>Good documentation supports:</p>
+
+    <ul>
+        <li><strong>Maintenance</strong> — understanding existing code when making changes.</li>
+        <li><strong>Scalability</strong> — understanding how the system is structured.</li>
+        <li><strong>Teamwork</strong> — allowing multiple developers to understand the system.</li>
+        <li><strong>Evolution</strong> — making future modifications easier.</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>6. Software Development Process</h2>
+
+    <p>
+        Software engineering defines processes and activities that help
+        produce software systematically and with appropriate quality.
+    </p>
+
+    <h3>1. Requirements</h3>
+
+    <p>
+        Requirements describe what the system needs to provide.
+    </p>
+
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Meaning</th>
+        </tr>
+
+        <tr>
+            <td><strong>Functional requirements</strong></td>
+            <td>
+                Describe what the system must do.
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Non-functional requirements</strong></td>
+            <td>
+                Describe constraints and quality attributes such as
+                performance, security, availability, and usability.
+            </td>
+        </tr>
+    </table>
+
+
+    <h3>2. Design</h3>
+
+    <p>
+        The design is based on the requirements and determines how the
+        system will be structured and implemented.
+    </p>
+
+    <p>
+        <strong>UML (Unified Modeling Language)</strong> can be used to
+        represent software systems using standardized diagrams and notation.
+    </p>
+
+
+    <h3>3. Implementation</h3>
+
+    <p>
+        The software is developed by writing and integrating the source code.
+    </p>
+
+
+    <h3>4. Validation and Testing</h3>
+
+    <p>
+        The system is tested to determine whether it satisfies its
+        requirements and to identify errors or failures.
+    </p>
+
+
+    <h3>5. Evolution</h3>
+
+    <p>
+        Software must often be modified after deployment to respond to
+        changing requirements, technologies, environments, or user needs.
+    </p>
+
+    <div class="definition">
+        <strong>
+            Software development does not end when the first version is
+            released. Software must evolve throughout its useful lifetime.
+        </strong>
+    </div>
+</section>
+
+
+<section>
+    <h2>7. Software Projects</h2>
+
+    <p>
+        A software development activity can be considered a
+        <strong>project</strong> when it has clearly defined characteristics.
+    </p>
+
+    <ul>
+        <li><strong>Product:</strong> something that will be produced.</li>
+        <li><strong>Scope:</strong> a defined set of objectives and work.</li>
+        <li><strong>Time frame:</strong> a defined temporal period.</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>8. Product Life Cycle</h2>
+
+    <p>
+        Products commonly pass through several stages during their lifetime.
+    </p>
+
+    <div class="formula">
+        Introduction → Growth → Maturity → Decline
+    </div>
+
+    <h3>Introduction</h3>
+    <p>
+        The product is conceived, developed, and introduced to the market.
+    </p>
+
+    <h3>Growth</h3>
+    <p>
+        Adoption and demand increase.
+    </p>
+
+    <h3>Maturity</h3>
+    <p>
+        The product reaches a relatively stable stage of market adoption.
+    </p>
+
+    <h3>Decline</h3>
+    <p>
+        Demand decreases as technology, competitors, or customer preferences
+        change.
+    </p>
+
+    <div class="definition">
+        <strong>
+            Adaptation to technological and market changes can delay or
+            prevent decline.
+        </strong>
+    </div>
+</section>
+
+
+<section>
+    <h2>9. Types of Software Products</h2>
+
+    <h3>Generic Products</h3>
+
+    <p>
+        Generic software products are developed by a company for a broad
+        market rather than for one specific customer.
+    </p>
+
+    <ul>
+        <li>Developed by a software company</li>
+        <li>Sold to the general public</li>
+        <li>Usually operate as stand-alone products or services</li>
+        <li>Examples include many mobile applications</li>
+    </ul>
+
+    <p>
+        In this case, the software developer or company generally controls
+        the product requirements.
+    </p>
+
+
+    <h3>Customized Products</h3>
+
+    <p>
+        Customized software is developed for a specific client or
+        organization.
+    </p>
+
+    <ul>
+        <li>Developed for a specific customer</li>
+        <li>Requirements are defined according to the customer's needs</li>
+        <li>The customer has significant influence over requested changes</li>
+    </ul>
+
+    <div class="definition">
+        <strong>Main difference:</strong>
+        who controls the requirements.
+        <br><br>
+        Generic product → the software company controls the requirements.<br>
+        Customized product → the client has primary control over the requirements.
+    </div>
+</section>
+
+
+<section>
+    <h2>10. Open-Source Software Licenses</h2>
+
+    <p>
+        When using open-source software, it is important to examine the
+        license associated with the code.
+    </p>
+
+    <p>
+        Open-source does <strong>not</strong> mean that all software has
+        identical usage conditions.
+    </p>
+
+    <p>
+        Depending on the license, different obligations may apply.
+    </p>
+
+    <ul>
+        <li>
+            Some licenses require derivative software to also be released
+            under open-source conditions.
+        </li>
+
+        <li>
+            Other licenses allow the code to be incorporated into proprietary
+            software.
+        </li>
+
+        <li>
+            Some licenses require attribution to the original author.
+        </li>
+    </ul>
+
+    <div class="warning">
+        <strong>
+            Always review the license before incorporating open-source code
+            into a project.
+        </strong>
+    </div>
+</section>
+
+
+<section>
+    <h2>11. Software Quality Attributes</h2>
+
+    <p>
+        Software engineering is not only concerned with whether a program
+        works. It also considers important quality attributes that determine
+        how well the software behaves and how easy it is to maintain.
+    </p>
+</section>
+
+
+<section>
+    <h2>12. Maintainability</h2>
+
+    <div class="definition">
+        <strong>
+            Maintainability means that software should be written in a way
+            that makes modifications and changes as easy as possible.
+        </strong>
+    </div>
+
+    <p>
+        Software cannot realistically be expected to remain unchanged for
+        its entire useful lifetime.
+    </p>
+
+    <p>
+        Requirements, technologies, security threats, hardware, and user
+        expectations change over time.
+    </p>
+
+    <p>
+        Therefore, software should be designed so that developers can
+        efficiently:
+    </p>
+
+    <ul>
+        <li>Fix bugs</li>
+        <li>Add features</li>
+        <li>Modify existing behavior</li>
+        <li>Adapt to new technologies</li>
+        <li>Improve performance</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>13. Dependability and Security</h2>
+
+    <p>
+        Dependability refers to the degree to which users can trust a
+        software system to provide its expected service.
+    </p>
+
+    <h3>Availability</h3>
+
+    <p>
+        The system should be available when it is needed.
+    </p>
+
+    <div class="definition">
+        <strong>Availability:</strong>
+        Is the system accessible and operational when required?
+    </div>
+
+
+    <h3>Reliability</h3>
+
+    <p>
+        The system should perform its required functions correctly and
+        consistently.
+    </p>
+
+    <div class="definition">
+        <strong>Reliability:</strong>
+        Does the system produce correct results and behave consistently?
+    </div>
+
+
+    <h3>Security and Safety</h3>
+
+    <p>
+        The system should protect its data and functionality from malicious
+        users and prevent dangerous failures where applicable.
+    </p>
+
+    <ul>
+        <li>Prevent unauthorized access</li>
+        <li>Protect data</li>
+        <li>Prevent malicious modification</li>
+        <li>Reduce the consequences of failures</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>14. TCP and UDP — Reliability Example</h2>
+
+    <p>
+        TCP and UDP are transport-layer protocols used to transmit data
+        over networks, but they provide different guarantees.
+    </p>
+
+    <table>
+        <tr>
+            <th>TCP</th>
+            <th>UDP</th>
+        </tr>
+
+        <tr>
+            <td>
+                Provides reliable, ordered delivery.
+            </td>
+
+            <td>
+                Does not guarantee reliable or ordered delivery.
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Can retransmit lost data.
+            </td>
+
+            <td>
+                Does not perform TCP-style retransmission automatically.
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                More overhead.
+            </td>
+
+            <td>
+                Lower overhead and often lower latency.
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        The choice between them depends on the requirements of the
+        application.
+    </p>
+</section>
+
+
+<section>
+    <h2>15. Efficiency</h2>
+
+    <div class="definition">
+        <strong>
+            Efficient software should avoid wasteful use of system resources.
+        </strong>
+    </div>
+
+    <p>
+        Efficiency can involve several resources, including:
+    </p>
+
+    <ul>
+        <li>Execution time</li>
+        <li>CPU usage</li>
+        <li>RAM usage</li>
+        <li>Storage</li>
+        <li>Network bandwidth</li>
+        <li>Energy consumption</li>
+    </ul>
+
+    <h3>Example: AI Models</h3>
+
+    <p>
+        For an AI system, efficiency could be measured using metrics such
+        as:
+    </p>
+
+    <ul>
+        <li>Prediction or inference time</li>
+        <li>Memory consumption</li>
+        <li>CPU/GPU utilization</li>
+        <li>Energy consumption</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>16. Acceptability</h2>
+
+    <div class="definition">
+        <strong>
+            Software must be acceptable to the type of users for whom it
+            was designed.
+        </strong>
+    </div>
+
+    <p>
+        Acceptability includes more than simply making the software
+        functional. The system should fit the users' needs, expectations,
+        environment, and capabilities.
+    </p>
+
+    <p>
+        Factors can include:
+    </p>
+
+    <ul>
+        <li>Usability</li>
+        <li>Interface design</li>
+        <li>Compatibility with existing systems</li>
+        <li>Performance</li>
+        <li>Cost</li>
+        <li>User expectations</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>17. Example: ATMs</h2>
+
+    <p>
+        Automated Teller Machines (ATMs) are a useful example of software
+        that may remain in use for many years.
+    </p>
+
+    <p>
+        A major reason why such systems are not modernized as frequently as
+        consumer applications is the <strong>cost and complexity of
+        modernization</strong>.
+    </p>
+
+    <p>
+        Updating the system may require changes to:
+    </p>
+
+    <ul>
+        <li>Software</li>
+        <li>Hardware</li>
+        <li>Security infrastructure</li>
+        <li>Banking systems</li>
+        <li>Testing and certification</li>
+        <li>Physical equipment</li>
+    </ul>
+
+    <div class="definition">
+        <strong>
+            This illustrates why maintainability and software evolution are
+            essential: software often has to coexist with hardware and other
+            systems for many years.
+        </strong>
+    </div>
+</section>
+
+
+<section>
+    <h2>18. Summary of Software Quality Attributes</h2>
+
+    <table>
+        <tr>
+            <th>Attribute</th>
+            <th>Question</th>
+        </tr>
+
+        <tr>
+            <td><strong>Maintainability</strong></td>
+            <td>
+                How easily can the software be modified and evolved?
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Availability</strong></td>
+            <td>
+                Is the system available when users need it?
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Reliability</strong></td>
+            <td>
+                Does the system consistently produce correct results?
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Security</strong></td>
+            <td>
+                Is the system protected against unauthorized or malicious
+                access?
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Safety</strong></td>
+            <td>
+                Does the system avoid causing unacceptable harm when failures
+                occur?
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Efficiency</strong></td>
+            <td>
+                Does the system use computational resources efficiently?
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Acceptability</strong></td>
+            <td>
+                Is the system appropriate and usable for its intended users?
+            </td>
+        </tr>
+    </table>
+</section>
+
+
+<section>
+    <h2>19. Main Ideas to Remember</h2>
+
+    <ul>
+        <li>
+            Software includes both the program and its relevant
+            documentation.
+        </li>
+
+        <li>
+            Software engineering covers the processes, methods, tools,
+            management, and quality aspects involved in software production.
+        </li>
+
+        <li>
+            Software must be designed with its future evolution in mind.
+        </li>
+
+        <li>
+            Requirements define what the system should provide, while
+            non-functional requirements describe constraints and quality
+            characteristics.
+        </li>
+
+        <li>
+            Software development involves requirements, design,
+            implementation, validation/testing, and evolution.
+        </li>
+
+        <li>
+            Generic and customized products differ mainly in who controls
+            the requirements.
+        </li>
+
+        <li>
+            Open-source software still has licensing requirements.
+        </li>
+
+        <li>
+            Good software is not simply functional; it should also be
+            maintainable, dependable, secure, efficient, and acceptable
+            to its users.
+        </li>
+    </ul>
+
+</section>
+
+</body>
+</html>

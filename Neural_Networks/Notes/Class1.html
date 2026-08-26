@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>From Neurons to Deep Learning — Class 01</title>
+<style>
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .definition {
+            background: #f0f0f0;
+            border-left: 4px solid #555;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .important {
+            font-weight: bold;
+        }
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            font-size: 1.2em;
+        }
+        .timeline {
+            border-left: 3px solid #777;
+            padding-left: 20px;
+        }
+
+        .timeline-item {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+<h1>From Neurons to Deep Learning — Class 01</h1>
+<p>Html fundamentals </p>
+</header>
+<main><a href="..\index.html">← Back to Neural Networks</a>
+
+
+<h1>From Neurons to Deep Learning</h1>
+<p class="subtitle">
+    Neural Networks — Class 01 · February 2, 2026
+</p>
+
+
+<section>
+    <h2>1. The Beginning of Machine Learning</h2>
+
+    <p>
+        Machine Learning (ML) allows computers to solve tasks by learning
+        patterns and rules from data instead of having every rule explicitly
+        programmed by a human.
+    </p>
+
+    <p>
+        In this course we will study applications such as:
+    </p>
+
+    <ul>
+        <li>Natural Language Processing (NLP)</li>
+        <li>Computer Vision</li>
+        <li>Deep Learning</li>
+        <li>Neural Networks</li>
+    </ul>
+
+    <h3>Why Machine Learning?</h3>
+
+    <p>
+        Some tasks are extremely simple for humans but difficult to describe
+        using explicit rules for a computer.
+    </p>
+
+    <p>
+        Conversely, computers can perform some tasks that are difficult for
+        humans, such as processing very large quantities of data or performing
+        repetitive calculations.
+    </p>
+
+    <h3>Example: Chess</h3>
+
+    <p>
+        Chess is easy to understand at a conceptual level for humans, but
+        describing every possible situation and strategy using manually
+        programmed rules is extremely difficult.
+    </p>
+
+    <p>
+        Machine learning can instead learn useful patterns from
+        <strong>historical experience</strong>.
+    </p>
+</section>
+
+
+<section>
+    <h2>2. What Is Machine Learning?</h2>
+
+    <p>
+        Machine learning algorithms use historical information and examples
+        to learn a model capable of making predictions or decisions.
+    </p>
+
+    <div class="formula">
+        Training Data → Machine Learning Algorithm → Learned Model
+    </div>
+
+    <p>
+        The objective is to find a model that maps the input data to the
+        corresponding output:
+    </p>
+
+    <div class="formula">
+        f(X) → Y
+    </div>
+
+    <div class="definition">
+        <strong>Core idea:</strong>
+        Instead of explicitly programming every rule, we provide examples
+        from which the algorithm learns the relationship between inputs
+        and outputs.
+    </div>
+</section>
+
+
+<section>
+    <h2>3. Classification Problems</h2>
+
+    <p>
+        One important type of machine learning problem is
+        <strong>classification</strong>.
+    </p>
+
+    <p>
+        In a classification problem, the model assigns an input to one of
+        several predefined classes.
+    </p>
+
+    <h3>Multiclass Classification</h3>
+
+    <p>
+        A multiclass classification problem contains more than two possible
+        classes.
+    </p>
+
+    <p>
+        For example, the Iris dataset contains three species of iris:
+    </p>
+
+    <ul>
+        <li>Iris setosa</li>
+        <li>Iris versicolor</li>
+        <li>Iris virginica</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>4. The Iris Dataset Problem</h2>
+
+    <p>
+        The Iris dataset traditionally contains measurements such as:
+    </p>
+
+    <ul>
+        <li>Sepal length</li>
+        <li>Sepal width</li>
+        <li>Petal length</li>
+        <li>Petal width</li>
+    </ul>
+
+    <p>
+        There are several limitations to consider.
+    </p>
+
+    <h3>Human Measurement Error</h3>
+
+    <p>
+        Measurements may contain errors because they were originally collected
+        by humans.
+    </p>
+
+    <h3>Deployment Problem</h3>
+
+    <p>
+        After deploying a model, measuring the petal and sepal manually is
+        not necessarily practical.
+    </p>
+
+    <h3>Using Images Instead</h3>
+
+    <p>
+        Instead of manually measuring the flower, we could take a photograph
+        and use the image pixels as the input features.
+    </p>
+
+    <div class="definition">
+        The input representation changes from manually engineered
+        measurements to raw image data.
+    </div>
+</section>
+
+
+<section>
+    <h2>5. Example: Recognizing a Vehicle</h2>
+
+    <p>
+        Suppose we want to formulate rules for recognizing whether an image
+        contains a vehicle.
+    </p>
+
+    <p>
+        A traditional approach might require manually defining features such
+        as:
+    </p>
+
+    <ul>
+        <li>Number of wheels</li>
+        <li>Shape of the body</li>
+        <li>Presence of windows</li>
+        <li>Presence of mirrors</li>
+        <li>Other visual characteristics</li>
+    </ul>
+
+    <p>
+        This creates a problem: defining reliable characteristics manually
+        becomes increasingly difficult as the complexity of the task
+        increases.
+    </p>
+
+    <p>
+        For example, vehicles can have very different shapes, sizes,
+        viewpoints, lighting conditions, and mirror configurations.
+    </p>
+</section>
+
+
+<section>
+    <h2>6. End-to-End Learning</h2>
+
+    <p>
+        <strong>End-to-end learning</strong> is the approach followed in
+        this Deep Learning course.
+    </p>
+
+    <p>
+        Traditional machine learning commonly contains a separate
+        <strong>feature extraction</strong> stage:
+    </p>
+
+    <div class="formula">
+        Raw Data → Feature Extraction → ML Model → Prediction
+    </div>
+
+    <p>
+        In an end-to-end deep learning approach, the neural network can learn
+        useful representations directly from the original data:
+    </p>
+
+    <div class="formula">
+        Raw Data → Neural Network → Prediction
+    </div>
+
+    <div class="definition">
+        <strong>
+            The model learns both useful features and the mapping from those
+            features to the final output.
+        </strong>
+    </div>
+</section>
+
+
+<section>
+    <h2>7. Train/Test Split</h2>
+
+    <p>
+        A dataset is commonly divided into separate subsets for training
+        and evaluation.
+    </p>
+
+    <table>
+        <tr>
+            <th>Dataset</th>
+            <th>Purpose</th>
+        </tr>
+
+        <tr>
+            <td><strong>Training set</strong></td>
+            <td>
+                Used to learn the parameters of the model.
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Test set</strong></td>
+            <td>
+                Used to evaluate how well the trained model generalizes
+                to unseen data.
+            </td>
+        </tr>
+    </table>
+
+    <h3>Exploratory Data Analysis</h3>
+
+    <p>
+        Before training a model, we perform
+        <strong>Exploratory Data Analysis (EDA)</strong> to understand the
+        dataset, identify patterns, detect errors, and inspect the
+        characteristics of the data.
+    </p>
+</section>
+
+
+<section>
+    <h2>8. Images and Neural Networks</h2>
+
+    <h3>Image Channels</h3>
+
+    <p>
+        When training a Convolutional Neural Network (CNN), the number of
+        channels in the input image must be considered.
+    </p>
+
+    <table>
+        <tr>
+            <th>Image Type</th>
+            <th>Number of Channels</th>
+        </tr>
+
+        <tr>
+            <td>Grayscale</td>
+            <td>1</td>
+        </tr>
+
+        <tr>
+            <td>RGB / Color</td>
+            <td>3</td>
+        </tr>
+    </table>
+
+    <p>
+        A grayscale image contains one intensity value per pixel.
+        An RGB image contains three channels:
+    </p>
+
+    <ul>
+        <li>Red</li>
+        <li>Green</li>
+        <li>Blue</li>
+    </ul>
+
+    <h3>Image Size</h3>
+
+    <p>
+        Many machine learning models expect their input data to have a
+        consistent dimensionality.
+    </p>
+
+    <p>
+        Therefore, if images have different sizes, they may need to be
+        resized or otherwise transformed before being provided to the model.
+    </p>
+</section>
+
+
+<section>
+    <h2>9. Epochs</h2>
+
+    <p>
+        An <strong>epoch</strong> is one complete pass through the training
+        dataset during the training process.
+    </p>
+
+    <div class="definition">
+        <strong>
+            Epoch = how many times the model passes through the complete
+            training dataset.
+        </strong>
+    </div>
+
+    <p>
+        More epochs do not automatically mean a better model. Training for
+        too many epochs can lead to <strong>overfitting</strong>.
+    </p>
+</section>
+
+
+<section>
+    <h2>10. Deep Learning and Dataset Size</h2>
+
+    <p>
+        The amount of available data affects which models are appropriate.
+    </p>
+
+    <ul>
+        <li>
+            Traditional ML models and small neural networks can perform well
+            with relatively small datasets.
+        </li>
+
+        <li>
+            With massive datasets, larger neural networks can often achieve
+            better performance.
+        </li>
+
+        <li>
+            Larger models require more computational resources and generally
+            take longer to train.
+        </li>
+    </ul>
+
+    <div class="definition">
+        <strong>
+            More data can make larger neural networks useful, but the
+            computational cost also increases.
+        </strong>
+    </div>
+</section>
+
+
+<section>
+    <h2>11. The First Artificial Neuron</h2>
+
+    <h3>McCulloch-Pitts Neuron</h3>
+
+    <p>
+        The first important mathematical model of an artificial neuron was
+        proposed by <strong>Warren McCulloch and Walter Pitts in 1943</strong>.
+    </p>
+
+    <p>
+        Their model was inspired by biological neurons and attempted to
+        represent how neurons could process information.
+    </p>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <strong>1943:</strong>
+            McCulloch and Pitts propose a mathematical model of a neuron.
+        </div>
+
+        <div class="timeline-item">
+            <strong>1960s:</strong>
+            Interest in neural networks declined due to limitations in the
+            available models and computational resources.
+        </div>
+
+        <div class="timeline-item">
+            <strong>2012:</strong>
+            Geoffrey Hinton and his collaborators achieved a major breakthrough
+            in the ImageNet competition using deep convolutional neural
+            networks.
+        </div>
+
+    </div>
+</section>
+
+
+<section>
+    <h2>12. Biological vs. Artificial Neurons</h2>
+
+    <p>
+        Biological neurons communicate using electrical and chemical signals,
+        transmitting information through connections called
+        <strong>synapses</strong>.
+    </p>
+
+    <p>
+        Artificial neural networks are inspired by this general idea, but
+        they are mathematical models.
+    </p>
+
+    <div class="definition">
+        <strong>
+            Artificial neural networks are inspired by biological neurons,
+            but they should not be interpreted as exact simulations of how
+            biological brains work.
+        </strong>
+    </div>
+
+    <h3>Forward Propagation</h3>
+
+    <p>
+        The process of passing information from the input layer through the
+        network toward the output is called
+        <strong>forward propagation</strong> or
+        <strong>forward pass</strong>.
+    </p>
+
+    <div class="formula">
+        Input → Hidden Layers → Output
+    </div>
+</section>
+
+
+<section>
+    <h2>13. McCulloch-Pitts Artificial Neuron</h2>
+
+    <p>
+        The original McCulloch-Pitts neuron receives binary inputs and
+        produces a binary output.
+    </p>
+
+    <p>
+        The inputs can be interpreted as:
+    </p>
+
+    <ul>
+        <li><strong>Excitatory inputs:</strong> contribute toward activating the neuron.</li>
+        <li><strong>Inhibitory inputs:</strong> prevent or suppress activation.</li>
+    </ul>
+
+    <h3>Basic Components</h3>
+
+    <p>
+        An artificial neuron can be understood as having two fundamental
+        operations:
+    </p>
+
+    <ol>
+        <li>Aggregation of the inputs</li>
+        <li>Activation based on the aggregated value</li>
+    </ol>
+</section>
+
+
+<section>
+    <h2>14. Aggregation Function</h2>
+
+    <p>
+        The aggregation function combines the input values.
+    </p>
+
+    <p>
+        In a simple neuron, this can be represented as a sum:
+    </p>
+
+    <div class="formula">
+        Σ x<sub>i</sub>
+    </div>
+
+    <p>
+        In modern neural networks, the inputs are normally multiplied by
+        weights before being summed:
+    </p>
+
+    <div class="formula">
+        z = Σ w<sub>i</sub>x<sub>i</sub> + b
+    </div>
+
+    <p>
+        where:
+    </p>
+
+    <ul>
+        <li><strong>x<sub>i</sub></strong> = input</li>
+        <li><strong>w<sub>i</sub></strong> = weight associated with the input</li>
+        <li><strong>b</strong> = bias</li>
+        <li><strong>z</strong> = aggregated value</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>15. Activation Function</h2>
+
+    <p>
+        The activation function determines the output of the neuron based
+        on the aggregated input.
+    </p>
+
+    <div class="formula">
+        y = f(z)
+    </div>
+
+    <p>
+        In the original McCulloch-Pitts model, the output was binary.
+        The neuron could therefore behave approximately as an on/off unit.
+    </p>
+
+    <p>
+        Modern neural networks use many different activation functions,
+        such as:
+    </p>
+
+    <ul>
+        <li>Sigmoid</li>
+        <li>ReLU</li>
+        <li>Tanh</li>
+        <li>Softmax</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2>16. Limitations of the McCulloch-Pitts Neuron</h2>
+
+    <p>
+        The original model had important limitations:
+    </p>
+
+    <ul>
+        <li>The inputs were binary.</li>
+        <li>The output was binary.</li>
+        <li>The model did not learn its parameters.</li>
+        <li>The inputs effectively had fixed importance rather than
+            learnable weights.</li>
+    </ul>
+
+    <p>
+        These limitations motivated the development of more flexible
+        artificial neurons.
+    </p>
+
+    <h3>The Perceptron</h3>
+
+    <p>
+        The <strong>perceptron</strong> introduced the idea of
+        <strong>learnable weights</strong>, allowing the model to learn how
+        important each input is.
+    </p>
+
+    <div class="formula">
+        z = w<sub>1</sub>x<sub>1</sub> +
+            w<sub>2</sub>x<sub>2</sub> + ... +
+            w<sub>n</sub>x<sub>n</sub> + b
+    </div>
+
+    <div class="definition">
+        <strong>
+            McCulloch-Pitts neuron → fixed binary logic.<br>
+            Perceptron → learnable weights.
+        </strong>
+    </div>
+</section>
+
+
+<section>
+    <h2>17. Key Concepts from Class 01</h2>
+
+    <table>
+        <tr>
+            <th>Concept</th>
+            <th>Main Idea</th>
+        </tr>
+
+        <tr>
+            <td>Machine Learning</td>
+            <td>
+                Learns patterns from historical data instead of relying
+                entirely on manually programmed rules.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Deep Learning</td>
+            <td>
+                Uses neural networks with multiple layers to learn
+                representations from data.
+            </td>
+        </tr>
+
+        <tr>
+            <td>End-to-End Learning</td>
+            <td>
+                Learns the mapping from raw input to output without requiring
+                a separate manually designed feature-extraction stage.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Epoch</td>
+            <td>
+                One complete pass through the training dataset.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Channel</td>
+            <td>
+                A separate component of image data; grayscale normally has
+                1 channel and RGB has 3.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Forward Propagation</td>
+            <td>
+                Passing information from input toward the output through
+                the neural network.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Aggregation</td>
+            <td>
+                Combines inputs, typically using a weighted sum.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Activation Function</td>
+            <td>
+                Transforms the aggregated value into the neuron's output.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Perceptron</td>
+            <td>
+                An artificial neuron with learnable weights.
+            </td>
+        </tr>
+    </table>
+</section>
+
+</body>
+</html>

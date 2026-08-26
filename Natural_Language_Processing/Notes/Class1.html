@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>NLP — Teaching Machines to Read: Text Normalization & Representation</title>
+<style>
+        .definition {
+            background: #f0f0f0;
+            border-left: 4px solid #555;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: #fff4d6;
+            border-left: 4px solid #c28b00;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .comparison {
+            background: #eef3f8;
+            border-left: 4px solid #477;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .example {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+
+        code {
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+
+        .pipeline {
+            background: #f0f0f0;
+            padding: 18px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+<h1>NLP — Teaching Machines to Read: Text Normalization & Representation</h1>
+</header>
+<main><a href="..\index.html">← Back to NLP</a>
+
+<section>
+    <h2>1. Text Normalization</h2>
+
+    <div class="definition">
+        <strong>Text normalization</strong> is the process of transforming
+        text into a consistent and standardized format before further
+        processing in an NLP system.
+    </div>
+
+    <p>The main goals are to:</p>
+
+    <ul>
+        <li>Reduce noise in the data</li>
+        <li>Reduce unnecessary variation</li>
+        <li>Make text easier to process</li>
+        <li>Preserve meaningful information</li>
+    </ul>
+
+    <div class="pipeline">
+        Raw Text → Normalization → Processed Text → NLP Model
+    </div>
+
+    <p>
+        Normalization is not simply about removing as much information as
+        possible. The appropriate preprocessing depends on the NLP task.
+    </p>
+</section>
+
+
+<section>
+    <h2>2. Lowercasing</h2>
+
+    <p>
+        Lowercasing converts all characters in the text to lowercase.
+    </p>
+
+    <div class="example">
+        <strong>Example:</strong><br><br>
+        <code>Hello World</code>
+        →
+        <code>hello world</code>
+    </div>
+
+    <h3>Why use it?</h3>
+
+    <p>
+        It reduces the number of different representations of the same word.
+    </p>
+
+    <div class="example">
+        <code>Computer</code>,
+        <code>computer</code>,
+        <code>COMPUTER</code>
+    </div>
+
+    <p>
+        Without lowercasing, a simple model may treat these as different
+        tokens.
+    </p>
+
+    <h3>Potential Problem</h3>
+
+    <p>
+        Capitalization can sometimes carry useful information.
+    </p>
+
+    <div class="example">
+        <code>I am happy</code><br>
+        <code>I AM HAPPY</code>
+    </div>
+
+    <p>
+        The second sentence may communicate stronger emotional emphasis.
+    </p>
+
+    <div class="warning">
+        <strong>Important:</strong>
+        Lowercasing should be applied according to the NLP task. It is not
+        always appropriate to remove capitalization.
+    </div>
+</section>
+
+
+<section>
+    <h2>3. Removing Punctuation</h2>
+
+    <p>
+        Punctuation removal eliminates characters such as:
+    </p>
+
+    <ul>
+        <li>Quotation marks</li>
+        <li>Commas</li>
+        <li>Periods</li>
+        <li>Special symbols</li>
+        <li>Other punctuation marks</li>
+    </ul>
+
+    <div class="example">
+        <strong>Example:</strong><br><br>
+
+        <code>Hello, world!</code>
+        →
+        <code>Hello world</code>
+    </div>
+
+    <h3>Why remove punctuation?</h3>
+
+    <ul>
+        <li>Reduce noise</li>
+        <li>Simplify the vocabulary</li>
+        <li>Reduce the number of tokens</li>
+    </ul>
+
+    <h3>Potential Problem</h3>
+
+    <p>
+        Punctuation can contain meaningful information depending on the task.
+    </p>
+
+    <p>
+        For example, sentiment analysis may benefit from recognizing
+        punctuation such as:
+    </p>
+
+    <div class="example">
+        <code>This is great!</code><br>
+        <code>This is great!!!</code>
+    </div>
+
+    <p>
+        The number of exclamation marks can communicate emphasis or emotion.
+    </p>
+</section>
+
+
+<section>
+    <h2>4. Stemming</h2>
+
+    <div class="definition">
+        <strong>Stemming</strong> reduces words to a root-like form by
+        removing prefixes or suffixes according to simple linguistic rules.
+    </div>
+
+    <div class="example">
+        <strong>Examples:</strong><br><br>
+
+        <code>running</code> → <code>run</code><br>
+        <code>studies</code> → <code>studi</code>
+    </div>
+
+    <p>
+        Stemming generally does not consider the complete grammatical
+        context or the part of speech of the word.
+    </p>
+
+    <h3>Advantage</h3>
+
+    <p>
+        It can reduce different word forms to a common representation,
+        reducing vocabulary size.
+    </p>
+
+    <h3>Disadvantage</h3>
+
+    <p>
+        The resulting form may not be a valid English word.
+    </p>
+
+    <div class="warning">
+        <strong>Example:</strong>
+        <code>studies</code> → <code>studi</code>
+        <br><br>
+        <code>studi</code> is not a normal English word.
+    </div>
+</section>
+
+
+<section>
+    <h2>5. Lemmatization</h2>
+
+    <div class="definition">
+        <strong>Lemmatization</strong> reduces a word to its base dictionary
+        form, called its <strong>lemma</strong>, while considering linguistic
+        information such as part of speech and context.
+    </div>
+
+    <div class="example">
+        <strong>Examples:</strong><br><br>
+
+        <code>running</code> → <code>run</code><br>
+        <code>studies</code> → <code>study</code><br>
+        <code>better</code> → <code>good</code>
+    </div>
+
+    <p>
+        Unlike simple stemming, lemmatization attempts to produce a valid
+        dictionary word.
+    </p>
+
+    <h3>Applications</h3>
+
+    <ul>
+        <li>Text classification</li>
+        <li>Sentiment analysis</li>
+        <li>Information retrieval</li>
+        <li>Search systems</li>
+    </ul>
+
+    <div class="comparison">
+        <h3>Stemming vs. Lemmatization</h3>
+
+        <table>
+            <tr>
+                <th>Stemming</th>
+                <th>Lemmatization</th>
+            </tr>
+
+            <tr>
+                <td>Usually uses simpler rules.</td>
+                <td>Uses linguistic information.</td>
+            </tr>
+
+            <tr>
+                <td>May produce incomplete words.</td>
+                <td>Attempts to produce valid dictionary words.</td>
+            </tr>
+
+            <tr>
+                <td>Usually faster.</td>
+                <td>Usually more computationally expensive.</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <code>studies → studi</code>
+                </td>
+                <td>
+                    <code>studies → study</code>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+
+<section>
+    <h2>6. Stopwords</h2>
+
+    <div class="definition">
+        <strong>Stopwords</strong> are very common words that are often
+        considered to contribute relatively little information for certain
+        NLP tasks.
+    </div>
+
+    <p>Examples include:</p>
+
+    <ul>
+        <li><code>the</code></li>
+        <li><code>is</code></li>
+        <li><code>and</code></li>
+        <li><code>of</code></li>
+    </ul>
+
+    <h3>Why Remove Stopwords?</h3>
+
+    <ul>
+        <li>Improve processing efficiency</li>
+        <li>Reduce vocabulary size</li>
+        <li>Reduce dimensionality</li>
+        <li>Focus on potentially more informative terms</li>
+    </ul>
+
+    <h3>Important Limitation</h3>
+
+    <p>
+        Stopwords are not universally useless. Removing them can change the
+        meaning of a sentence.
+    </p>
+
+    <div class="example">
+        <code>I do not like this movie.</code>
+    </div>
+
+    <p>
+        Removing <code>not</code> could completely change the sentiment.
+    </p>
+
+    <div class="warning">
+        Stopword removal should therefore depend on the specific NLP task.
+    </div>
+</section>
+
+
+<section>
+    <h2>7. Text Tokenization</h2>
+
+    <div class="definition">
+        <strong>Tokenization</strong> is the process of splitting text into
+        smaller units called <strong>tokens</strong>.
+    </div>
+
+    <p>
+        Tokens can represent words, sentences, or other units depending on
+        the tokenizer.
+    </p>
+
+    <h3>Word Tokenization</h3>
+
+    <p>
+        Splits a text into individual words or word-like units.
+    </p>
+
+    <div class="example">
+        <code>
+            "Machine learning is useful."
+        </code>
+
+        <br><br>
+
+        →
+        <code>
+            ["Machine", "learning", "is", "useful", "."]
+        </code>
+    </div>
+
+    <h3>Sentence Tokenization</h3>
+
+    <p>
+        Splits a document into individual sentences.
+    </p>
+
+    <div class="example">
+        <code>
+            "NLP is interesting. It is widely used."
+        </code>
+
+        <br><br>
+
+        →
+        <code>
+            ["NLP is interesting.", "It is widely used."]
+        </code>
+    </div>
+</section>
+
+
+<section>
+    <h2>8. Tokenization with NLTK</h2>
+
+    <p>
+        <strong>NLTK (Natural Language Toolkit)</strong> is a Python library
+        containing tools for natural language processing.
+    </p>
+
+    <p>
+        Two useful functions for tokenization are:
+    </p>
+
+    <ul>
+        <li><code>word_tokenize()</code></li>
+        <li><code>sent_tokenize()</code></li>
+    </ul>
+
+    <pre>
+from nltk.tokenize import word_tokenize, sent_tokenize
+
+text = "NLP is interesting. It is widely used."
+
+sentences = sent_tokenize(text)
+words = word_tokenize(text)
+
+print(sentences)
+print(words)
+    </pre>
+
+    <p>
+        Tokenization is commonly performed before other preprocessing and
+        text representation techniques.
+    </p>
+</section>
+
+
+<section>
+    <h2>9. Text Vectorization</h2>
+
+    <div class="definition">
+        <strong>Text vectorization</strong> transforms textual information
+        into numerical representations that machine learning algorithms can
+        process.
+    </div>
+
+    <p>
+        Machine learning models generally operate on numerical data rather
+        than raw text.
+    </p>
+
+    <div class="pipeline">
+        Text → Tokens → Numerical Representation → ML Model
+    </div>
+
+    <p>
+        The choice of representation affects what information the model can
+        use.
+    </p>
+</section>
+
+
+<section>
+    <h2>10. Bag of Words (BoW)</h2>
+
+    <div class="definition">
+        <strong>Bag of Words</strong> represents text according to the
+        occurrence or frequency of words in a document.
+    </div>
+
+    <p>
+        The basic idea is to construct a vocabulary and represent each
+        document using the number of occurrences of each vocabulary word.
+    </p>
+
+    <h3>Important Characteristic</h3>
+
+    <p>
+        BoW <strong>ignores word order</strong>.
+    </p>
+
+    <div class="example">
+        <code>
+            "dog bites man"
+        </code>
+
+        and
+
+        <code>
+            "man bites dog"
+        </code>
+
+        can receive the same basic Bag-of-Words representation.
+    </div>
+
+    <h3>Advantages</h3>
+
+    <ul>
+        <li>Simple</li>
+        <li>Easy to implement</li>
+        <li>Useful for basic classification tasks</li>
+    </ul>
+
+    <h3>Limitation</h3>
+
+    <p>
+        Because word order is ignored, important relationships between words
+        can be lost.
+    </p>
+</section>
+
+
+<section>
+    <h2>11. TF-IDF</h2>
+
+    <div class="definition">
+        <strong>TF-IDF (Term Frequency–Inverse Document Frequency)</strong>
+        measures how important a word is to a document relative to a
+        collection of documents, called a corpus.
+    </div>
+
+    <h3>Term Frequency — TF</h3>
+
+    <p>
+        Measures how frequently a term occurs in a particular document.
+    </p>
+
+    <h3>Inverse Document Frequency — IDF</h3>
+
+    <p>
+        Reduces the importance of terms that appear in many documents and
+        increases the relative importance of terms that are more specific.
+    </p>
+
+    <div class="formula">
+        TF-IDF = TF × IDF
+    </div>
+
+    <h3>Main Idea</h3>
+
+    <p>
+        A word that appears frequently in one document but rarely across the
+        entire corpus can be considered particularly informative for that
+        document.
+    </p>
+
+    <div class="comparison">
+        <strong>BoW:</strong> focuses mainly on word frequency.
+        <br><br>
+        <strong>TF-IDF:</strong> considers both word frequency and how common
+        the word is across the corpus.
+    </div>
+</section>
+
+
+<section>
+    <h2>12. Encoding</h2>
+
+    <div class="definition">
+        <strong>Encoding</strong> transforms tokens or text representations
+        into numerical values that can be processed by computational models.
+    </div>
+
+    <h3>One-Hot Encoding</h3>
+
+    <p>
+        Represents each token using a binary vector where one position
+        identifies the token.
+    </p>
+
+    <h3>Word Embeddings</h3>
+
+    <p>
+        Represent words using dense numerical vectors that can capture
+        relationships between words.
+    </p>
+
+    <h3>Contextual Embeddings</h3>
+
+    <p>
+        Represent words according to their context. Modern transformer-based
+        models use contextual representations to capture how the meaning
+        of a word changes depending on the surrounding text.
+    </p>
+
+    <table>
+        <tr>
+            <th>Technique</th>
+            <th>Main Idea</th>
+        </tr>
+
+        <tr>
+            <td>One-hot encoding</td>
+            <td>
+                Binary representation identifying a token.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Word embeddings</td>
+            <td>
+                Dense numerical representation of words.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Contextual embeddings</td>
+            <td>
+                Representation depends on the surrounding context.
+            </td>
+        </tr>
+    </table>
+</section>
+
+
+<section>
+    <h2>13. Typical NLP Preprocessing Pipeline</h2>
+
+    <p>
+        A simplified NLP preprocessing workflow can combine several of the
+        techniques discussed in this class.
+    </p>
+
+    <div class="pipeline">
+        Raw Text
+        →
+        Tokenization
+        →
+        Normalization
+        →
+        Stopword Filtering
+        →
+        Vectorization / Encoding
+        →
+        ML Model
+    </div>
+
+    <p>
+        The exact pipeline is task-dependent. Not every NLP application
+        should apply every preprocessing technique.
+    </p>
+
+    <div class="warning">
+        <strong>Key principle:</strong>
+        preprocessing should preserve information that is useful for the
+        task. Removing information is not automatically an improvement.
+    </div>
+</section>
+
+
+<section>
+    <h2>14. Normalization Techniques — Quick Review</h2>
+
+    <table>
+        <tr>
+            <th>Technique</th>
+            <th>Purpose</th>
+            <th>Potential Problem</th>
+        </tr>
+
+        <tr>
+            <td><strong>Lowercasing</strong></td>
+            <td>
+                Standardize capitalization.
+            </td>
+            <td>
+                Can remove information expressed through capitalization.
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Punctuation removal</strong></td>
+            <td>
+                Reduce noise.
+            </td>
+            <td>
+                Punctuation can contain emotional or structural information.
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Stemming</strong></td>
+            <td>
+                Reduce related words to a common root.
+            </td>
+            <td>
+                Can produce incomplete or invalid words.
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Lemmatization</strong></td>
+            <td>
+                Convert words to dictionary forms.
+            </td>
+            <td>
+                More computationally expensive than simple stemming.
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Stopword removal</strong></td>
+            <td>
+                Reduce vocabulary and dimensionality.
+            </td>
+            <td>
+                Some stopwords are important for meaning.
+            </td>
+        </tr>
+    </table>
+</section>
+
+
+<section>
+    <h2>15. Key Concepts to Remember</h2>
+
+    <ul>
+        <li>
+            <strong>Normalization</strong> makes text more consistent and
+            reduces unnecessary variation.
+        </li>
+
+        <li>
+            <strong>Lowercasing</strong> reduces differences caused by
+            capitalization, but may remove useful information.
+        </li>
+
+        <li>
+            <strong>Stemming</strong> uses simpler rules and may produce
+            non-words.
+        </li>
+
+        <li>
+            <strong>Lemmatization</strong> uses linguistic information to
+            obtain a valid base form.
+        </li>
+
+        <li>
+            <strong>Stopwords</strong> can reduce vocabulary size, but should
+            not always be removed.
+        </li>
+
+        <li>
+            <strong>Tokenization</strong> divides text into smaller units
+            called tokens.
+        </li>
+
+        <li>
+            <strong>Vectorization</strong> converts text into numerical
+            representations that ML models can process.
+        </li>
+
+        <li>
+            <strong>Bag of Words</strong> represents word frequencies but
+            ignores word order.
+        </li>
+
+        <li>
+            <strong>TF-IDF</strong> measures how informative a word is within
+            a document relative to a corpus.
+        </li>
+
+        <li>
+            <strong>Embeddings</strong> represent text as numerical vectors
+            and can capture relationships between words.
+        </li>
+    </ul>
+</section>
+</main>
+</body>
+</html>
