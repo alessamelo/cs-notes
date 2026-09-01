@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Unit 1 - JavaScript</title>
+</head>
+
+<body>
+<header>
+<h1>Unit 1: JavaScript</h1>
+<p>Html fundamentals </p>
+</header>
+<main><a href="..\index.html">← Back to Web Applications</a>
+
+    <h1>Web Applications: JavaScript</h1>
+    <p><strong>Date:</strong> September 1, 2026</p>
+    <h2>1. Introduction</h2>
+
+    <ul>
+        <li><strong>JavaScript (JS)</strong> was created to add
+            <strong>dynamic behavior and activity to web pages</strong>.
+        </li>
+
+        <li>It is a <strong>lightweight programming language</strong>.</li>
+
+        <li>JavaScript is commonly executed by the
+            <strong>browser</strong> through its JavaScript engine.
+        </li>
+
+        <li>JavaScript code is usually embedded directly into an HTML document
+            or loaded from an external <code>.js</code> file.
+        </li>
+
+        <li>JavaScript was originally created for use with HTML and browsers.</li>
+
+        <li>It is freely usable.</li>
+
+        <li>JavaScript is mainly used to
+            <strong>dynamically manipulate web pages</strong>.
+        </li>
+    </ul>
+
+    <h3>Web development roles</h3>
+
+    <table>
+        <tr>
+            <th>Technology</th>
+            <th>Main role</th>
+        </tr>
+
+        <tr>
+            <td>HTML</td>
+            <td>Structure / content</td>
+        </tr>
+
+        <tr>
+            <td>CSS</td>
+            <td>Presentation / appearance</td>
+        </tr>
+
+        <tr>
+            <td>JavaScript</td>
+            <td>Behavior / interactivity</td>
+        </tr>
+    </table>
+
+    <p>
+        JavaScript can make a website richer when dynamic behavior is needed,
+        but it is not mandatory for every website.
+    </p>
+
+
+    <hr>
+
+
+    <h2>2. Java vs. JavaScript</h2>
+
+    <p><strong>Java and JavaScript are not the same language.</strong></p>
+
+    <p>
+        They are different in their concepts, design, and typical uses.
+    </p>
+
+    <h3>Java</h3>
+
+    <ul>
+        <li>Object-oriented programming language.</li>
+        <li>Developed by <strong>Sun Microsystems</strong>.</li>
+        <li>Designed as a more complex general-purpose programming language.</li>
+        <li>Was designed with goals including portability and performance.</li>
+        <li>
+            It was developed partly in the context of competing with
+            languages such as C and C++.
+        </li>
+    </ul>
+
+    <h3>JavaScript</h3>
+
+    <ul>
+        <li>Designed originally for web browsers and HTML.</li>
+
+        <li>
+            The name <strong>JavaScript</strong> was influenced by the
+            popularity of Java, but the languages are fundamentally different.
+        </li>
+
+        <li>
+            JavaScript is generally more flexible and dynamically typed.
+        </li>
+    </ul>
+
+
+    <hr>
+
+
+    <h2>3. Interpreted and Compiled Languages</h2>
+
+    <p>
+        In the course, Python was described as an interpreted language.
+    </p>
+
+    <p>For JavaScript:</p>
+
+    <blockquote>
+        The program that interprets/executes JavaScript in a normal web page
+        is the <strong>browser's JavaScript engine</strong>.
+    </blockquote>
+
+    <p>
+        The browser reads the HTML document and executes the JavaScript
+        associated with it.
+    </p>
+
+    <p>
+        Modern JavaScript engines internally perform compilation and
+        optimization, so the simple distinction "JavaScript = interpreted"
+        is an oversimplification. For these notes, however, the important
+        point is that <strong>the browser provides the environment that
+        executes JavaScript</strong>.
+    </p>
+
+
+    <hr>
+
+
+    <h2>4. Advantages of JavaScript</h2>
+
+    <h3>Usability</h3>
+
+    <p>
+        JavaScript can modify a web page
+        <strong>without requiring a request to the server for every
+        interaction</strong>.
+    </p>
+
+    <p>For example:</p>
+
+    <ul>
+        <li>Validating user input.</li>
+        <li>Changing elements on the page.</li>
+        <li>Responding to button clicks.</li>
+        <li>Updating the user interface.</li>
+    </ul>
+
+    <p>
+        This can make the UI feel faster and more interactive.
+    </p>
+
+    <h3>Efficiency</h3>
+
+    <p>
+        JavaScript allows some operations to happen directly in the browser
+        instead of constantly communicating with the server.
+    </p>
+
+
+    <hr>
+
+
+    <h2>5. Including JavaScript in HTML</h2>
+
+    <p>
+        JavaScript can be placed directly inside an HTML document using
+        <code>&lt;script&gt;</code>:
+    </p>
+
+    <pre><code>&lt;script&gt;
+    alert("Using JavaScript");
+&lt;/script&gt;</code></pre>
+
+    <p>
+        It can also be placed in an external JavaScript file, similar to how
+        CSS can be placed in an external stylesheet.
+    </p>
+
+
+    <hr>
+
+
+    <h2>6. Example: JavaScript Event</h2>
+
+    <pre><code>&lt;html&gt;
+&lt;body style="background: gray; border: groove;"&gt;
+
+&lt;h1 style="background: blue;"
+    onclick="alert('Using JavaScript')"&gt;
+    Hello World!
+&lt;/h1&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <p>
+        When the user clicks the <code>&lt;h1&gt;</code>, JavaScript executes:
+    </p>
+
+    <pre><code>alert("Using JavaScript");</code></pre>
+
+    <p>
+        and displays an alert.
+    </p>
+
+
+    <hr>
+
+
+    <h2>7. JavaScript Syntax</h2>
+
+    <p>
+        A <strong>statement</strong> is an instruction executed by the program.
+    </p>
+
+    <p>
+        In Python, a new line generally indicates the end of a statement.
+    </p>
+
+    <p>
+        In JavaScript, semicolons <code>;</code> are commonly used, but they
+        are often optional because JavaScript has
+        <strong>Automatic Semicolon Insertion (ASI)</strong>.
+    </p>
+
+    <h3>Example</h3>
+
+    <pre><code>var value1 = 10;
+var value2 = 10;
+var result = value1 + value2;</code></pre>
+
+
+    <hr>
+
+
+    <h2>8. Reserved Words</h2>
+
+    <p>
+        JavaScript has reserved words that have special meanings in the
+        language.
+    </p>
+
+    <p>Examples:</p>
+
+    <pre><code>break
+case
+catch
+continue
+default
+delete
+for
+else
+if
+in
+instanceof
+throw
+try
+typeof
+var
+let
+const</code></pre>
+
+    <p>
+        <code>alert</code> is commonly used in JavaScript but is not a
+        reserved keyword in the same sense as <code>var</code>,
+        <code>let</code>, or <code>const</code>; it is a browser-provided
+        function.
+    </p>
+
+
+    <hr>
+
+
+    <h2>9. Whitespace and Newlines</h2>
+
+    <p>
+        Spaces, tabs, and newlines are generally ignored when they do not
+        affect the syntax.
+    </p>
+
+    <p>
+        They can therefore be used to make code easier to read.
+    </p>
+
+    <pre><code>var value1 = 10;
+var value2 = 20;
+var result = value1 + value2;</code></pre>
+
+    <p>
+        Formatting improves readability but normally does not change the
+        meaning of the code.
+    </p>
+
+    <p>
+        This differs from Python, where indentation is syntactically
+        significant.
+    </p>
+
+
+    <hr>
+
+
+    <h2>10. Comments</h2>
+
+    <p>
+        Comments provide contextual information for programmers and are not
+        executed as program instructions.
+    </p>
+
+    <h3>Single-line comment</h3>
+
+    <pre><code>// This is a comment</code></pre>
+
+    <h3>Multi-line comment</h3>
+
+    <pre><code>/*
+    This is
+    a multi-line comment
+*/</code></pre>
+
+
+    <hr>
+
+
+    <h2>11. Variables</h2>
+
+    <p>
+        A <strong>variable</strong> is a named container used to store
+        information.
+    </p>
+
+    <p>
+        The value stored in a variable can change during the execution of
+        a script.
+    </p>
+
+    <h3>Example</h3>
+
+    <pre><code>var value1 = 10;
+var value2 = 10;
+
+var result = value1 + value2;
+
+alert(result);</code></pre>
+
+    <p>Variables can be declared using:</p>
+
+    <pre><code>var
+let
+const</code></pre>
+
+
+    <hr>
+
+
+    <h2>12. Variable Naming Rules</h2>
+
+    <p>
+        JavaScript variable names are <strong>case-sensitive</strong>.
+    </p>
+
+    <pre><code>name
+Name
+NAME</code></pre>
+
+    <p>
+        These are different identifiers.
+    </p>
+
+    <p>Variable names can begin with:</p>
+
+    <ul>
+        <li>A letter</li>
+        <li><code>_</code></li>
+        <li><code>$</code></li>
+    </ul>
+
+    <h3>Examples</h3>
+
+    <pre><code>nameStudent
+name_student
+$variable</code></pre>
+
+    <h3>Naming styles</h3>
+
+    <p><strong>Camel case:</strong></p>
+
+    <pre><code>nameStudent</code></pre>
+
+    <p><strong>Snake case:</strong></p>
+
+    <pre><code>name_student</code></pre>
+
+
+    <hr>
+
+
+    <h2>13. Increment Operators</h2>
+
+    <h3>Pre-increment</h3>
+
+    <pre><code>var value1 = 10;
+var value2 = 10;
+
+var result = ++value1 + value2;
+
+alert(result);</code></pre>
+
+    <p>The result is:</p>
+
+    <pre><code>21</code></pre>
+
+    <p>
+        <code>++value1</code> is <strong>pre-increment</strong>:
+    </p>
+
+    <ol>
+        <li>Increase <code>value1</code> from <code>10</code> to <code>11</code>.</li>
+        <li>Use <code>11</code> in the expression.</li>
+        <li>Calculate <code>11 + 10 = 21</code>.</li>
+    </ol>
+
+    <h3>Post-increment</h3>
+
+    <pre><code>var value1 = 10;
+var value2 = 10;
+
+var result = value1++ + value2;
+
+alert(result);</code></pre>
+
+    <p>The result is:</p>
+
+    <pre><code>20</code></pre>
+
+    <p>
+        Because <code>value1++</code> is <strong>post-increment</strong>:
+    </p>
+
+    <ol>
+        <li>Use the current value <code>10</code>.</li>
+        <li>Calculate <code>10 + 10 = 20</code>.</li>
+        <li>Afterwards, increase <code>value1</code> to <code>11</code>.</li>
+    </ol>
+
+    <table>
+        <tr>
+            <th>Expression</th>
+            <th>Value used</th>
+            <th>Value afterwards</th>
+        </tr>
+
+        <tr>
+            <td><code>++value1</code></td>
+            <td>11</td>
+            <td>11</td>
+        </tr>
+
+        <tr>
+            <td><code>value1++</code></td>
+            <td>10</td>
+            <td>11</td>
+        </tr>
+    </table>
+
+
+    <hr>
+
+
+    <h2>14. The <code>+</code> Operator</h2>
+
+    <p>
+        The <code>+</code> operator can perform different operations
+        depending on the data types.
+    </p>
+
+    <h3>Numbers</h3>
+
+    <pre><code>10 + 20</code></pre>
+
+    <p>Produces:</p>
+
+    <pre><code>30</code></pre>
+
+    <h3>Strings</h3>
+
+    <p>
+        With strings, <code>+</code> can concatenate:
+    </p>
+
+    <pre><code>var value1 = "hello";
+var value2 = "world";
+
+var result = value1 + value2;</code></pre>
+
+    <p>Result:</p>
+
+    <pre><code>helloworld</code></pre>
+
+    <p>
+        This is sometimes described as <strong>operator overloading</strong>
+        because the same operator can perform different operations depending
+        on the operands.
+    </p>
+
+    <blockquote>
+        <code>value1++value2</code> is not valid syntax for string
+        concatenation. Use <code>value1 + value2</code>.
+    </blockquote>
+
+
+    <hr>
+
+
+    <h2>15. Strings</h2>
+
+    <p>
+        Strings can be enclosed using either single or double quotation marks:
+    </p>
+
+    <pre><code>"Hello"</code></pre>
+
+    <p>or:</p>
+
+    <pre><code>'Hello'</code></pre>
+
+    <p>
+        You can use the other type of quotation mark inside the string:
+    </p>
+
+    <pre><code>var text = "I'm learning JavaScript";</code></pre>
+
+    <p>or:</p>
+
+    <pre><code>var text = 'He said "Hello"';</code></pre>
+
+
+    <hr>
+
+
+    <h2>16. Boolean Values and <code>!</code></h2>
+
+    <p>JavaScript has Boolean values:</p>
+
+    <pre><code>true
+false</code></pre>
+
+    <p>
+        The <code>!</code> operator means <strong>logical NOT</strong>.
+    </p>
+
+    <h3>Example</h3>
+
+    <pre><code>var isok = true;
+
+alert(!isok);</code></pre>
+
+    <p>Result:</p>
+
+    <pre><code>false</code></pre>
+
+    <h3>Truthy and Falsy</h3>
+
+    <p>
+        JavaScript allows values of other types to be interpreted as
+        <strong>truthy</strong> or <strong>falsy</strong> in Boolean contexts.
+    </p>
+
+    <pre><code>var isok = 0;
+
+alert(!isok);</code></pre>
+
+    <p>Result:</p>
+
+    <pre><code>true</code></pre>
+
+    <p>
+        This happens because <code>0</code> is a <strong>falsy</strong> value.
+    </p>
+
+    <p>
+        Similarly, an empty string <code>""</code>, <code>null</code>, and
+        <code>undefined</code> are falsy.
+    </p>
+
+    <pre><code>var isok = "Hello";
+
+alert(!isok);</code></pre>
+
+    <p>Result:</p>
+
+    <pre><code>false</code></pre>
+
+    <p>
+        because <code>"Hello"</code> is truthy.
+    </p>
+
+
+    <hr>
+
+
+    <h2>17. Operators</h2>
+
+    <h3>Relational operators</h3>
+
+    <pre><code>&gt;
+&lt;
+&gt;=
+&lt;=</code></pre>
+
+    <h3>Logical operators</h3>
+
+    <pre><code>&amp;&amp;
+||
+!</code></pre>
+
+    <h3>Comparison operators</h3>
+
+    <pre><code>==
+!=
+===
+!==</code></pre>
+
+    <h3><code>==</code> vs <code>===</code></h3>
+
+    <p>
+        <code>==</code> compares values with type conversion.
+    </p>
+
+    <p>
+        <code>===</code> performs <strong>strict equality</strong>, meaning
+        both the value and type must match.
+    </p>
+
+    <pre><code>5 == "5"</code></pre>
+
+    <p>is:</p>
+
+    <pre><code>true</code></pre>
+
+    <p>but:</p>
+
+    <pre><code>5 === "5"</code></pre>
+
+    <p>is:</p>
+
+    <pre><code>false</code></pre>
+
+    <p>
+        because one is a number and the other is a string.
+    </p>
+
+
+    <hr>
+
+
+    <h2>18. JavaScript Numbers</h2>
+
+    <h3>Arithmetic operators</h3>
+
+    <pre><code>+
+-
+*
+/
+%
+++</code></pre>
+
+    <h3>Assignment operators</h3>
+
+    <pre><code>+=
+-=
+*=
+/=
+%=</code></pre>
+
+    <p>
+        JavaScript can perform <strong>automatic type conversion</strong>
+        in some operations.
+    </p>
+
+
+    <hr>
+
+
+    <h2>19. Math Object</h2>
+
+    <p>
+        JavaScript provides the <code>Math</code> object with mathematical
+        methods and properties.
+    </p>
+
+    <h3>Methods</h3>
+
+    <pre><code>Math.abs()
+Math.ceil()
+Math.cos()
+Math.floor()
+Math.log()
+Math.max()
+Math.min()
+Math.pow()
+Math.random()
+Math.round()
+Math.sin()
+Math.sqrt()
+Math.tan()</code></pre>
+
+    <h3>Properties</h3>
+
+    <pre><code>Math.E
+Math.PI</code></pre>
+
+    <h3>Example</h3>
+
+    <pre><code>var x = Math.sqrt(25);</code></pre>
+
+    <p>Result:</p>
+
+    <pre><code>5</code></pre>
+
+
+    <hr>
+
+
+    <h2>20. <code>null</code> and <code>undefined</code></h2>
+
+    <h3><code>null</code></h3>
+
+    <p>
+        <code>null</code> represents an explicitly assigned
+        <strong>empty/null value</strong>.
+    </p>
+
+    <p>
+        It is roughly comparable to Python's <code>None</code> conceptually.
+    </p>
+
+    <pre><code>var value = null;</code></pre>
+
+    <h3><code>undefined</code></h3>
+
+    <p>
+        <code>undefined</code> generally indicates that a value has not
+        been assigned.
+    </p>
+
+    <pre><code>var value;</code></pre>
+
+    <p>At this point:</p>
+
+    <pre><code>value === undefined</code></pre>
+
+    <p>is:</p>
+
+    <pre><code>true</code></pre>
+
+    <h3>Important distinction</h3>
+
+    <pre><code>null       → intentionally represents no value
+undefined  → value is absent/not assigned</code></pre>
+
+
+    <hr>
+
+
+    <h2>21. Arrays</h2>
+
+    <p>
+        JavaScript arrays use square brackets:
+    </p>
+
+    <pre><code>var a = ["Steff", "Jasson"];</code></pre>
+
+    <p>
+        Unlike traditional C arrays, JavaScript arrays can contain values
+        of different types.
+    </p>
+
+    <pre><code>var a = ["Hello", 10, true];</code></pre>
+
+    <p>
+        They are more similar to Python lists in this respect.
+    </p>
+
+    <h3>Common methods</h3>
+
+    <pre><code>a.push("Brian");
+a.unshift("Kelly");
+a.pop();
+a.shift();
+a.sort();</code></pre>
+
+    <h3><code>push()</code></h3>
+
+    <p>Adds an element to the end:</p>
+
+    <pre><code>a.push("Brian");</code></pre>
+
+    <h3><code>unshift()</code></h3>
+
+    <p>Adds an element to the beginning:</p>
+
+    <pre><code>a.unshift("Kelly");</code></pre>
+
+    <h3><code>pop()</code></h3>
+
+    <p>
+        Removes and returns the last element.
+    </p>
+
+    <h3><code>shift()</code></h3>
+
+    <p>
+        Removes and returns the first element.
+    </p>
+
+    <p>
+        This makes them useful for operations similar to stacks and queues.
+    </p>
+
+    <p>Other methods include:</p>
+
+    <pre><code>concat()
+join()
+pop()</code></pre>
+
+
+    <hr>
+
+
+    <h2>22. Conditional Statements</h2>
+
+    <p>JavaScript has conditional statements:</p>
+
+    <pre><code>if
+else if
+else</code></pre>
+
+    <h3>Basic structure</h3>
+
+    <pre><code>if (condition) {
+    // statements
+}
+else if (condition) {
+    // statements
+}
+else {
+    // statements
+}</code></pre>
+
+    <p>
+        The condition is evaluated in a Boolean context.
+    </p>
+
+    <p>
+        It does not necessarily have to literally be
+        <code>true</code> or <code>false</code>; JavaScript can interpret
+        other values as <strong>truthy</strong> or <strong>falsy</strong>.
+    </p>
+
+
+    <hr>
+
+
+    <h2>23. <code>for</code> Loop</h2>
+
+    <h3>Example</h3>
+
+    <pre><code>var sum = 0;
+
+for (var i = 0; i &lt; 100; i++) {
+    sum = sum + i;
+}</code></pre>
+
+    <p>The three parts are:</p>
+
+    <pre><code>for (initialization; condition; increment)</code></pre>
+
+    <p>In this example:</p>
+
+    <pre><code>initialization → var i = 0
+condition      → i &lt; 100
+increment      → i++</code></pre>
+
+
+    <hr>
+
+
+    <h2>24. <code>while</code> Loop</h2>
+
+    <pre><code>while (condition) {
+    statement;
+}</code></pre>
+
+    <p>
+        The condition is checked before each iteration.
+    </p>
+
+    <h3>Example</h3>
+
+    <pre><code>var i = 0;
+
+while (i &lt; 10) {
+    i++;
+}</code></pre>
+
+    <p>
+        The condition must eventually become false. Otherwise, the program
+        can enter an <strong>infinite loop</strong>.
+    </p>
+
+
+    <hr>
+
+
+    <h2>25. <code>do...while</code> Loop</h2>
+
+    <pre><code>do {
+    statements;
+} while (condition);</code></pre>
+
+    <p>
+        The important difference is that the statements execute
+        <strong>at least once</strong>, because the condition is checked
+        after the first execution.
+    </p>
+
+
+    <hr>
+
+
+    <h2>26. Functions</h2>
+
+    <p>
+        A function groups statements that perform an operation.
+    </p>
+
+    <h3>Basic syntax</h3>
+
+    <pre><code>function FunctionName() {
+    statement1;
+    statement2;
+}</code></pre>
+
+    <h3>Example</h3>
+
+    <pre><code>function myFunction() {
+    alert("Using JavaScript");
+}</code></pre>
+
+    <p>
+        The function can then be called:
+    </p>
+
+    <pre><code>myFunction();</code></pre>
+
+
+    <hr>
+
+
+    <h2>27. <code>this</code></h2>
+
+    <p>
+        In JavaScript, <code>this</code> is a special keyword whose meaning
+        depends on <strong>how the function is called</strong>.
+    </p>
+
+    <p>
+        It is commonly used to refer to the relevant object/context.
+    </p>
+
+
+    <hr>
+
+
+    <h2>28. Document Object Model — DOM</h2>
+
+    <p>
+        <strong>DOM = Document Object Model</strong>
+    </p>
+
+    <p>
+        The DOM represents an HTML document as a structure of objects that
+        JavaScript can interact with.
+    </p>
+
+    <h3>Example HTML</h3>
+
+    <pre><code>&lt;body&gt;
+    &lt;h1&gt;Hello World!&lt;/h1&gt;
+&lt;/body&gt;</code></pre>
+
+    <p>
+        The browser represents the document as a structure containing
+        elements and objects.
+    </p>
+
+    <p>JavaScript can use the DOM to:</p>
+
+    <ul>
+        <li>Examine elements.</li>
+        <li>Change their content.</li>
+        <li>Change their state.</li>
+        <li>Change their styles.</li>
+        <li>Respond to user interaction.</li>
+    </ul>
+
+
+    <hr>
+
+
+    <h2>29. Finding an HTML Element</h2>
+
+    <p>A common DOM method is:</p>
+
+    <pre><code>document.getElementById("myh1");</code></pre>
+
+    <p>
+        It searches for an HTML element with the specified
+        <code>id</code>.
+    </p>
+
+    <h3>Example</h3>
+
+    <pre><code>&lt;h1 id="myh1"&gt;Hello World!&lt;/h1&gt;</code></pre>
+
+    <p>Then:</p>
+
+    <pre><code>const element = document.getElementById("myh1");</code></pre>
+
+    <p>
+        The variable <code>element</code> now refers to that DOM element.
+    </p>
+
+
+    <hr>
+
+
+    <h2>30. Changing HTML Content</h2>
+
+    <p>
+        The <code>innerHTML</code> property can be used to change the HTML
+        content inside an element.
+    </p>
+
+    <h3>Example</h3>
+
+    <pre><code>const element = document.getElementById("myh1");
+
+element.innerHTML = "Hello JavaScript!";</code></pre>
+
+    <p>The original:</p>
+
+    <pre><code>&lt;h1 id="myh1"&gt;Hello World!&lt;/h1&gt;</code></pre>
+
+    <p>becomes visually:</p>
+
+    <pre><code>Hello JavaScript!</code></pre>
+
+
+    <hr>
+
+
+    <h2>Key idea to remember</h2>
+
+    <pre><code>HTML
+  ↓
+Structure of the webpage
+  ↓
+DOM
+  ↓
+JavaScript
+  ↓
+Manipulates the DOM
+  ↓
+Changes content, styles, and behavior</code></pre>
+
+    <div class="important">
+        <strong>HTML defines what exists, CSS defines how it looks,
+        and JavaScript defines how it behaves.</strong>
+    </div>
+
+</main>
+
+
+</main>
+</body>
+</html>
