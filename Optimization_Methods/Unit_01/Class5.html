@@ -1,0 +1,701 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Optimization Methods Problems</title>
+</head>
+     <style>
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            font-size: 1.2em;
+        }
+
+        .graph {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .graph svg {
+            max-width: 500px;
+            width: 100%;
+        }
+
+    </style>
+
+<body>
+<header>
+<h1>Optimization Methods: Constrained Problems</h1>
+        <p>
+            Course notes on optimization, numerical optimization,
+            problem classification, convergence, and numerical methods.
+        </p>
+</header>
+<main><a href="..\index.html">← Back to Optimization Methods
+</a>
+
+
+    <section>
+    <h2>1. Constrained Problems</h2>
+
+    <p>
+        We can use <strong>level curves</strong> as constraints or simple
+        intervals.
+    </p>
+
+    <div class="graph">
+
+        <h3>Example: Ellipse as a Constraint</h3>
+
+        <svg viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Axes -->
+            <line x1="50" y1="175" x2="450" y2="175"
+                  stroke="black" stroke-width="2"/>
+
+            <line x1="250" y1="30" x2="250" y2="320"
+                  stroke="black" stroke-width="2"/>
+
+            <!-- Ellipse -->
+            <ellipse cx="250" cy="175"
+                     rx="150" ry="90"
+                     fill="none"
+                     stroke="black"
+                     stroke-width="3"/>
+
+            <!-- Labels -->
+            <text x="455" y="180">x</text>
+            <text x="255" y="25">y</text>
+
+            <text x="325" y="105">
+                Constraint
+            </text>
+
+        </svg>
+
+        <p>
+            An ellipse can represent a constraint in an optimization problem.
+        </p>
+
+    </div>
+
+
+    <h2>2. Level Curves and Optimization</h2>
+
+    <p>
+        By moving the level curves, one of them will eventually touch the
+        constraint.
+    </p>
+
+    <p>
+        At the point where the level curve touches the constraint, the two
+        curves are tangent.
+    </p>
+
+    <p>
+        This idea leads to the use of <strong>Lagrange multipliers</strong>.
+    </p>
+
+    </section>
+    <h2>3. Lagrange Multipliers</h2>
+
+    <p>
+        In a constrained optimization problem, we have an objective function
+        <strong>f</strong> and a constraint function <strong>g</strong>.
+    </p>
+
+    <div class="important">
+
+        <p>
+            <strong>f</strong> = objective function to optimize
+        </p>
+
+        <p>
+            <strong>g</strong> = constraint function
+        </p>
+
+    </div>
+
+    <p>
+        The main Lagrange multiplier condition is:
+    </p>
+
+    <pre><code>∇f = λ∇g</code></pre>
+
+    <p>
+        Here, the gradient of the objective function depends on the
+        constraint through the Lagrange multiplier <code>λ</code>.
+    </p>
+
+    <p>
+        This is called the <strong>method of Lagrange multipliers</strong>.
+    </p>
+
+    <p>
+        If the professor changes the constraint from an ellipse to a circle,
+        the method does not change. Only the function <code>g</code> changes
+        to represent the circle.
+    </p>
+
+
+    <h2>4. Lagrange Problem</h2>
+
+    <p>
+        The general constrained problem can be represented as:
+    </p>
+
+    <pre><code>Optimize f(x,y)
+
+subject to
+
+g(x,y) = c</code></pre>
+
+    <p>
+        The Lagrange equations are:
+    </p>
+
+    <pre><code>fx(x,y) = λ gx(x,y)
+
+fy(x,y) = λ gy(x,y)
+
+g(x,y) = c</code></pre>
+
+
+    <h2>5. Tangency of Two Curves</h2>
+
+    <p>
+        Two curves are tangent at a point when their gradients are parallel
+        at that point.
+    </p>
+
+    <pre><code>∇f = λ∇g</code></pre>
+
+    <p>
+        Therefore, the Lagrange multiplier condition expresses the tangency
+        between the level curve of the objective function and the constraint.
+    </p>
+
+
+    <h2>6. Example: Lagrange Multipliers</h2>
+
+    <p>Consider:</p>
+
+    <pre><code>f(x,y) = 4xy</code></pre>
+
+    <p>with the constraint:</p>
+
+    <pre><code>g(x,y) = x² / 9 + y² / 16 = 1</code></pre>
+
+    <p>
+        We try to <strong>maximize the objective function</strong> according
+        to the restriction.
+    </p>
+
+    <p>The Lagrange system is:</p>
+
+    <pre><code>fx(x,y) = λ gx(x,y)
+
+fy(x,y) = λ gy(x,y)
+
+g(x,y) = 1</code></pre>
+
+
+    <h2>7. Level Curves as a Minimization Problem</h2>
+
+    <p>
+        The level curves represent different values of the objective
+        function. By moving these curves, we can obtain a minimizing or
+        maximizing problem subject to the constraint.
+    </p>
+
+    <p>
+        The objective is to find the point where the appropriate level curve
+        touches the constraint.
+    </p>
+
+
+    <h2>8. Box Dimensions and Lagrange Multipliers</h2>
+
+    <p>
+        Some problems require finding the dimensions of a box. These can be
+        modeled using the Lagrange multiplier method.
+    </p>
+
+    <p>
+        The problem should first be modeled mathematically and then solved
+        by hand using the Lagrange equations.
+    </p>
+
+    <div class="important">
+
+        <strong>Exam note:</strong>
+
+        <p>
+            Problems that the professor asks us to solve will include the
+            model problem itself, not only the minimization expression.
+        </p>
+
+    </div>
+
+
+    <hr>
+
+
+    <h2>9. Key Concepts for Unconstrained Optimization</h2>
+
+    <p>
+        A differentiable function can reach a minimum at a critical point.
+    </p>
+
+    <p>
+        The first derivative in several variables is represented by the
+        <strong>gradient</strong>:
+    </p>
+
+    <pre><code>∇f(x,y)</code></pre>
+
+    <p>
+        We find critical points by solving:
+    </p>
+
+    <pre><code>∇f(x,y) = 0</code></pre>
+
+    <p>
+        Then we use the <strong>Hessian</strong> to evaluate the critical
+        points.
+    </p>
+
+
+    <h3>Hessian Classification</h3>
+
+    <table>
+
+        <tr>
+            <th>Hessian</th>
+            <th>Classification</th>
+        </tr>
+
+        <tr>
+            <td>H &gt; 0</td>
+            <td>Symmetric and positive definite</td>
+        </tr>
+
+        <tr>
+            <td>H &lt; 0</td>
+            <td>Symmetric and negative definite</td>
+        </tr>
+
+        <tr>
+            <td>H is indefinite</td>
+            <td>Neither positive nor negative definite</td>
+        </tr>
+
+    </table>
+
+
+    <hr>
+
+
+    <h2>10. Example: Function Without a Derivative</h2>
+
+    <p>Consider:</p>
+
+    <pre><code>f(x) = |x - 3|</code></pre>
+
+    <p>
+        This function does not have a derivative at <code>x = 3</code>.
+    </p>
+
+    <p>
+        However, it has a minimum at:
+    </p>
+
+    <pre><code>x = 3</code></pre>
+
+    <div class="graph">
+
+        <h3>Graph of f(x) = |x - 3|</h3>
+
+        <svg viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Axes -->
+            <line x1="50" y1="280" x2="450" y2="280"
+                  stroke="black" stroke-width="2"/>
+
+            <line x1="100" y1="320" x2="100" y2="30"
+                  stroke="black" stroke-width="2"/>
+
+            <!-- V shape -->
+            <polyline
+                points="100,80 250,250 400,80"
+                fill="none"
+                stroke="black"
+                stroke-width="4"/>
+
+            <!-- Minimum point -->
+            <circle cx="250" cy="250" r="6"/>
+
+            <text x="260" y="245">
+                x = 3
+            </text>
+
+            <text x="455" y="285">x</text>
+            <text x="105" y="25">f(x)</text>
+
+        </svg>
+
+    </div>
+
+
+    <hr>
+
+
+    <h2>11. Example: Critical Point That Is Not a Minimum or Maximum</h2>
+
+    <p>Consider:</p>
+
+    <pre><code>f(x) = 3x⁵ - 1</code></pre>
+
+    <h3>First derivative</h3>
+
+    <pre><code>f'(x) = 15x⁴</code></pre>
+
+    <p>Critical point:</p>
+
+    <pre><code>x = 0</code></pre>
+
+    <h3>Second derivative</h3>
+
+    <pre><code>f''(x) = 60x³</code></pre>
+
+    <p>At the critical point:</p>
+
+    <pre><code>f''(0) = 0</code></pre>
+
+    <p>
+        Therefore, the second derivative test does not classify
+        <code>x = 0</code> as a maximum or minimum.
+    </p>
+
+    <p>
+        It is an <strong>inflexion point</strong>.
+    </p>
+
+    <div class="important">
+
+        <strong>Key idea:</strong>
+
+        <p>
+            The first derivative being zero is only a
+            <strong>necessary condition</strong> for a differentiable local
+            optimum. It does not by itself determine whether a point is a
+            minimum or maximum.
+        </p>
+
+    </div>
+
+
+    <hr>
+
+
+    <h2>12. Local and Absolute Maximizer</h2>
+
+    <h3>Absolute maximizer</h3>
+
+    <p>
+        If:
+    </p>
+
+    <pre><code>f(x*) ≥ f(x)  for all x ∈ Rⁿ</code></pre>
+
+    <p>
+        then <code>x*</code> is an <strong>absolute maximizer</strong>.
+    </p>
+
+    <h3>Maximizer on an interval</h3>
+
+    <p>
+        If:
+    </p>
+
+    <pre><code>f(x*) ≥ f(x)  for x ∈ [a,b]</code></pre>
+
+    <p>
+        then <code>x*</code> is a maximizer on the interval.
+    </p>
+
+    <p>
+        If <code>f(x)</code> is continuous on <code>[a,b]</code>, it reaches
+        its maximum and minimum on that interval.
+    </p>
+
+
+    <hr>
+
+
+    <h2>13. Example: Indefinite Hessian</h2>
+
+    <p>Consider:</p>
+
+    <pre><code>f(x₁, x₂) = x₁x₂</code></pre>
+
+    <h3>Gradient</h3>
+
+    <pre><code>∇f = (x₂, x₁)</code></pre>
+
+    <p>Critical point:</p>
+
+    <pre><code>(0,0)</code></pre>
+
+    <h3>Hessian</h3>
+
+    <pre><code>H = | 0  1 |
+    | 1  0 |</code></pre>
+
+    <p>
+        The eigenvalues are:
+    </p>
+
+    <pre><code>λ₁ = -1
+λ₂ =  1</code></pre>
+
+    <p>
+        Since the Hessian has both a positive and a negative eigenvalue,
+        it is <strong>indefinite</strong>.
+    </p>
+
+    <p>
+        Therefore, the critical point is not a local minimum or maximum.
+    </p>
+
+
+    <hr>
+
+
+    <h2>14. Convex Functions</h2>
+
+    <p>
+        A function is convex if it satisfies the convexity inequality:
+    </p>
+
+    <pre><code>f(λx₁ + (1 - λ)x₂)
+≤
+λf(x₁) + (1 - λ)f(x₂)</code></pre>
+
+    <p>
+        where:
+    </p>
+
+    <pre><code>0 ≤ λ ≤ 1</code></pre>
+
+    <p>
+        Geometrically, the line segment between two points on the function
+        lies above or on the graph of the function.
+    </p>
+
+    <p>
+        The function discussed in the notes is not convex because the line
+        traced between certain points ends up outside the required region.
+    </p>
+
+    <p>
+        It is also not concave.
+    </p>
+
+
+    <hr>
+
+
+    <h2>15. Exam Example: Two Positive Integers</h2>
+
+    <p>
+        <strong>Problem:</strong>
+    </p>
+
+    <p>
+        Find two positive integer numbers such that their sum is
+        <strong>25</strong> and
+        <code>2x₁² + 3x₂²</code> is minimum.
+    </p>
+
+
+    <h3>Mathematical Model</h3>
+
+    <p>Objective:</p>
+
+    <pre><code>min f(x₁,x₂) = 2x₁² + 3x₂²</code></pre>
+
+    <p>Subject to:</p>
+
+    <pre><code>x₁ + x₂ = 25</code></pre>
+
+
+    <h3>16. Variable Substitution</h3>
+
+    <p>
+        From the constraint:
+    </p>
+
+    <pre><code>x₂ = 25 - x₁</code></pre>
+
+    <p>
+        Substitute this into the objective function:
+    </p>
+
+    <pre><code>min f(x₁)
+= 2x₁² + 3(25 - x₁)²</code></pre>
+
+    <p>
+        The variable substitution converts the constrained problem into an
+        <strong>unconstrained one-variable problem</strong>.
+    </p>
+
+
+    <h3>17. First Derivative</h3>
+
+    <p>
+        Calculate the derivative and set it equal to zero.
+    </p>
+
+    <pre><code>f'(x₁) = 0</code></pre>
+
+    <p>
+        This gives:
+    </p>
+
+    <pre><code>x₁ = 15</code></pre>
+
+    <p>
+        Replace this value in the constraint:
+    </p>
+
+    <pre><code>x₂ = 25 - 15
+
+x₂ = 10</code></pre>
+
+    <p>
+        Therefore, the solution is:
+    </p>
+
+    <pre><code>(x₁, x₂) = (15, 10)</code></pre>
+
+
+    <h3>18. Second Derivative</h3>
+
+    <p>
+        The second derivative is:
+    </p>
+
+    <pre><code>f''(x₁) = 10</code></pre>
+
+    <p>
+        Since the second derivative is positive, this critical point is a
+        <strong>minimum</strong>.
+    </p>
+
+
+    <h2>19. Why the Constraint Matters</h2>
+
+    <div class="important">
+
+        <p>
+            If we ignore the variable substitution and only calculate the
+            gradient and Hessian of the original objective function, we can
+            obtain information about the existence of a minimum.
+        </p>
+
+        <p>
+            However, this does not solve the exact constrained problem because
+            the constraint has not been considered.
+        </p>
+
+    </div>
+
+    <p>
+        The optimization problem is not simply:
+    </p>
+
+    <pre><code>min 2x₁² + 3x₂²</code></pre>
+
+    <p>
+        It is:
+    </p>
+
+    <pre><code>min 2x₁² + 3x₂²
+
+subject to
+
+x₁ + x₂ = 25</code></pre>
+
+    <p>
+        The restriction determines which points are allowed as solutions.
+    </p>
+
+
+    <hr>
+
+
+    <h2>Key Ideas to Remember</h2>
+
+    <ul>
+
+        <li>
+            A constrained optimization problem includes an
+            <strong>objective function</strong> and one or more
+            <strong>constraints</strong>.
+        </li>
+
+        <li>
+            Lagrange multipliers use:
+            <code>∇f = λ∇g</code>.
+        </li>
+
+        <li>
+            At a tangency point, the gradients of the two curves are
+            parallel.
+        </li>
+
+        <li>
+            Changing an elliptical constraint to a circular constraint does
+            not change the Lagrange method; only <code>g</code> changes.
+        </li>
+
+        <li>
+            A zero gradient identifies a critical point, but does not by
+            itself prove that the point is a minimum or maximum.
+        </li>
+
+        <li>
+            The Hessian helps classify critical points.
+        </li>
+
+        <li>
+            A critical point can be an inflection point rather than an
+            optimum.
+        </li>
+
+        <li>
+            Constraints must be included when solving constrained
+            optimization problems.
+        </li>
+
+        <li>
+            A constrained problem can sometimes be converted into an
+            unconstrained problem through variable substitution.
+        </li>
+
+    </ul>
+
+</main>
+</body>
+</html>
