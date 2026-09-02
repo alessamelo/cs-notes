@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HTML Study Notes &mdash; A Beginner's Reference</title>
+<meta name="description" content="A clear, example-driven reference covering HTML fundamentals: structure, text, lists, links, images, tables, forms, extra markup, and media." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23e34c26'/%3E%3Ctext x='50' y='63' font-size='42' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3E%3C/%3E%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebar">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#top" class="logo">&lt;HTML&gt; Notes</a>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark / light mode">
+      <span class="theme-toggle__icon">🌙</span>
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+    <div class="sidebar__scroll">
+      <p class="sidebar__title">Contents</p>
+      <ul class="toc">
+        <li><a class="nav-link" href="#top">Introduction</a></li>
+        <li><a class="nav-link" href="#ch1">1. Getting Started</a></li>
+        <li><a class="nav-link" href="#ch2">2. Formatting Text</a></li>
+        <li><a class="nav-link" href="#ch3">3. Lists</a></li>
+        <li><a class="nav-link" href="#ch4">4. Links</a></li>
+        <li><a class="nav-link" href="#ch5">5. Images</a></li>
+        <li><a class="nav-link" href="#ch6">6. Tables</a></li>
+        <li><a class="nav-link" href="#ch7">7. Forms</a></li>
+        <li><a class="nav-link" href="#ch8">8. Extra Markup</a></li>
+        <li><a class="nav-link" href="#ch9">9. Video &amp; Audio</a></li>
+      </ul>
+      <p class="sidebar__footnote" id="jump-target">You scrolled here from a same-page link in Chapter 4 &mdash; that's exactly what an id-based anchor does. <a href="#ch4">&uarr; back to Chapter 4</a></p>
+    </div>
+  </nav>
+
+  <div class="overlay" id="overlay"></div>
+
+  <main id="main-content" class="content">
+
+    <section id="top" class="hero">
+      <h1 id="page-title">HTML Study Notes</h1>
+      <p class="hero__subtitle">A cleaned-up, example-driven walkthrough of core HTML &mdash; rewritten from raw study notes into a reference you can actually read, with a live "Result" preview next to every code sample.</p>
+      <p class="hero__meta">Use the menu to jump to any chapter. Every tag mentioned has a runnable example beside its code, so you can see exactly what the browser does with it.</p>
+    </section>
+
+    <!-- ======================= CHAPTER 1 ======================= -->
+    <section id="ch1" class="chapter">
+      <h2><span class="chapter__number">01</span> Getting Started</h2>
+
+      <h3>The document skeleton</h3>
+      <p>Every HTML page shares the same basic skeleton. The <code>&lt;html&gt;</code> element wraps the whole document, and inside it sit exactly two parts: a <code>&lt;head&gt;</code> (information <em>about</em> the page) and a <code>&lt;body&gt;</code> (what actually shows up in the browser window).</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Hello, world!&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p>Hello, world!</p>
+          <p class="demo__note">The text inside <code>&lt;title&gt;</code> doesn't appear on the page &mdash; it shows in the browser's tab / title bar instead.</p>
+        </div>
+      </div>
+
+      <h3>Headings</h3>
+      <p>HTML gives you six levels of heading, <code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>, ranked from most to least important. Use them to describe the structure of your content, not just to make text bigger &mdash; screen readers and search engines both rely on that structure.</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;h1&gt;Heading level 1&lt;/h1&gt;
+&lt;h2&gt;Heading level 2&lt;/h2&gt;
+&lt;h3&gt;Heading level 3&lt;/h3&gt;
+&lt;h4&gt;Heading level 4&lt;/h4&gt;
+&lt;h5&gt;Heading level 5&lt;/h5&gt;
+&lt;h6&gt;Heading level 6&lt;/h6&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <h1 class="demo-heading">Heading level 1</h1>
+          <h2 class="demo-heading">Heading level 2</h2>
+          <h3 class="demo-heading">Heading level 3</h3>
+          <h4 class="demo-heading">Heading level 4</h4>
+          <h5 class="demo-heading">Heading level 5</h5>
+          <h6 class="demo-heading">Heading level 6</h6>
+        </div>
+      </div>
+
+      <h3>Paragraphs and simple text tags</h3>
+      <p><code>&lt;p&gt;</code> marks a paragraph. Inside a paragraph, <code>&lt;b&gt;</code> makes text bold and <code>&lt;i&gt;</code> makes it italic purely as a visual style, while <code>&lt;sub&gt;</code> and <code>&lt;sup&gt;</code> drop text below or lift it above the baseline (handy for footnotes or chemical formulas like H<sub>2</sub>O).</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;p&gt;This sentence has &lt;b&gt;bold&lt;/b&gt;
+and &lt;i&gt;italic&lt;/i&gt; text.
+Water is H&lt;sub&gt;2&lt;/sub&gt;O,
+and E = mc&lt;sup&gt;2&lt;/sup&gt;.&lt;/p&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p>This sentence has <b>bold</b> and <i>italic</i> text. Water is H<sub>2</sub>O, and E = mc<sup>2</sup>.</p>
+        </div>
+      </div>
+
+      <h3>Whitespace collapsing</h3>
+      <p>Browsers collapse extra spaces, tabs, and line breaks in your source code down to a single space. The <em>only</em> way to reliably start a new visual block of text is to start a new element, such as another <code>&lt;p&gt;</code>.</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;p&gt;This      text has
+    lots of
+
+
+
+
+    extra whitespace in the source.&lt;/p&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p>This      text has
+    lots of
+
+
+
+
+    extra whitespace in the source.</p>
+          <p class="demo__note">Notice every gap rendered as a single space &mdash; the line breaks in the source were ignored.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= CHAPTER 2 ======================= -->
+    <section id="ch2" class="chapter">
+      <h2><span class="chapter__number">02</span> Formatting Text</h2>
+
+      <h3>Line breaks and horizontal rules</h3>
+      <p><code>&lt;br /&gt;</code> forces a single line break inside a block of text without starting a new paragraph. <code>&lt;hr /&gt;</code> draws a horizontal rule &mdash; typically used to mark a thematic break between sections. Both are self-closing; they never wrap content.</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;p&gt;123 Example Street&lt;br /&gt;
+Springfield&lt;br /&gt;
+Anytown, USA&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;Content after the rule.&lt;/p&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p>123 Example Street<br />Springfield<br />Anytown, USA</p>
+          <hr />
+          <p>Content after the rule.</p>
+        </div>
+      </div>
+
+      <h3>Strong &amp; emphasis vs. bold &amp; italic</h3>
+      <p><code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code> look the same as <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> by default, but they carry meaning: <code>&lt;strong&gt;</code> marks content of strong importance, and <code>&lt;em&gt;</code> marks emphasis that actually changes the meaning of a sentence. Screen readers can announce them differently &mdash; <code>&lt;b&gt;</code>/<code>&lt;i&gt;</code> are purely stylistic.</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; do not
+unplug the device while it is updating.&lt;/p&gt;
+&lt;p&gt;I &lt;em&gt;did&lt;/em&gt; lock the door.&lt;/p&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p><strong>Warning:</strong> do not unplug the device while it is updating.</p>
+          <p>I <em>did</em> lock the door.</p>
+        </div>
+      </div>
+
+      <h3>Quotations</h3>
+      <p>Use <code>&lt;blockquote&gt;</code> for longer, block-level quotes (a <code>&lt;p&gt;</code> should sit inside it), and the inline <code>&lt;q&gt;</code> element for short quotes within a sentence. Both accept a <code>cite</code> attribute holding the URL the quote came from.</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;blockquote cite="https://example.com/source"&gt;
+  &lt;p&gt;The best way to predict the future
+  is to invent it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;She said the update was
+&lt;q cite="https://example.com/notes"&gt;ready to ship&lt;/q&gt;.&lt;/p&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <blockquote cite="https://example.com/source"><p>The best way to predict the future is to invent it.</p></blockquote>
+          <p>She said the update was <q cite="https://example.com/notes">ready to ship</q>.</p>
+        </div>
+      </div>
+
+      <h3>Abbreviations, citations &amp; definitions</h3>
+      <p><code>&lt;abbr title="..."&gt;</code> expands an abbreviation on hover. <code>&lt;cite&gt;</code> names the title of a creative work. <code>&lt;dfn&gt;</code> marks the defining instance of a term &mdash; note that some browsers don't style it noticeably.</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;p&gt;&lt;abbr title="Hypertext Markup Language"&gt;HTML&lt;/abbr&gt;
+ is described in &lt;cite&gt;HTML &amp; CSS: Design and Build
+ Websites&lt;/cite&gt;.&lt;/p&gt;
+&lt;p&gt;A &lt;dfn&gt;browser&lt;/dfn&gt; is a program used
+to view websites.&lt;/p&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p><abbr title="Hypertext Markup Language">HTML</abbr> is described in <cite>HTML &amp; CSS: Design and Build Websites</cite>.</p>
+          <p>A <dfn>browser</dfn> is a program used to view websites.</p>
+        </div>
+      </div>
+
+      <h3>Author details</h3>
+      <p><code>&lt;address&gt;</code> holds contact details for the author of the page (or article) &mdash; not just any postal address.</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;address&gt;
+  Written by Jane Doe.&lt;br /&gt;
+  Visit us at: &lt;br /&gt;
+  123 Example Street, Springfield&lt;br /&gt;
+  &lt;a href="mailto:jane@example.com"&gt;jane@example.com&lt;/a&gt;
+&lt;/address&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <address>Written by Jane Doe.<br />Visit us at: <br />123 Example Street, Springfield<br /><a href="mailto:jane@example.com">jane@example.com</a></address>
+        </div>
+      </div>
+
+      <h3>Marking changes to content</h3>
+      <p><code>&lt;ins&gt;</code> shows text that has been inserted (usually underlined), <code>&lt;del&gt;</code> shows text that has been deleted (usually struck through), and <code>&lt;s&gt;</code> marks text that is simply no longer accurate or relevant &mdash; without implying an edit history.</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;p&gt;Price: &lt;del&gt;$40&lt;/del&gt; &lt;ins&gt;$30&lt;/ins&gt;&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;Meeting at 3pm&lt;/s&gt; &mdash; moved to 4pm.&lt;/p&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p>Price: <del>$40</del> <ins>$30</ins></p>
+          <p><s>Meeting at 3pm</s> &mdash; moved to 4pm.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= CHAPTER 3 ======================= -->
+    <section id="ch3" class="chapter">
+      <h2><span class="chapter__number">03</span> Lists</h2>
+      <p>Every item in any list &mdash; ordered or unordered &mdash; is wrapped in an <code>&lt;li&gt;</code> (list item) element.</p>
+
+      <h3>Ordered and unordered lists</h3>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;ol&gt;
+  &lt;li&gt;Preheat the oven&lt;/li&gt;
+  &lt;li&gt;Mix the batter&lt;/li&gt;
+  &lt;li&gt;Bake for 25 minutes&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Flour&lt;/li&gt;
+  &lt;li&gt;Sugar&lt;/li&gt;
+  &lt;li&gt;Eggs&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p><strong>&lt;ol&gt;</strong> &mdash; ordered</p>
+          <ol><li>Preheat the oven</li><li>Mix the batter</li><li>Bake for 25 minutes</li></ol>
+          <p><strong>&lt;ul&gt;</strong> &mdash; unordered</p>
+          <ul><li>Flour</li><li>Sugar</li><li>Eggs</li></ul>
+        </div>
+      </div>
+
+      <h3>Definition lists</h3>
+      <p>A definition list uses <code>&lt;dl&gt;</code> as the container, <code>&lt;dt&gt;</code> for each term being defined, and <code>&lt;dd&gt;</code> for its definition.</p>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;The markup language used to
+  structure web pages.&lt;/dd&gt;
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;The language used to style
+  those pages.&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <dl><dt>HTML</dt><dd>The markup language used to structure web pages.</dd><dt>CSS</dt><dd>The language used to style those pages.</dd></dl>
+        </div>
+      </div>
+
+      <h3>Nested lists</h3>
+      <p>A list can be placed inside a list item to build a sub-list.</p>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;ul&gt;
+  &lt;li&gt;Fruit
+    &lt;ul&gt;
+      &lt;li&gt;Apple&lt;/li&gt;
+      &lt;li&gt;Banana&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Vegetables&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <ul><li>Fruit<ul><li>Apple</li><li>Banana</li></ul></li><li>Vegetables</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= CHAPTER 4 ======================= -->
+    <section id="ch4" class="chapter">
+      <h2><span class="chapter__number">04</span> Links</h2>
+      <p>Links are what turn a pile of documents into the <em>web</em>. Every link is an anchor element: <code>&lt;a href="..."&gt;text the user clicks&lt;/a&gt;</code>.</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;a href="https://developer.mozilla.org"&gt;
+  Visit MDN Web Docs
+&lt;/a&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p><a href="https://developer.mozilla.org" target="_blank" rel="noopener">Visit MDN Web Docs</a></p>
+        </div>
+      </div>
+
+      <h3>Absolute vs. relative URLs</h3>
+      <table class="ref-table">
+        <thead><tr><th scope="col">Type</th><th scope="col">Example</th><th scope="col">When to use it</th></tr></thead>
+        <tbody>
+          <tr><td>Absolute URL</td><td><code>https://example.com/about.html</code></td><td>Linking to a different website</td></tr>
+          <tr><td>Relative URL</td><td><code>about.html</code> or <code>../index.html</code></td><td>Linking between pages of your own site (they must live under the same site structure)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>A typical site directory structure</h3>
+      <p>A common pattern: the root folder holds the homepage as <code>index.html</code>, and every sub-folder also has its own <code>index.html</code> as that section's landing page.</p>
+      <div class="demo demo--single">
+        <div class="demo__code">
+<pre><code>site/
+├── index.html          &lt;- homepage
+├── about/
+│   └── index.html
+└── products/
+    ├── index.html
+    ├── widget.html
+    └── images/
+        └── widget.jpg</code></pre>
+        </div>
+      </div>
+      <p>From <code>products/widget.html</code>, a link back up to the homepage is a <strong>parent</strong> reference (<code>../index.html</code>), and one further up would be a <strong>grandparent</strong> reference (<code>../../index.html</code>).</p>
+
+      <h3>Email links</h3>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;a href="mailto:hello@example.com"&gt;
+  Email us
+&lt;/a&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p><a href="mailto:hello@example.com">Email us</a></p>
+        </div>
+      </div>
+
+      <h3>Opening links in a new tab</h3>
+      <p>The <code>target</code> attribute controls where the link opens. <code>target="_blank"</code> opens it in a new tab or window instead of replacing the current page.</p>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;a href="https://example.com" target="_blank"&gt;
+  Opens in a new tab
+&lt;/a&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p><a href="https://example.com" target="_blank" rel="noopener">Opens in a new tab</a></p>
+        </div>
+      </div>
+
+      <h3>Linking to a specific part of a page</h3>
+      <p>Give any element an <code>id</code>, then point an <code>&lt;a&gt;</code> at <code>#that-id</code>. On the <em>same</em> page, just use the <code>#id</code>. On a <em>different</em> page, use the full (absolute or relative) URL followed by <code>#id</code>.</p>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;!-- same page --&gt;
+&lt;a href="#jump-target"&gt;Jump within this page&lt;/a&gt;
+
+&lt;!-- a specific section of another page --&gt;
+&lt;a href="/notes/chapter4.html#jump-target"&gt;
+  Jump to a section of another page
+&lt;/a&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result &mdash; try it live</span>
+          <p><a href="#jump-target">Jump within this page &darr;</a> (it's in the sidebar &mdash; opens the menu on small screens)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= CHAPTER 5 ======================= -->
+    <section id="ch5" class="chapter">
+      <h2><span class="chapter__number">05</span> Images</h2>
+      <p>The <code>&lt;img&gt;</code> element embeds a picture. It never has a closing tag. <code>src</code> points to the file, <code>alt</code> is descriptive text read aloud by screen readers (and shown if the image fails to load), and <code>title</code> shows a tooltip on hover.</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;img src="images/mountain.png"
+     alt="Illustration used as a placeholder photo"
+     title="A placeholder image" /&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <img src="assets/images/mountain.png" alt="Illustration used as a placeholder photo" title="A placeholder image" width="240" height="160" />
+        </div>
+      </div>
+
+      <p class="callout">The old <code>align</code> attribute (values like <code>left</code>, <code>right</code>, <code>top</code>, <code>middle</code>, <code>bottom</code>) is <strong>not part of HTML5</strong> &mdash; positioning and alignment belong in CSS now (e.g. <code>float</code> or <code>object-position</code>).</p>
+
+      <h3>Image formats &amp; resolution</h3>
+      <p>PNG, JPEG and GIF are all <strong>bitmap</strong> formats made of a grid of pixels. Web images are conventionally exported at 72&nbsp;ppi, because that's the resolution most browsers actually render at &mdash; shipping a higher-resolution file doesn't make it look sharper, it just makes it slower to download. <strong>SVG</strong> vector images scale to any size without quality loss, though (per the original notes) their browser support was historically inconsistent; today they're widely supported and great for icons and logos.</p>
+
+      <h3>Animated GIFs</h3>
+      <p>An animated GIF stores several frames in one file to create a simple, looping animation. Because every frame adds to the file size, it's worth keeping frame count and dimensions modest so the page doesn't take too long to load.</p>
+
+      <h3>Figures &amp; captions</h3>
+      <p><code>&lt;figure&gt;</code> groups an image with its caption, and <code>&lt;figcaption&gt;</code> holds that caption text.</p>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;figure&gt;
+  &lt;img src="images/icon-figure.png"
+       alt="Abstract purple placeholder graphic" /&gt;
+  &lt;figcaption&gt;
+    Fig. 1 &mdash; a placeholder graphic used
+    to demonstrate the figure element.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <figure>
+            <img src="assets/images/icon-figure.png" alt="Abstract purple placeholder graphic" width="220" height="147" />
+            <figcaption>Fig. 1 &mdash; a placeholder graphic used to demonstrate the figure element.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= CHAPTER 6 ======================= -->
+    <section id="ch6" class="chapter">
+      <h2><span class="chapter__number">06</span> Tables</h2>
+      <p>A table is a <code>&lt;table&gt;</code> made of rows (<code>&lt;tr&gt;</code>), and each row holds data cells (<code>&lt;td&gt;</code>) or header cells (<code>&lt;th&gt;</code>). The <code>scope</code> attribute on a <code>&lt;th&gt;</code> (values <code>col</code> or <code>row</code>) tells assistive technology whether that header describes a column or a row.</p>
+
+      <div class="demo demo--single">
+        <div class="demo__code">
+<pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Course&lt;/th&gt;
+      &lt;th scope="col"&gt;Mon&lt;/th&gt;
+      &lt;th scope="col"&gt;Tue&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;HTML&lt;/th&gt;
+      &lt;td colspan="2"&gt;All day workshop&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;CSS&lt;/th&gt;
+      &lt;td rowspan="2"&gt;9am&lt;/td&gt;
+      &lt;td&gt;2pm&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;JavaScript&lt;/th&gt;
+      &lt;td&gt;3pm&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td colspan="3"&gt;Room 204 for all sessions&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+        </div>
+      </div>
+      <div class="demo__result demo__result--wide">
+        <span class="demo__label">Result</span>
+        <table class="live-table">
+          <thead>
+            <tr><th scope="col">Course</th><th scope="col">Mon</th><th scope="col">Tue</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">HTML</th><td colspan="2">All day workshop</td></tr>
+            <tr><th scope="row">CSS</th><td rowspan="2">9am</td><td>2pm</td></tr>
+            <tr><th scope="row">JavaScript</th><td>3pm</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="3">Room 204 for all sessions</td></tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <p><code>colspan="2"</code> makes a cell span two columns; <code>rowspan="2"</code> makes a cell span two rows. <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> and <code>&lt;tfoot&gt;</code> group rows for styling and let long tables repeat their header when printed.</p>
+      <p class="callout">Presentational attributes like <code>border</code>, <code>bgcolor</code>, <code>cellpadding</code>, <code>cellspacing</code> and <code>width</code> belonged to old HTML. In HTML5, all of that visual styling is done with CSS instead.</p>
+    </section>
+
+    <!-- ======================= CHAPTER 7 ======================= -->
+    <section id="ch7" class="chapter">
+      <h2><span class="chapter__number">07</span> Forms</h2>
+      <p>Everything a user fills in lives inside a <code>&lt;form&gt;</code>. Two key attributes: <code>action</code> is the URL of the server-side script that will receive the data, and <code>method</code> is the HTTP method used to send it &mdash; commonly <code>GET</code> (for searches / retrieving data, appends data to the URL) or <code>POST</code> (for submitting data, sends it in the request body).</p>
+
+      <h3>Try the input types</h3>
+      <p>This demo form doesn't actually submit anywhere &mdash; JavaScript intercepts it and prints what you entered, purely so you can see each control in action.</p>
+
+      <div class="demo demo--single">
+        <form id="demo-form" class="live-form" action="#" method="post" novalidate>
+          <fieldset>
+            <legend>Account details</legend>
+
+            <div class="form-row">
+              <label for="f-name">Full name (text)</label>
+              <input type="text" id="f-name" name="fullname" maxlength="40" placeholder="Ada Lovelace" />
+            </div>
+
+            <div class="form-row">
+              <label for="f-email">Email <span class="req">*</span></label>
+              <input type="email" id="f-email" name="email" required placeholder="ada@example.com" />
+            </div>
+
+            <div class="form-row">
+              <label for="f-password">Password</label>
+              <input type="password" id="f-password" name="password" />
+            </div>
+
+            <div class="form-row">
+              <label for="f-site">Website (url)</label>
+              <input type="url" id="f-site" name="website" placeholder="https://example.com" />
+            </div>
+
+            <div class="form-row">
+              <label for="f-birthday">Birthday (date)</label>
+              <input type="date" id="f-birthday" name="birthday" />
+            </div>
+
+            <div class="form-row">
+              <label for="f-search">Search a topic (search)</label>
+              <input type="search" id="f-search" name="topic" placeholder="e.g. semantic HTML" />
+            </div>
+
+            <div class="form-row">
+              <label for="f-file">Attach a file (file)</label>
+              <input type="file" id="f-file" name="attachment" />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Preferences</legend>
+
+            <div class="form-row">
+              <span class="form-row__label">Favourite language (radio)</span>
+              <label class="inline-label"><input type="radio" name="language" value="html" checked /> HTML</label>
+              <label class="inline-label"><input type="radio" name="language" value="css" /> CSS</label>
+              <label class="inline-label"><input type="radio" name="language" value="js" /> JavaScript</label>
+            </div>
+
+            <div class="form-row">
+              <span class="form-row__label">Topics to follow (checkbox)</span>
+              <label class="inline-label"><input type="checkbox" name="topics" value="tutorials" checked /> Tutorials</label>
+              <label class="inline-label"><input type="checkbox" name="topics" value="news" /> News</label>
+              <label class="inline-label"><input type="checkbox" name="topics" value="jobs" /> Job posts</label>
+            </div>
+
+            <div class="form-row">
+              <label for="f-role">Role (select)</label>
+              <select id="f-role" name="role">
+                <option value="" selected disabled>Choose one&hellip;</option>
+                <option value="student">Student</option>
+                <option value="developer">Developer</option>
+                <option value="designer">Designer</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label for="f-bio">Short bio (textarea)</label>
+              <textarea id="f-bio" name="bio" rows="3" placeholder="Tell us a little about yourself&hellip;"></textarea>
+            </div>
+
+            <div class="form-row form-row--hidden-demo">
+              <span class="form-row__label">Hidden field (not shown to the user)</span>
+              <input type="hidden" name="source" value="html-notes-demo" />
+              <code>&lt;input type="hidden" name="source" value="html-notes-demo" /&gt;</code>
+            </div>
+          </fieldset>
+
+          <div class="form-row form-row--submit">
+            <button type="submit">Submit (button)</button>
+            <input type="image" src="assets/images/icon-figure.png" alt="Submit with an image" width="28" height="18" title='type="image"' />
+          </div>
+        </form>
+
+        <div id="form-output" class="form-output" hidden>
+          <span class="demo__label">Captured on submit (JavaScript, not a real server)</span>
+          <pre><code id="form-output-code"></code></pre>
+        </div>
+      </div>
+
+      <h3>Labelling controls</h3>
+      <p>A <code>&lt;label&gt;</code> ties descriptive text to a form control &mdash; clicking the label focuses (or toggles) the control, which matters a lot for accessibility. There are two ways to make that connection:</p>
+
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;!-- Method 1: wrap the input in the label --&gt;
+&lt;label&gt;
+  Remember me
+  &lt;input type="checkbox" name="remember" /&gt;
+&lt;/label&gt;
+
+&lt;!-- Method 2: keep them separate, linked by "for" / "id" --&gt;
+&lt;label for="newsletter"&gt;Subscribe to newsletter&lt;/label&gt;
+&lt;input type="checkbox" id="newsletter" name="newsletter" /&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p><label>Remember me <input type="checkbox" name="remember-demo" /></label></p>
+          <p><label for="newsletter-demo">Subscribe to newsletter</label> <input type="checkbox" id="newsletter-demo" name="newsletter-demo" /></p>
+        </div>
+      </div>
+
+      <h3>Grouping fields &amp; validation</h3>
+      <p><code>&lt;fieldset&gt;</code> visually and semantically groups related controls, and <code>&lt;legend&gt;</code> gives that group a title (see the "Account details" and "Preferences" groups in the demo form above). Adding <code>required</code> to an input &mdash; as done on the email field above &mdash; tells the browser to block submission until it's filled in, catching simple mistakes before they ever reach the server. JavaScript is still the right tool for more complex validation rules.</p>
+    </section>
+
+    <!-- ======================= CHAPTER 8 ======================= -->
+    <section id="ch8" class="chapter">
+      <h2><span class="chapter__number">08</span> Extra Markup</h2>
+
+      <h3>Doctypes</h3>
+      <p>The doctype is the very first line of an HTML document and tells the browser which version of HTML to expect.</p>
+      <table class="ref-table">
+        <thead><tr><th scope="col">Version</th><th scope="col">Doctype</th></tr></thead>
+        <tbody>
+          <tr><td>HTML5</td><td><code>&lt;!DOCTYPE html&gt;</code></td></tr>
+          <tr><td>HTML 4.01 Strict</td><td><code>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"&gt;</code></td></tr>
+          <tr><td>XHTML 1.0 Strict</td><td><code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</code></td></tr>
+          <tr><td>XML declaration</td><td><code>&lt;?xml version="1.0" ?&gt;</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Comments</h3>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;!-- this text is never shown in the browser --&gt;
+&lt;p&gt;Visible content.&lt;/p&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <!-- this text is never shown in the browser -->
+          <p>Visible content.</p>
+        </div>
+      </div>
+
+      <h3><code>id</code> vs. <code>class</code></h3>
+      <p>An <code>id</code> must be <strong>unique</strong> on the page and is typically used as a hook for a single, specific element (a link target, a JavaScript reference). A <code>class</code> can be reused across as many elements as you like, and is the normal way to apply a shared style with CSS.</p>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;p id="intro"&gt;Only one element may have id="intro".&lt;/p&gt;
+&lt;p class="highlight"&gt;Many elements can share&lt;/p&gt;
+&lt;p class="highlight"&gt;the same class name.&lt;/p&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <p id="intro-demo">Only one element may have id="intro".</p>
+          <p class="highlight">Many elements can share</p>
+          <p class="highlight">the same class name.</p>
+        </div>
+      </div>
+
+      <h3>Block vs. inline elements</h3>
+      <p>Block-level elements (like <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>) start on a new line and take up the full width available. Inline elements (like <code>&lt;em&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;b&gt;</code>) flow within a line of text without forcing a break.</p>
+
+      <h3>Grouping with <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code></h3>
+      <p><code>&lt;div&gt;</code> groups a block of related elements together (and starts on its own new line). <code>&lt;span&gt;</code> does the same job inline &mdash; either to wrap a run of text that has no more suitable element, or to wrap a handful of inline elements &mdash; so you can target that group with CSS or JavaScript.</p>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;div class="card"&gt;
+  &lt;p&gt;This whole block is one &lt;code&gt;div&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Some text with a &lt;span class="tag"&gt;highlighted
+word&lt;/span&gt; in the middle.&lt;/p&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <div class="card-demo"><p>This whole block is one <code>div</code>.</p></div>
+          <p>Some text with a <span class="tag-demo">highlighted word</span> in the middle.</p>
+        </div>
+      </div>
+
+      <h3>Embedding another page with <code>&lt;iframe&gt;</code></h3>
+      <p><code>&lt;iframe&gt;</code> displays another HTML document inside a window on your page. Key attributes: <code>src</code> (the page to embed), <code>width</code> / <code>height</code> (its dimensions), <code>scrolling</code> and <code>frameborder</code> (both dropped in HTML5 &mdash; use CSS instead), and <code>seamless</code> (an HTML5 attribute for blending the frame into the page).</p>
+      <div class="demo">
+        <div class="demo__code">
+<pre><code>&lt;iframe src="page-to-embed.html"
+        width="400" height="150"
+        title="Embedded page"&gt;
+&lt;/iframe&gt;</code></pre>
+        </div>
+        <div class="demo__result">
+          <span class="demo__label">Result</span>
+          <iframe title="Embedded page demo" width="100%" height="120" srcdoc="&lt;body style=&quot;font-family:sans-serif;margin:12px;color:#333&quot;&gt;&lt;p&gt;I'm a separate document, loaded inside an &amp;lt;iframe&amp;gt;.&lt;/p&gt;&lt;/body&gt;"></iframe>
+        </div>
+      </div>
+
+      <h3>Information about the page: <code>&lt;meta&gt;</code></h3>
+      <p><code>&lt;meta&gt;</code> tags live inside <code>&lt;head&gt;</code> and never have a closing tag. They usually pair a <code>name</code> with <code>content</code>.</p>
+      <div class="demo demo--single">
+        <div class="demo__code">
+<pre><code>&lt;head&gt;
+  &lt;title&gt;Information About Your Page&lt;/title&gt;
+  &lt;meta name="description"
+        content="A short summary shown in search results (aim for under 155 characters)." /&gt;
+  &lt;meta name="keywords"
+        content="html, notes, learning" /&gt;
+  &lt;meta name="robots" content="index, follow" /&gt;
+  &lt;meta name="author" content="Jon Duckett" /&gt;
+  &lt;meta http-equiv="cache-control" content="no-cache" /&gt;
+&lt;/head&gt;</code></pre>
+        </div>
+      </div>
+      <table class="ref-table">
+        <thead><tr><th scope="col">Name</th><th scope="col">Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><code>description</code></td><td>Short summary shown by search engines &mdash; keep it under ~155 characters.</td></tr>
+          <tr><td><code>keywords</code></td><td>Comma-separated words describing the page's content.</td></tr>
+          <tr><td><code>robots</code></td><td>Tells search engines whether to index the page and follow its links.</td></tr>
+          <tr><td><code>author</code></td><td>Names the page's author.</td></tr>
+          <tr><td><code>cache-control</code> / <code>expires</code></td><td>Controls whether &amp; how long a browser caches the page.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Escape characters</h3>
+      <p>Some characters are reserved by HTML itself, so to display them literally you need a character reference &mdash; either a named entity like <code>&amp;amp;copy;</code> or a numeric one like <code>&amp;amp;#169;</code>.</p>
+      <table class="ref-table">
+        <thead><tr><th scope="col">Character</th><th scope="col">Named entity</th><th scope="col">Numeric entity</th></tr></thead>
+        <tbody>
+          <tr><td>&lt;</td><td><code>&amp;lt;</code></td><td><code>&amp;#60;</code></td></tr>
+          <tr><td>&gt;</td><td><code>&amp;gt;</code></td><td><code>&amp;#62;</code></td></tr>
+          <tr><td>&amp;</td><td><code>&amp;amp;</code></td><td><code>&amp;#38;</code></td></tr>
+          <tr><td>"</td><td><code>&amp;quot;</code></td><td><code>&amp;#34;</code></td></tr>
+          <tr><td>&cent;</td><td><code>&amp;cent;</code></td><td><code>&amp;#162;</code></td></tr>
+          <tr><td>&pound;</td><td><code>&amp;pound;</code></td><td><code>&amp;#163;</code></td></tr>
+          <tr><td>&yen;</td><td><code>&amp;yen;</code></td><td><code>&amp;#165;</code></td></tr>
+          <tr><td>&euro;</td><td><code>&amp;euro;</code></td><td><code>&amp;#8364;</code></td></tr>
+          <tr><td>&copy;</td><td><code>&amp;copy;</code></td><td><code>&amp;#169;</code></td></tr>
+          <tr><td>&reg;</td><td><code>&amp;reg;</code></td><td><code>&amp;#174;</code></td></tr>
+          <tr><td>&trade;</td><td><code>&amp;trade;</code></td><td><code>&amp;#8482;</code></td></tr>
+          <tr><td>&lsquo;&nbsp;&rsquo;</td><td><code>&amp;lsquo;</code> / <code>&amp;rsquo;</code></td><td><code>&amp;#8216;</code> / <code>&amp;#8217;</code></td></tr>
+          <tr><td>&ldquo;&nbsp;&rdquo;</td><td><code>&amp;ldquo;</code> / <code>&amp;rdquo;</code></td><td><code>&amp;#8220;</code> / <code>&amp;#8221;</code></td></tr>
+          <tr><td>&times;</td><td><code>&amp;times;</code></td><td><code>&amp;#215;</code></td></tr>
+          <tr><td>&divide;</td><td><code>&amp;divide;</code></td><td><code>&amp;#247;</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ======================= CHAPTER 9 ======================= -->
+    <section id="ch9" class="chapter">
+      <h2><span class="chapter__number">09</span> Video &amp; Audio</h2>
+
+      <h3>A bit of history: Flash</h3>
+      <p class="callout">Flash was once the standard way to add animation, video and audio to a page &mdash; embedded with <code>&lt;object&gt;</code> / <code>&lt;embed&gt;</code> and requiring visitors to install the Flash Player plugin. It was retired years ago and modern browsers no longer support it at all; it's included here only for historical context. Everything below, <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code>, is the native HTML5 replacement introduced to remove that plugin dependency.</p>
+
+      <h3>The <code>&lt;video&gt;</code> element</h3>
+      <p>Attributes you'll use most: <code>src</code> (path to the file), <code>poster</code> (an image shown before playback starts), <code>width</code>/<code>height</code>, and four boolean attributes &mdash; <code>controls</code>, <code>autoplay</code>, <code>loop</code>, <code>preload</code> &mdash; that are simple on/off switches: present means on, omitted means off. <code>preload</code> can also take a value: <code>none</code>, <code>auto</code>, or <code>metadata</code>.</p>
+
+      <div class="demo demo--single">
+        <div class="demo__code">
+<pre><code>&lt;video src="video/sample.mp4"
+       poster="images/poster.png"
+       width="320" height="180"
+       controls
+       preload="metadata"&gt;
+  &lt;p&gt;Your browser doesn't support HTML5 video.&lt;/p&gt;
+&lt;/video&gt;</code></pre>
+        </div>
+      </div>
+      <div class="demo__result">
+        <span class="demo__label">Result &mdash; a real, playable (silent) sample clip</span>
+        <video src="assets/video/sample.mp4" poster="assets/images/poster.png" width="320" height="180" controls preload="metadata">
+          <p>Your browser doesn't support HTML5 video.</p>
+        </video>
+      </div>
+
+      <h3>Multiple sources with <code>&lt;source&gt;</code></h3>
+      <p>Not every browser supports every video format (H.264/MP4 vs. WebM being the classic split), so list several <code>&lt;source&gt;</code> elements &mdash; the browser plays the first one it understands.</p>
+      <div class="demo demo--single">
+        <div class="demo__code">
+<pre><code>&lt;video controls width="320" height="180" poster="images/poster.png"&gt;
+  &lt;source src="video/sample.webm" type="video/webm" /&gt;
+  &lt;source src="video/sample.mp4" type="video/mp4" /&gt;
+  &lt;p&gt;Your browser doesn't support HTML5 video.&lt;/p&gt;
+&lt;/video&gt;</code></pre>
+        </div>
+      </div>
+      <div class="demo__result">
+        <span class="demo__label">Result</span>
+        <video controls width="320" height="180" poster="assets/images/poster.png">
+          <source src="assets/video/sample.webm" type="video/webm" />
+          <source src="assets/video/sample.mp4" type="video/mp4" />
+          <p>Your browser doesn't support HTML5 video.</p>
+        </video>
+      </div>
+
+      <h3>The <code>&lt;audio&gt;</code> element</h3>
+      <p><code>&lt;audio&gt;</code> shares the same attribute set as <code>&lt;video&gt;</code> (minus the visual ones like <code>poster</code>/<code>width</code>/<code>height</code>), and also supports multiple <code>&lt;source&gt;</code> children for format fallback.</p>
+      <div class="demo demo--single">
+        <div class="demo__code">
+<pre><code>&lt;audio controls&gt;
+  &lt;source src="audio/sample.ogg" type="audio/ogg" /&gt;
+  &lt;source src="audio/sample.mp3" type="audio/mpeg" /&gt;
+  &lt;p&gt;Your browser doesn't support HTML5 audio.&lt;/p&gt;
+&lt;/audio&gt;</code></pre>
+        </div>
+      </div>
+      <div class="demo__result">
+        <span class="demo__label">Result &mdash; a real, playable tone</span>
+        <audio controls>
+          <source src="assets/audio/sample.ogg" type="audio/ogg" />
+          <source src="assets/audio/sample.mp3" type="audio/mpeg" />
+          <p>Your browser doesn't support HTML5 audio.</p>
+        </audio>
+      </div>
+      <p class="callout">Browsers that support <code>&lt;video&gt;</code>/<code>&lt;audio&gt;</code> don't all support the same file formats, which is exactly why shipping more than one <code>&lt;source&gt;</code> format matters.</p>
+    </section>
+
+    <footer class="site-footer">
+      <p>Rewritten and expanded from a set of personal study notes on HTML, for learning purposes.</p>
+      <button id="back-to-top" class="back-to-top" type="button">&uarr; Back to top</button>
+    </footer>
+
+  </main>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>

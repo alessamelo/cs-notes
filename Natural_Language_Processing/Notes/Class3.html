@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="..\..\style.css">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>NLP — Generative AI — Variational Autoencoders</title>
+
+    <style>
+
+        .definition {
+            background: #f0f0f0;
+            border-left: 4px solid #555;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: #fff4d6;
+            border-left: 4px solid #c28b00;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .comparison {
+            background: #eef3f8;
+            border-left: 4px solid #477;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .example {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+
+        code {
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+        .pipeline {
+            background: #f0f0f0;
+            padding: 18px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h1>Generative AI & Variational Autoencoders</h1>
+    <p>Notes on generative models, latent spaces, Bayesian notation, and VAEs</p>
+</header>
+
+<main><a href="..\index.html">← Back to NLP</a>
+
+
+
+    <!-- GENERATIVE AI -->
+    <section>
+        <h2>1. Generative AI</h2>
+
+        <p>
+            Generative AI (GAI) refers to models that learn the underlying
+            structure of data and can use that learned representation to
+            generate new data.
+        </p>
+
+        <div class="important">
+            <strong>Important correction:</strong>
+            Generative AI does not normally create everything "without existing
+            data." The model generally requires existing training data to learn
+            patterns and distributions. After training, it can generate new
+            samples that were not explicitly present in the training dataset.
+        </div>
+
+        <p>
+            For example, a generative model trained on images of faces can learn
+            patterns involving shapes, textures, lighting, and facial features.
+            It can then generate a new face that did not exist in the training
+            dataset.
+        </p>
+
+        <h3>Traditional AI vs Generative AI</h3>
+
+        <table>
+            <tr>
+                <th>Traditional / Discriminative AI</th>
+                <th>Generative AI</th>
+            </tr>
+
+            <tr>
+                <td>
+                    Often learns to predict a label or value from an input.
+                </td>
+
+                <td>
+                    Learns a data distribution and can generate new samples.
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Example: classify an image as a cat or dog.
+                </td>
+
+                <td>
+                    Example: generate a new image of a cat.
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Focuses on prediction or discrimination.
+                </td>
+
+                <td>
+                    Focuses on modeling and sampling from a distribution.
+                </td>
+            </tr>
+        </table>
+    </section>
+
+
+    <!-- AUTOENCODERS -->
+    <section>
+        <h2>2. Autoencoders</h2>
+
+        <p>
+            Autoencoders are based on a simple but powerful concept:
+            they take data, compress it into a lower-dimensional representation,
+            and then reconstruct the original data from that representation.
+        </p>
+
+        <div class="concept">
+            <strong>Basic structure:</strong>
+            <br><br>
+
+            Input → Encoder → Latent Representation → Decoder → Reconstruction
+        </div>
+
+        <h3>Example</h3>
+
+        <p>
+            Suppose an image contains one million numerical values.
+            Instead of representing the image using all one million values,
+            the encoder may compress it into a latent vector containing
+            only 10 to 100 numbers.
+        </p>
+
+        <p>
+            This compressed representation is called a
+            <strong>latent representation</strong>.
+            It exists in what we call the <strong>latent space</strong>.
+        </p>
+
+        <div class="formula">
+            x → Encoder → z → Decoder → x̂
+        </div>
+
+        <p>
+            Where:
+        </p>
+
+        <ul>
+            <li><strong>x</strong> = original input data</li>
+            <li><strong>z</strong> = latent representation</li>
+            <li><strong>x̂</strong> = reconstructed data</li>
+        </ul>
+    </section>
+
+
+    <!-- WHY NOT AUTOENCODERS -->
+    <section>
+        <h2>3. Why Not Just Use Autoencoders?</h2>
+
+        <p>
+            A standard autoencoder can learn useful latent representations,
+            but its latent space is not necessarily organized in a way that
+            makes it easy to generate new meaningful samples.
+        </p>
+
+        <h3>Problem: Irregular Latent Space</h3>
+
+        <p>
+            The encoder may place different examples in different regions of
+            the latent space without guaranteeing that the space between those
+            examples contains meaningful data.
+        </p>
+
+        <p>
+            Therefore, even if we take a point near an encoded image and use
+            the decoder, the resulting point may produce an unrealistic or
+            meaningless output.
+        </p>
+
+        <div class="concept">
+            <strong>Problem:</strong>
+            Nearby points in the latent space do not necessarily correspond
+            to meaningful variations of the original data.
+        </div>
+
+        <h3>Example</h3>
+
+        <p>
+            Imagine encoding an image of a digit "3".
+            We might expect nearby latent vectors to decode into images of
+            slightly different versions of "3".
+        </p>
+
+        <p>
+            However, with a conventional autoencoder, the latent space can be
+            poorly structured. A nearby point could potentially decode into
+            something completely different or produce an invalid output.
+        </p>
+    </section>
+
+
+    <!-- VAE -->
+    <section>
+        <h2>4. Variational Autoencoders</h2>
+
+        <p>
+            A <strong>Variational Autoencoder (VAE)</strong> is a generative
+            model that combines the idea of autoencoders with concepts from
+            probability and Bayesian inference.
+        </p>
+
+        <p>
+            The VAE was introduced by
+            <strong>Diederik P. Kingma</strong> and
+            <strong>Max Welling</strong> in the paper
+            <em>Auto-Encoding Variational Bayes</em>.
+        </p>
+
+        <p>
+            Diederik Kingma is also known for his work on the
+            <strong>Adam optimization algorithm</strong>.
+        </p>
+
+        <h3>Why VAEs?</h3>
+
+        <p>
+            The main idea is to create a latent space that is
+            <strong>continuous, structured, and suitable for sampling</strong>.
+        </p>
+
+        <p>
+            Instead of forcing each input image to map to one exact point,
+            a VAE maps an input to a probability distribution in latent space.
+        </p>
+    </section>
+
+
+    <!-- BAYESIAN NOTATION -->
+    <section>
+        <h2>5. Basic Bayesian Notation</h2>
+
+        <h3>Random Variable</h3>
+
+        <p>
+            A random variable is a variable whose value depends on the outcome
+            of a probabilistic process.
+        </p>
+
+        <p>
+            For example, suppose a continuous random variable
+            <strong>X</strong> can take values between 0 and 10.
+        </p>
+
+        <h3>Probability Density Function</h3>
+
+        <p>
+            The probability density function (PDF) describes how probability
+            is distributed over possible values of a continuous random variable.
+        </p>
+
+        <div class="formula">
+            p(x)
+        </div>
+
+        <h3>Expectation</h3>
+
+        <p>
+            The expectation represents the average or expected value of a
+            random variable.
+        </p>
+
+        <div class="formula">
+            E[X]
+        </div>
+
+        <h3>Marginal Distribution</h3>
+
+        <p>
+            A marginal distribution describes the probability distribution of
+            one variable while ignoring another variable.
+        </p>
+
+        <p>
+            If we have a joint distribution over X and Z, we can obtain the
+            marginal distribution of X by integrating out Z.
+        </p>
+
+        <div class="formula">
+            p(x) = ∫ p(x,z) dz
+        </div>
+
+        <h3>Conditional Probability</h3>
+
+        <p>
+            Conditional probability describes the probability of one variable
+            given another variable.
+        </p>
+
+        <div class="formula">
+            p(x | z)
+        </div>
+
+        <h3>Likelihood</h3>
+
+        <p>
+            The likelihood describes how probable the observed data is under
+            a particular model or parameter configuration.
+        </p>
+
+        <div class="formula">
+            p(x | z)
+        </div>
+
+        <p>
+            In the VAE context, this conditional distribution is commonly
+            interpreted as the probability of generating an observation
+            <strong>x</strong> given a latent variable <strong>z</strong>.
+        </p>
+    </section>
+
+
+    <!-- VAE GENERAL IDEA -->
+    <section>
+        <h2>6. General Idea of a VAE</h2>
+
+        <p>
+            Our goal is to generate new data from an unknown data distribution
+            <strong>p(x)</strong>.
+        </p>
+
+        <p>
+            For example, suppose our dataset contains images.
+            The distribution <strong>p(x)</strong> represents the underlying
+            distribution of possible images.
+        </p>
+
+        <div class="important">
+            <strong>The problem:</strong>
+            We do not know the exact shape or properties of the true
+            distribution p(x). We only have access to samples from it,
+            such as the images contained in our training dataset.
+        </div>
+
+        <p>
+            Working directly with this high-dimensional distribution can be
+            difficult. Therefore, VAEs introduce a latent variable
+            <strong>z</strong>.
+        </p>
+
+        <h3>Latent Distribution</h3>
+
+        <p>
+            The latent variable is a lower-dimensional representation of the
+            information contained in the observed data.
+        </p>
+
+        <div class="formula">
+            z ∈ Latent Space
+        </div>
+
+        <p>
+            Instead of modeling the complicated data distribution directly,
+            we define a simpler prior distribution over the latent variables.
+        </p>
+
+        <p>
+            A common choice is a standard normal distribution:
+        </p>
+
+        <div class="formula">
+            p(z) = N(0, I)
+        </div>
+    </section>
+
+
+    <!-- TWO DISTRIBUTIONS -->
+    <section>
+        <h2>7. The Two Important Distributions</h2>
+
+        <p>
+            The VAE uses two important conditional distributions to connect
+            the observed data space and the latent space.
+        </p>
+
+        <h3>1. Posterior / Encoder</h3>
+
+        <p>
+            The encoder approximates the posterior distribution of the latent
+            variable given an observed data point.
+        </p>
+
+        <div class="formula">
+            q<sub>φ</sub>(z | x)
+        </div>
+
+        <p>
+            This asks:
+        </p>
+
+        <div class="concept">
+            "Given this image x, what latent vectors z are likely to represent
+            it?"
+        </div>
+
+        <p>
+            The encoder does not normally output one deterministic latent
+            vector. Instead, it outputs the parameters of a probability
+            distribution, usually a mean and variance.
+        </p>
+
+        <div class="formula">
+            μ(x), σ²(x)
+        </div>
+
+        <h3>2. Likelihood / Decoder</h3>
+
+        <p>
+            The decoder models the likelihood of generating an observation
+            given a latent vector.
+        </p>
+
+        <div class="formula">
+            p<sub>θ</sub>(x | z)
+        </div>
+
+        <p>
+            This asks:
+        </p>
+
+        <div class="concept">
+            "Given this latent vector z, what data x can be generated?"
+        </div>
+    </section>
+
+
+    <!-- ENCODER SAMPLING -->
+    <section>
+        <h2>8. Sampling in a VAE</h2>
+
+        <p>
+            The key difference between a traditional autoencoder and a VAE is
+            that the encoder represents each input as a probability
+            distribution rather than a single fixed point.
+        </p>
+
+        <p>
+            For a given input <strong>x</strong>, the encoder produces:
+        </p>
+
+        <div class="formula">
+            q<sub>φ</sub>(z | x)
+            = N(μ(x), σ²(x))
+        </div>
+
+        <p>
+            We then sample a latent vector from this distribution:
+        </p>
+
+        <div class="formula">
+            z ~ q<sub>φ</sub>(z | x)
+        </div>
+
+        <p>
+            The sampled latent vector is passed to the decoder:
+        </p>
+
+        <div class="formula">
+            z → Decoder → x̂
+        </div>
+
+        <p>
+            Because the latent representation is probabilistic, different
+            samples can produce slightly different reconstructions.
+        </p>
+    </section>
+
+
+    <!-- REPARAMETERIZATION -->
+    <section>
+        <h2>9. Reparameterization Trick</h2>
+
+        <p>
+            There is a problem with directly sampling from a distribution:
+            stochastic sampling makes ordinary backpropagation difficult.
+        </p>
+
+        <p>
+            VAEs solve this using the <strong>reparameterization trick</strong>.
+        </p>
+
+        <p>
+            Instead of directly sampling:
+        </p>
+
+        <div class="formula">
+            z ~ N(μ, σ²)
+        </div>
+
+        <p>
+            we sample random noise:
+        </p>
+
+        <div class="formula">
+            ε ~ N(0, I)
+        </div>
+
+        <p>
+            and construct z using:
+        </p>
+
+        <div class="formula">
+            z = μ + σ ⊙ ε
+        </div>
+
+        <p>
+            where <strong>⊙</strong> represents element-wise multiplication.
+        </p>
+
+        <div class="concept">
+            This separates the random component ε from the learnable
+            parameters μ and σ, allowing gradients to flow through the
+            sampling operation.
+        </div>
+    </section>
+
+
+    <!-- LATENT SPACE -->
+    <section>
+        <h2>10. Why the Latent Space Becomes Useful</h2>
+
+        <p>
+            A VAE does not only learn to reconstruct data.
+            It also regularizes the latent distributions so that they remain
+            close to a chosen prior distribution.
+        </p>
+
+        <p>
+            Usually:
+        </p>
+
+        <div class="formula">
+            p(z) = N(0, I)
+        </div>
+
+        <p>
+            This encourages the latent space to become continuous and
+            organized.
+        </p>
+
+        <p>
+            Consequently, nearby points in the latent space are more likely
+            to correspond to meaningful variations of the generated data.
+        </p>
+
+        <p>
+            For example, moving gradually through latent space may produce
+            gradual changes in an image rather than completely unrelated
+            outputs.
+        </p>
+    </section>
+
+
+    <!-- ELBO -->
+    <section>
+        <h2>11. VAE Loss Function</h2>
+
+        <p>
+            The VAE objective contains two main components:
+        </p>
+
+        <ol>
+            <li>
+                <strong>Reconstruction loss</strong>
+                — encourages the decoder to reconstruct the input accurately.
+            </li>
+
+            <li>
+                <strong>KL divergence</strong>
+                — encourages the learned latent distribution to remain close
+                to the prior distribution.
+            </li>
+        </ol>
+
+        <div class="formula">
+            Loss =
+            Reconstruction Loss
+            +
+            KL Divergence
+        </div>
+
+        <h3>Reconstruction Term</h3>
+
+        <p>
+            The reconstruction component measures how different the generated
+            output is from the original input.
+        </p>
+
+        <div class="formula">
+            Reconstruction Loss ≈ -E<sub>q(z|x)</sub>[log p(x|z)]
+        </div>
+
+        <h3>KL Divergence</h3>
+
+        <p>
+            The KL divergence measures the difference between the encoder's
+            latent distribution and the chosen prior distribution.
+        </p>
+
+        <div class="formula">
+            D<sub>KL</sub>(
+            q<sub>φ</sub>(z|x)
+            ||
+            p(z)
+            )
+        </div>
+
+        <p>
+            Therefore, the VAE objective can be written as:
+        </p>
+
+        <div class="formula">
+            L =
+            -E<sub>q<sub>φ</sub>(z|x)</sub>
+            [log p<sub>θ</sub>(x|z)]
+            +
+            D<sub>KL</sub>
+            (
+            q<sub>φ</sub>(z|x)
+            ||
+            p(z)
+            )
+        </div>
+    </section>
+
+
+    <!-- GENERATION -->
+    <section>
+        <h2>12. How a VAE Generates New Data</h2>
+
+        <p>
+            Once the VAE has been trained, we do not need an existing image
+            to generate a new sample.
+        </p>
+
+        <p>
+            Instead, we sample a latent vector from the prior distribution:
+        </p>
+
+        <div class="formula">
+            z ~ N(0, I)
+        </div>
+
+        <p>
+            Then we pass that latent vector through the decoder:
+        </p>
+
+        <div class="formula">
+            z → Decoder → x̂
+        </div>
+
+        <p>
+            The decoder generates a new sample according to the learned
+            distribution.
+        </p>
+
+        <div class="concept">
+            <strong>Generation process:</strong>
+            <br><br>
+            Sample z from the prior
+            <br>
+            ↓
+            <br>
+            Pass z through the decoder
+            <br>
+            ↓
+            <br>
+            Generate new x
+        </div>
+    </section>
+
+
+    <!-- COMPLETE ARCHITECTURE -->
+    <section>
+        <h2>13. Complete VAE Architecture</h2>
+
+        <div class="concept">
+            <strong>Training:</strong>
+            <br><br>
+
+            Input image x
+            <br>
+            ↓
+            <br>
+            Encoder
+            <br>
+            ↓
+            <br>
+            μ and σ
+            <br>
+            ↓
+            <br>
+            Sample ε ~ N(0,I)
+            <br>
+            ↓
+            <br>
+            z = μ + σ ⊙ ε
+            <br>
+            ↓
+            <br>
+            Decoder
+            <br>
+            ↓
+            <br>
+            Reconstructed image x̂
+        </div>
+
+        <h3>At Generation Time</h3>
+
+        <div class="concept">
+            Sample z ~ N(0,I)
+            <br>
+            ↓
+            <br>
+            Decoder
+            <br>
+            ↓
+            <br>
+            New generated data x
+        </div>
+    </section>
+
+
+    <!-- KEY IDEAS -->
+    <section>
+        <h2>14. Key Ideas to Remember</h2>
+
+        <ul>
+            <li>
+                Generative AI learns from existing data but can generate
+                new samples after training.
+            </li>
+
+            <li>
+                Autoencoders compress data into a lower-dimensional latent
+                representation and reconstruct it.
+            </li>
+
+            <li>
+                A conventional autoencoder does not necessarily produce a
+                well-structured latent space.
+            </li>
+
+            <li>
+                A VAE represents an input as a probability distribution
+                rather than a single deterministic point.
+            </li>
+
+            <li>
+                The encoder approximates
+                <code>qφ(z|x)</code>.
+            </li>
+
+            <li>
+                The decoder models
+                <code>pθ(x|z)</code>.
+            </li>
+
+            <li>
+                The latent space is commonly regularized toward
+                <code>N(0,I)</code>.
+            </li>
+
+            <li>
+                The reparameterization trick allows stochastic sampling
+                while maintaining differentiability for backpropagation.
+            </li>
+
+            <li>
+                The VAE objective balances reconstruction quality and
+                latent-space regularization.
+            </li>
+
+            <li>
+                After training, new data can be generated by sampling
+                <code>z ~ N(0,I)</code> and passing it through the decoder.
+            </li>
+        </ul>
+    </section>
+
+
+    <!-- CONCEPTUAL SUMMARY -->
+    <section>
+        <h2>15. Conceptual Summary</h2>
+
+        <p>
+            The central idea of a VAE is to learn a structured latent space
+            from which we can generate new data.
+        </p>
+
+        <div class="formula">
+            Data x
+            → Encoder
+            → q(z|x)
+            → Sample z
+            → Decoder
+            → Generated x
+        </div>
+
+        <p>
+            During training, the encoder learns how to represent data in
+            latent space while the decoder learns how to reconstruct data
+            from latent vectors.
+        </p>
+
+        <p>
+            The KL-divergence term prevents the latent space from becoming
+            arbitrarily irregular by encouraging the learned distributions
+            to remain close to a known prior.
+        </p>
+
+        <p>
+            This makes it possible to sample points from the latent space
+            and decode them into new, meaningful data.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    Generative AI — Variational Autoencoders Study Notes
+</footer>
+
+</body>
+</html>

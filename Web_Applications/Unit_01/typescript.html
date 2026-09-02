@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Unit 1 - TypeScript</title>
+</head>
+
+<body>
+<header>
+<h1>Unit 1: TypeScript</h1>
+<p>TypeScript vs JavaScript</p>
+</header>
+<main><a href="..\index.html">← Back to Web Applications</a>
+
+    <!-- INTRODUCTION -->
+    <section>
+        <h2>1. What is TypeScript?</h2>
+
+        <p>
+            TypeScript is a programming language developed by Microsoft and
+            built as a superset of JavaScript.
+        </p>
+
+        <p>
+            It extends JavaScript by adding features such as
+            <strong>static typing</strong>, interfaces, type annotations,
+            generics, and other features that help developers write and
+            maintain larger programs.
+        </p>
+
+        <div class="important">
+            <strong>Important:</strong>
+            TypeScript is not executed directly by browsers.
+            TypeScript code is normally compiled/transpiled into JavaScript,
+            which can then be executed by a browser or a JavaScript runtime
+            such as Node.js.
+        </div>
+
+        <div class="concept">
+            <strong>Basic process:</strong>
+            <br><br>
+
+            TypeScript
+            →
+            JavaScript
+            →
+            Browser / Node.js
+        </div>
+    </section>
+
+
+    <!-- STATIC TYPING -->
+    <section>
+        <h2>2. Static Typing</h2>
+
+        <p>
+            One of the main features TypeScript adds to JavaScript is
+            <strong>static typing</strong>.
+        </p>
+
+        <p>
+            Static types allow us to specify what kind of value a variable,
+            parameter, or function should contain or return.
+        </p>
+
+        <p>
+            The main goal is to detect many errors
+            <strong>before the program is executed</strong>.
+        </p>
+
+        <h3>JavaScript</h3>
+
+        <pre><code>let age = 20;
+
+age = "twenty";</code></pre>
+
+        <p>
+            JavaScript allows this because variables are dynamically typed.
+            The same variable can contain values of different types during
+            execution.
+        </p>
+
+        <h3>TypeScript</h3>
+
+        <pre><code>let age: number = 20;
+
+age = "twenty";</code></pre>
+
+        <p>
+            TypeScript reports an error because <code>age</code> was declared
+            as a number.
+        </p>
+    </section>
+
+
+    <!-- DYNAMIC VS STATIC -->
+    <section>
+        <h2>3. JavaScript vs TypeScript: Dynamic and Static Typing</h2>
+
+        <table>
+            <tr>
+                <th>JavaScript</th>
+                <th>TypeScript</th>
+            </tr>
+
+            <tr>
+                <td>Dynamically typed.</td>
+                <td>Statically typed.</td>
+            </tr>
+
+            <tr>
+                <td>
+                    Types are determined and checked during execution.
+                </td>
+
+                <td>
+                    Types can be checked before execution.
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Variables can generally change the type of value they
+                    contain.
+                </td>
+
+                <td>
+                    A variable can be restricted to a specific type.
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Many type-related errors appear at runtime.
+                </td>
+
+                <td>
+                    Many type-related errors can be detected during
+                    development or compilation.
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Does not require a separate TypeScript compilation step.
+                </td>
+
+                <td>
+                    Usually compiled/transpiled into JavaScript before
+                    execution.
+                </td>
+            </tr>
+        </table>
+    </section>
+
+
+    <!-- JAVASCRIPT COMPATIBILITY -->
+    <section>
+        <h2>4. Relationship with JavaScript</h2>
+
+        <p>
+            TypeScript is designed to be highly compatible with JavaScript.
+        </p>
+
+        <div class="concept">
+            <strong>
+                In general, valid JavaScript code can also be used as
+                TypeScript code.
+            </strong>
+        </div>
+
+        <p>
+            TypeScript adds additional syntax and type information on top of
+            JavaScript.
+        </p>
+
+        <pre><code>JavaScript
+      ↓
+TypeScript adds types and other features
+      ↓
+TypeScript compiler
+      ↓
+JavaScript
+      ↓
+Browser / Node.js</code></pre>
+    </section>
+
+
+    <!-- FUNCTIONS -->
+    <section>
+        <h2>5. Functions — Syntax Differences</h2>
+
+        <h3>JavaScript</h3>
+
+        <pre><code>function add(a, b) {
+    return a + b;
+}</code></pre>
+
+        <p>
+            JavaScript does not require us to explicitly declare the types of
+            the parameters or return value.
+        </p>
+
+        <h3>TypeScript</h3>
+
+        <pre><code>function add(a: number, b: number): number {
+    return a + b;
+}</code></pre>
+
+        <p>
+            TypeScript allows us to specify:
+        </p>
+
+        <ul>
+            <li><code>a: number</code> — parameter <code>a</code> must be a number.</li>
+            <li><code>b: number</code> — parameter <code>b</code> must be a number.</li>
+            <li><code>: number</code> — the function must return a number.</li>
+        </ul>
+    </section>
+
+
+    <!-- VARIABLES -->
+    <section>
+        <h2>6. Variables — Syntax Differences</h2>
+
+        <h3>JavaScript</h3>
+
+        <pre><code>let name = "Alex";
+let age = 20;
+let student = true;</code></pre>
+
+        <h3>TypeScript</h3>
+
+        <pre><code>let name: string = "Alex";
+let age: number = 20;
+let student: boolean = true;</code></pre>
+
+        <p>
+            Type annotations are written after the variable name using
+            a colon.
+        </p>
+
+        <pre><code>variableName: type</code></pre>
+
+        <p>
+            TypeScript can also infer types automatically.
+        </p>
+
+        <pre><code>let age = 20;
+// TypeScript infers: number</code></pre>
+    </section>
+
+
+    <!-- BASIC TYPES -->
+    <section>
+        <h2>7. Basic TypeScript Types</h2>
+
+        <pre><code>let username: string = "Alice";
+
+let age: number = 21;
+
+let isStudent: boolean = true;
+
+let nothing: null = null;
+
+let value: undefined = undefined;</code></pre>
+
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Example</th>
+            </tr>
+
+            <tr>
+                <td><code>string</code></td>
+                <td><code>"Hello"</code></td>
+            </tr>
+
+            <tr>
+                <td><code>number</code></td>
+                <td><code>42</code></td>
+            </tr>
+
+            <tr>
+                <td><code>boolean</code></td>
+                <td><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td><code>null</code></td>
+                <td><code>null</code></td>
+            </tr>
+
+            <tr>
+                <td><code>undefined</code></td>
+                <td><code>undefined</code></td>
+            </tr>
+        </table>
+    </section>
+
+
+    <!-- ARRAYS -->
+    <section>
+        <h2>8. Arrays</h2>
+
+        <h3>JavaScript</h3>
+
+        <pre><code>let numbers = [1, 2, 3, 4];
+
+let names = ["Alice", "Bob", "Charlie"];</code></pre>
+
+        <h3>TypeScript</h3>
+
+        <pre><code>let numbers: number[] = [1, 2, 3, 4];
+
+let names: string[] = [
+    "Alice",
+    "Bob",
+    "Charlie"
+];</code></pre>
+
+        <p>
+            The syntax <code>number[]</code> means an array containing numbers.
+        </p>
+
+        <p>
+            Similarly, <code>string[]</code> represents an array containing
+            strings.
+        </p>
+    </section>
+
+
+    <!-- OBJECTS -->
+    <section>
+        <h2>9. Objects</h2>
+
+        <h3>JavaScript</h3>
+
+        <pre><code>const student = {
+    name: "Alice",
+    age: 20,
+    active: true
+};</code></pre>
+
+        <h3>TypeScript</h3>
+
+        <pre><code>const student: {
+    name: string;
+    age: number;
+    active: boolean;
+} = {
+    name: "Alice",
+    age: 20,
+    active: true
+};</code></pre>
+
+        <p>
+            TypeScript allows us to explicitly define the structure and types
+            of an object.
+        </p>
+    </section>
+
+
+    <!-- INTERFACES -->
+    <section>
+        <h2>10. Interfaces</h2>
+
+        <p>
+            TypeScript provides <strong>interfaces</strong> for describing
+            the structure that an object should follow.
+        </p>
+
+        <pre><code>interface Student {
+    name: string;
+    age: number;
+    active: boolean;
+}</code></pre>
+
+        <p>
+            We can then use the interface as the type of an object.
+        </p>
+
+        <pre><code>const student: Student = {
+    name: "Alice",
+    age: 20,
+    active: true
+};</code></pre>
+
+        <div class="concept">
+            <strong>Interface idea:</strong>
+            An interface defines what properties an object should have and
+            what types those properties should use.
+        </div>
+    </section>
+
+
+    <!-- OPTIONAL PROPERTIES -->
+    <section>
+        <h2>11. Optional Properties</h2>
+
+        <p>
+            TypeScript allows a property to be optional using
+            <code>?</code>.
+        </p>
+
+        <pre><code>interface Student {
+    name: string;
+    age: number;
+    email?: string;
+}</code></pre>
+
+        <p>
+            The <code>email</code> property may exist, but it is not required.
+        </p>
+
+        <pre><code>const student1: Student = {
+    name: "Alice",
+    age: 20
+};
+
+const student2: Student = {
+    name: "Bob",
+    age: 21,
+    email: "bob@example.com"
+};</code></pre>
+    </section>
+
+
+    <!-- UNION TYPES -->
+    <section>
+        <h2>12. Union Types</h2>
+
+        <p>
+            TypeScript can allow a variable to contain more than one
+            specific type using a <strong>union type</strong>.
+        </p>
+
+        <pre><code>let id: number | string;
+
+id = 123;
+id = "ABC123";</code></pre>
+
+        <p>
+            The <code>|</code> symbol means "or".
+        </p>
+
+        <div class="concept">
+            <code>number | string</code>
+            means that the value can be either a number or a string.
+        </div>
+    </section>
+
+
+    <!-- FUNCTION TYPES -->
+    <section>
+        <h2>13. Function Types</h2>
+
+        <p>
+            TypeScript can also describe the type of a function.
+        </p>
+
+        <pre><code>let operation: (a: number, b: number) => number;
+
+operation = function(a, b) {
+    return a + b;
+};</code></pre>
+
+        <p>
+            This means that <code>operation</code> must be a function that:
+        </p>
+
+        <ul>
+            <li>receives two numbers;</li>
+            <li>returns a number.</li>
+        </ul>
+    </section>
+
+
+    <!-- CLASSES -->
+    <section>
+        <h2>14. Classes</h2>
+
+        <p>
+            Both JavaScript and TypeScript support classes, but TypeScript
+            allows their properties and methods to be explicitly typed.
+        </p>
+
+        <h3>JavaScript</h3>
+
+        <pre><code>class Student {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    introduce() {
+        return `I am ${this.name}`;
+    }
+}</code></pre>
+
+        <h3>TypeScript</h3>
+
+        <pre><code>class Student {
+    name: string;
+    age: number;
+
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+
+    introduce(): string {
+        return `I am ${this.name}`;
+    }
+}</code></pre>
+    </section>
+
+
+    <!-- ACCESS MODIFIERS -->
+    <section>
+        <h2>15. Access Modifiers</h2>
+
+        <p>
+            TypeScript also provides access modifiers such as
+            <code>public</code>, <code>private</code>, and
+            <code>protected</code>.
+        </p>
+
+        <pre><code>class Student {
+    public name: string;
+    private age: number;
+
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+}</code></pre>
+
+        <p>
+            These modifiers control how class properties and methods can be
+            accessed.
+        </p>
+    </section>
+
+
+    <!-- ERROR DETECTION -->
+    <section>
+        <h2>16. Error Detection</h2>
+
+        <h3>JavaScript</h3>
+
+        <pre><code>function add(a, b) {
+    return a + b;
+}
+
+add(10, "hello");</code></pre>
+
+        <p>
+            JavaScript permits the operation, although the result may not be
+            what the programmer intended.
+        </p>
+
+        <h3>TypeScript</h3>
+
+        <pre><code>function add(a: number, b: number): number {
+    return a + b;
+}
+
+add(10, "hello");</code></pre>
+
+        <p>
+            TypeScript can detect that the second argument does not match the
+            declared type before the program runs.
+        </p>
+
+        <div class="important">
+            TypeScript does not eliminate all possible errors.
+            It primarily provides compile-time/static checking for the
+            type-related problems that its type system can detect.
+        </div>
+    </section>
+
+
+    <!-- SYNTAX COMPARISON -->
+    <section>
+        <h2>17. Syntax Comparison</h2>
+
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>JavaScript</th>
+                <th>TypeScript</th>
+            </tr>
+
+            <tr>
+                <td>Variable</td>
+
+                <td>
+                    <code>let age = 20;</code>
+                </td>
+
+                <td>
+                    <code>let age: number = 20;</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td>String</td>
+
+                <td>
+                    <code>let name = "Alice";</code>
+                </td>
+
+                <td>
+                    <code>let name: string = "Alice";</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Boolean</td>
+
+                <td>
+                    <code>let active = true;</code>
+                </td>
+
+                <td>
+                    <code>let active: boolean = true;</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Function parameter</td>
+
+                <td>
+                    <code>function add(a, b)</code>
+                </td>
+
+                <td>
+                    <code>function add(a: number, b: number)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Return type</td>
+
+                <td>
+                    <code>function add(a, b) { ... }</code>
+                </td>
+
+                <td>
+                    <code>function add(a: number, b: number): number { ... }</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Array</td>
+
+                <td>
+                    <code>let numbers = [1, 2, 3];</code>
+                </td>
+
+                <td>
+                    <code>let numbers: number[] = [1, 2, 3];</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Interface</td>
+
+                <td>
+                    Not available as a TypeScript interface.
+                </td>
+
+                <td>
+                    <code>interface Student { ... }</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Union type</td>
+
+                <td>
+                    No equivalent static type syntax.
+                </td>
+
+                <td>
+                    <code>number | string</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Optional property</td>
+
+                <td>
+                    No static type syntax.
+                </td>
+
+                <td>
+                    <code>email?: string;</code>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+
+    <!-- NODE -->
+    <section>
+        <h2>18. Node.js</h2>
+
+        <p>
+            Node.js is a JavaScript runtime that allows JavaScript to run
+            outside of the browser.
+        </p>
+
+        <p>
+            Node.js will be covered later when studying backend development.
+        </p>
+
+        <div class="concept">
+            For now, the important idea is:
+            <br><br>
+
+            TypeScript
+            →
+            JavaScript
+            →
+            Browser or Node.js
+        </div>
+    </section>
+
+
+    <!-- COMPILATION -->
+    <section>
+        <h2>19. TypeScript Compilation</h2>
+
+        <p>
+            TypeScript source code is processed by the TypeScript compiler
+            (<code>tsc</code>), which checks the code and produces JavaScript.
+        </p>
+
+        <pre><code>example.ts
+     ↓
+TypeScript Compiler
+     ↓
+example.js
+     ↓
+Browser / Node.js</code></pre>
+
+        <p>
+            The browser executes the resulting JavaScript rather than the
+            original TypeScript type annotations.
+        </p>
+    </section>
+
+
+    <!-- MAIN PURPOSE -->
+    <section>
+        <h2>20. Main Goal of TypeScript</h2>
+
+        <p>
+            The main goal of TypeScript is not simply to make JavaScript
+            "more strict." Its type system provides tools for making
+            programs easier to understand, maintain, refactor, and analyze,
+            particularly as applications become larger.
+        </p>
+
+        <div class="concept">
+            <strong>Core idea:</strong>
+            <br><br>
+
+            JavaScript provides flexibility.
+            <br>
+            TypeScript adds static type information and tooling on top of
+            JavaScript.
+        </div>
+    </section>
+
+
+    <!-- KEY POINTS -->
+    <section>
+        <h2>21. Key Points to Remember</h2>
+
+        <ul>
+            <li>
+                TypeScript is a superset of JavaScript.
+            </li>
+
+            <li>
+                Valid JavaScript is generally valid TypeScript.
+            </li>
+
+            <li>
+                TypeScript adds static typing and other language features.
+            </li>
+
+            <li>
+                TypeScript code is normally compiled/transpiled into
+                JavaScript before execution.
+            </li>
+
+            <li>
+                Browsers execute JavaScript, not TypeScript type annotations.
+            </li>
+
+            <li>
+                JavaScript is dynamically typed.
+            </li>
+
+            <li>
+                TypeScript provides static type checking.
+            </li>
+
+            <li>
+                TypeScript can detect many type-related errors before
+                runtime.
+            </li>
+
+            <li>
+                Type annotations use the syntax
+                <code>variable: type</code>.
+            </li>
+
+            <li>
+                Function parameters and return values can be typed.
+            </li>
+
+            <li>
+                Interfaces can describe object structures.
+            </li>
+
+            <li>
+                TypeScript supports union types, optional properties,
+                generics, access modifiers, and other features.
+            </li>
+        </ul>
+    </section>
+
+
+    <!-- FINAL SUMMARY -->
+    <section>
+        <h2>22. Final Summary</h2>
+
+        <div class="concept">
+            <strong>JavaScript:</strong>
+            <br>
+            Dynamic language → executed by JavaScript engines.
+        </div>
+
+        <div class="concept">
+            <strong>TypeScript:</strong>
+            <br>
+            JavaScript + static type system + additional development features
+            → compiled to JavaScript.
+        </div>
+
+        <pre><code>TypeScript
+    ↓
+Type checking + compilation
+    ↓
+JavaScript
+    ↓
+Browser / Node.js</code></pre>
+
+    </section>
+
+</main>
+
+<footer>
+    TypeScript — Study Notes
+</footer>
+
+</body>
+</html>

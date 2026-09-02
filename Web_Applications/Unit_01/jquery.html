@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Unit 1 - jQuery</title>
+</head>
+
+<body>
+<header>
+<h1>Unit 1: jQuery</h1>
+<p>jQuery fundamentals </p>
+</header>
+<main><a href="..\index.html">← Back to Web Applications</a>
+
+
+    <!-- INTRODUCTION -->
+    <section>
+        <h2>1. What is jQuery?</h2>
+
+        <p>
+            jQuery is a JavaScript library whose objective is to simplify
+            JavaScript programming, especially when working with web pages
+            and the DOM.
+        </p>
+
+        <div class="concept">
+            <strong>Main idea:</strong>
+            <br><br>
+            "Write less, do more."
+        </div>
+
+        <p>
+            jQuery provides a simpler syntax for common tasks such as:
+        </p>
+
+        <ul>
+            <li>Selecting HTML elements.</li>
+            <li>Modifying HTML content.</li>
+            <li>Changing attributes.</li>
+            <li>Changing CSS.</li>
+            <li>Adding and removing classes.</li>
+            <li>Handling events.</li>
+            <li>Creating animations and effects.</li>
+            <li>Manipulating the DOM.</li>
+        </ul>
+
+        <p>
+            Instead of writing verbose DOM manipulation code using
+            <code>document.querySelector()</code>,
+            <code>addEventListener()</code>, and other browser APIs,
+            jQuery provides shorter abstractions for many common operations.
+        </p>
+    </section>
+
+
+    <!-- VERSION -->
+    <section>
+        <h2>2. jQuery Version</h2>
+
+        <p>
+            The version used in these notes is:
+        </p>
+
+        <div class="concept">
+            <strong>jQuery 4.0.0</strong>
+        </div>
+
+        <p>
+            jQuery 4.0.0 was released in <strong>January 2026</strong>.
+        </p>
+
+        <p>
+            jQuery 4 is a modern major release that removes some legacy
+            behavior and makes several changes compared with previous
+            versions.
+        </p>
+    </section>
+
+
+    <!-- HOW TO USE -->
+    <section>
+        <h2>3. How to Use jQuery</h2>
+
+        <p>
+            There are two common approaches to include jQuery in an HTML
+            document:
+        </p>
+
+        <h3>Option 1 — Download the Library</h3>
+
+        <p>
+            We can download the jQuery file and store it inside our project.
+        </p>
+
+        <pre><code>&lt;head&gt;
+
+    &lt;script src="js/jquery-4.0.0.min.js"&gt;&lt;/script&gt;
+
+&lt;/head&gt;</code></pre>
+
+        <p>
+            The exact path depends on where the file is located in the
+            project.
+        </p>
+
+        <h3>Option 2 — Use a CDN</h3>
+
+        <p>
+            Instead of downloading jQuery, we can load it from a
+            Content Delivery Network (CDN).
+        </p>
+
+        <pre><code>&lt;head&gt;
+
+    &lt;script src="https://code.jquery.com/jquery-4.0.0.min.js"&gt;&lt;/script&gt;
+
+&lt;/head&gt;</code></pre>
+
+        <div class="important">
+            The URL must point to an actual jQuery distribution file.
+            A generic URL such as <code>https://code.js</code> is not a valid
+            jQuery CDN reference.
+        </div>
+    </section>
+
+
+    <!-- SCRIPT -->
+    <section>
+        <h2>4. Adding Our Own JavaScript</h2>
+
+        <p>
+            After loading jQuery, we can load our own JavaScript file.
+        </p>
+
+        <pre><code>&lt;head&gt;
+
+    &lt;script src="https://code.jquery.com/jquery-4.0.0.min.js"&gt;&lt;/script&gt;
+
+    &lt;script src="js/script.js"&gt;&lt;/script&gt;
+
+&lt;/head&gt;</code></pre>
+
+        <p>
+            Our script can then use the jQuery API because the jQuery library
+            has already been loaded.
+        </p>
+    </section>
+
+
+    <!-- BASIC SYNTAX -->
+    <section>
+        <h2>5. Basic jQuery Syntax</h2>
+
+        <div class="concept">
+            <strong>Basic syntax:</strong>
+        </div>
+
+        <pre><code>$(selector).action();</code></pre>
+
+        <p>
+            The <code>$</code> symbol is the conventional shorthand used by
+            jQuery to access the jQuery function.
+        </p>
+
+        <p>
+            The <strong>selector</strong> identifies one or more elements in
+            the document.
+        </p>
+
+        <p>
+            The <strong>action</strong> specifies what we want to do with the
+            selected elements.
+        </p>
+
+        <h3>Example</h3>
+
+        <pre><code>$("#title").text("Hello");</code></pre>
+
+        <p>
+            This selects the element with the ID <code>title</code> and
+            changes its text.
+        </p>
+    </section>
+
+
+    <!-- DOCUMENT READY -->
+    <section>
+        <h2>6. Document Ready</h2>
+
+        <p>
+            jQuery provides a way to execute code when the DOM has finished
+            loading.
+        </p>
+
+        <pre><code>$(document).ready(function() {
+
+    // jQuery code here
+
+});</code></pre>
+
+        <p>
+            A shorter equivalent syntax is:
+        </p>
+
+        <pre><code>$(function() {
+
+    // jQuery code here
+
+});</code></pre>
+
+        <div class="concept">
+            The callback runs when the DOM is ready to be manipulated.
+            It does not necessarily wait for every external resource,
+            such as every image, to finish loading.
+        </div>
+    </section>
+
+
+    <!-- SELECTORS -->
+    <section>
+        <h2>7. jQuery Selectors</h2>
+
+        <p>
+            jQuery selectors are based largely on CSS selector syntax.
+            They allow us to select one or multiple elements.
+        </p>
+
+        <h3>Select All Elements</h3>
+
+        <pre><code>$("*")</code></pre>
+
+        <p>
+            Selects all elements in the document.
+        </p>
+
+        <h3>Select by ID</h3>
+
+        <pre><code>$("#myId")</code></pre>
+
+        <p>
+            Selects the element whose ID is <code>myId</code>.
+        </p>
+
+        <h3>Select by Element</h3>
+
+        <pre><code>$("p")</code></pre>
+
+        <p>
+            Selects all paragraph elements.
+        </p>
+
+        <h3>Select by Class</h3>
+
+        <pre><code>$(".intro")</code></pre>
+
+        <p>
+            Selects all elements with the class <code>intro</code>.
+        </p>
+
+        <h3>Select a Specific Combination</h3>
+
+        <pre><code>$("p.intro")</code></pre>
+
+        <p>
+            Selects paragraph elements that have the class
+            <code>intro</code>.
+        </p>
+
+        <h3>First Element</h3>
+
+        <pre><code>$("p:first")</code></pre>
+
+        <p>
+            Selects the first paragraph element.
+        </p>
+
+        <h3>First Child</h3>
+
+        <pre><code>$("ul li:first-child")</code></pre>
+
+        <p>
+            Selects every <code>li</code> that is the first child of its
+            parent.
+        </p>
+
+        <h3>Attribute Selector</h3>
+
+        <pre><code>$("[href]")</code></pre>
+
+        <p>
+            Selects elements that have an <code>href</code> attribute.
+        </p>
+
+        <h3>Attribute Value</h3>
+
+        <pre><code>$("a[target='_blank']")</code></pre>
+
+        <p>
+            Selects links whose <code>target</code> attribute is
+            <code>_blank</code>.
+        </p>
+
+        <h3>this</h3>
+
+        <pre><code>$(this)</code></pre>
+
+        <p>
+            <code>$(this)</code> wraps the current DOM element in a jQuery
+            object, commonly inside an event handler.
+        </p>
+    </section>
+
+
+    <!-- TEXT -->
+    <section>
+        <h2>8. text()</h2>
+
+        <p>
+            The <code>text()</code> method gets or changes the text content
+            of an element.
+        </p>
+
+        <h3>Get Text</h3>
+
+        <pre><code>let content = $("#title").text();</code></pre>
+
+        <h3>Set Text</h3>
+
+        <pre><code>$("#title").text("New title");</code></pre>
+
+        <div class="concept">
+            <strong>text()</strong> treats the supplied value as text.
+            HTML markup is not interpreted as HTML.
+        </div>
+    </section>
+
+
+    <!-- VAL -->
+    <section>
+        <h2>9. val()</h2>
+
+        <p>
+            The <code>val()</code> method is used to get or set the value
+            of form elements.
+        </p>
+
+        <h3>Get a Value</h3>
+
+        <pre><code>let username = $("#username").val();</code></pre>
+
+        <h3>Set a Value</h3>
+
+        <pre><code>$("#username").val("Alice");</code></pre>
+
+        <p>
+            It is commonly used with elements such as:
+        </p>
+
+        <ul>
+            <li><code>&lt;input&gt;</code></li>
+            <li><code>&lt;textarea&gt;</code></li>
+            <li><code>&lt;select&gt;</code></li>
+        </ul>
+
+        <div class="concept">
+            <strong>Remember:</strong>
+            <br><br>
+            <code>text()</code> → text content of an element
+            <br>
+            <code>val()</code> → value of a form control
+        </div>
+    </section>
+
+
+    <!-- HTML -->
+    <section>
+        <h2>10. html()</h2>
+
+        <p>
+            The <code>html()</code> method gets or changes the HTML content
+            inside an element.
+        </p>
+
+        <h3>Get HTML</h3>
+
+        <pre><code>let content = $("#container").html();</code></pre>
+
+        <h3>Set HTML</h3>
+
+        <pre><code>$("#container").html("&lt;strong&gt;Hello&lt;/strong&gt;");</code></pre>
+
+        <p>
+            Unlike <code>text()</code>, HTML markup supplied to
+            <code>html()</code> can be interpreted as HTML.
+        </p>
+
+        <div class="important">
+            Be careful when inserting external or untrusted content with
+            <code>html()</code>, because inserting unsafe HTML can create
+            security vulnerabilities such as XSS.
+        </div>
+    </section>
+
+
+    <!-- ATTR -->
+    <section>
+        <h2>11. attr()</h2>
+
+        <p>
+            The <code>attr()</code> method is used to get or set HTML
+            attributes.
+        </p>
+
+        <h3>Get an Attribute</h3>
+
+        <pre><code>let link = $("a").attr("href");</code></pre>
+
+        <h3>Set an Attribute</h3>
+
+        <pre><code>$("#image").attr("src", "image.jpg");</code></pre>
+
+        <p>
+            It can be used with attributes such as:
+        </p>
+
+        <ul>
+            <li><code>src</code></li>
+            <li><code>href</code></li>
+            <li><code>alt</code></li>
+            <li><code>title</code></li>
+            <li><code>id</code></li>
+        </ul>
+    </section>
+
+
+    <!-- APPEND PREPEND -->
+    <section>
+        <h2>12. append() and prepend()</h2>
+
+        <p>
+            These methods insert content inside a selected element.
+        </p>
+
+        <h3>append()</h3>
+
+        <pre><code>$("#list").append("&lt;li&gt;New item&lt;/li&gt;");</code></pre>
+
+        <p>
+            <code>append()</code> adds content at the end of the selected
+            element.
+        </p>
+
+        <h3>prepend()</h3>
+
+        <pre><code>$("#list").prepend("&lt;li&gt;First item&lt;/li&gt;");</code></pre>
+
+        <p>
+            <code>prepend()</code> adds content at the beginning of the
+            selected element.
+        </p>
+
+        <div class="concept">
+            <strong>Inside an element:</strong>
+            <br><br>
+
+            prepend → content → existing content → append
+        </div>
+    </section>
+
+
+    <!-- BEFORE AFTER -->
+    <section>
+        <h2>13. before() and after()</h2>
+
+        <p>
+            Unlike <code>append()</code> and <code>prepend()</code>,
+            <code>before()</code> and <code>after()</code> insert content
+            outside the selected element.
+        </p>
+
+        <h3>before()</h3>
+
+        <pre><code>$("#image").before("&lt;p&gt;Before the image&lt;/p&gt;");</code></pre>
+
+        <p>
+            Inserts content immediately before the selected element.
+        </p>
+
+        <h3>after()</h3>
+
+        <pre><code>$("#image").after("&lt;p&gt;After the image&lt;/p&gt;");</code></pre>
+
+        <p>
+            Inserts content immediately after the selected element.
+        </p>
+
+        <div class="concept">
+            <strong>Difference:</strong>
+            <br><br>
+
+            <code>append()</code> → inside, at the end
+            <br>
+            <code>prepend()</code> → inside, at the beginning
+            <br>
+            <code>before()</code> → outside, before the element
+            <br>
+            <code>after()</code> → outside, after the element
+        </div>
+    </section>
+
+
+    <!-- CLASSES -->
+    <section>
+        <h2>14. addClass(), removeClass(), toggleClass()</h2>
+
+        <h3>addClass()</h3>
+
+        <pre><code>$("#box").addClass("active");</code></pre>
+
+        <p>
+            Adds a CSS class to the selected element.
+        </p>
+
+        <h3>removeClass()</h3>
+
+        <pre><code>$("#box").removeClass("active");</code></pre>
+
+        <p>
+            Removes a CSS class.
+        </p>
+
+        <h3>toggleClass()</h3>
+
+        <pre><code>$("#box").toggleClass("active");</code></pre>
+
+        <p>
+            Adds the class if it is absent and removes it if it is present.
+        </p>
+
+        <div class="concept">
+            <strong>toggleClass()</strong> is useful when an interaction
+            should switch an element between two visual states.
+        </div>
+
+        <h3>Example</h3>
+
+        <pre><code>$("#menuButton").click(function() {
+    $("#menu").toggleClass("open");
+});</code></pre>
+    </section>
+
+
+    <!-- CSS -->
+    <section>
+        <h2>15. css()</h2>
+
+        <p>
+            The <code>css()</code> method gets or sets CSS properties.
+        </p>
+
+        <h3>Get a CSS Property</h3>
+
+        <pre><code>let color = $("#title").css("color");</code></pre>
+
+        <h3>Set a CSS Property</h3>
+
+        <pre><code>$("#title").css("color", "red");</code></pre>
+
+        <h3>Set Multiple Properties</h3>
+
+        <pre><code>$("#box").css({
+    "width": "200px",
+    "height": "100px",
+    "font-size": "20px"
+});</code></pre>
+
+        <p>
+            However, for reusable visual states, using
+            <code>addClass()</code>, <code>removeClass()</code>, and
+            <code>toggleClass()</code> is often cleaner than directly
+            modifying many CSS properties with JavaScript.
+        </p>
+    </section>
+
+
+    <!-- EVENTS -->
+    <section>
+        <h2>16. Events</h2>
+
+        <p>
+            jQuery provides methods for responding to browser events.
+        </p>
+
+        <h3>click()</h3>
+
+        <pre><code>$("#button").click(function() {
+
+    $("#message").text("Button clicked");
+
+});</code></pre>
+
+        <p>
+            The function executes when the selected element is clicked.
+        </p>
+
+        <h3>Other Common Events</h3>
+
+        <pre><code>$("#input").focus(function() {
+    // Executes when the input receives focus
+});
+
+$("#input").blur(function() {
+    // Executes when the input loses focus
+});
+
+$("#form").submit(function(event) {
+    // Executes when the form is submitted
+});</code></pre>
+    </section>
+
+
+    <!-- COMPLETE EXAMPLE -->
+    <section>
+        <h2>17. Complete Example</h2>
+
+        <h3>HTML</h3>
+
+        <pre><code>&lt;button id="button"&gt;Change Text&lt;/button&gt;
+
+&lt;p id="message"&gt;Original text&lt;/p&gt;
+
+&lt;input id="username" type="text" value="Alice"&gt;
+
+&lt;div id="box"&gt;Box&lt;/div&gt;</code></pre>
+
+        <h3>jQuery</h3>
+
+        <pre><code>$(document).ready(function() {
+
+    $("#button").click(function() {
+
+        $("#message").text("The text has changed");
+
+        $("#box").toggleClass("active");
+
+    });
+
+});</code></pre>
+
+        <p>
+            In this example:
+        </p>
+
+        <ol>
+            <li>
+                jQuery waits until the DOM is ready.
+            </li>
+
+            <li>
+                The button is selected using its ID.
+            </li>
+
+            <li>
+                A click event is registered.
+            </li>
+
+            <li>
+                The paragraph's text is changed using
+                <code>text()</code>.
+            </li>
+
+            <li>
+                A CSS class is toggled using
+                <code>toggleClass()</code>.
+            </li>
+        </ol>
+    </section>
+
+
+    <!-- METHOD SUMMARY -->
+    <section>
+        <h2>18. Important jQuery Methods</h2>
+
+        <table>
+            <tr>
+                <th>Method</th>
+                <th>Purpose</th>
+                <th>Example</th>
+            </tr>
+
+            <tr>
+                <td><code>text()</code></td>
+                <td>Get or set text content.</td>
+                <td><code>$("#p").text("Hello");</code></td>
+            </tr>
+
+            <tr>
+                <td><code>val()</code></td>
+                <td>Get or set form values.</td>
+                <td><code>$("#input").val("Alice");</code></td>
+            </tr>
+
+            <tr>
+                <td><code>html()</code></td>
+                <td>Get or set HTML content.</td>
+                <td><code>$("#div").html("&lt;b&gt;Hi&lt;/b&gt;");</code></td>
+            </tr>
+
+            <tr>
+                <td><code>attr()</code></td>
+                <td>Get or set HTML attributes.</td>
+                <td><code>$("#img").attr("src", "a.jpg");</code></td>
+            </tr>
+
+            <tr>
+                <td><code>append()</code></td>
+                <td>Add content at the end inside an element.</td>
+                <td><code>$("#list").append(item);</code></td>
+            </tr>
+
+            <tr>
+                <td><code>prepend()</code></td>
+                <td>Add content at the beginning inside an element.</td>
+                <td><code>$("#list").prepend(item);</code></td>
+            </tr>
+
+            <tr>
+                <td><code>before()</code></td>
+                <td>Insert content before an element.</td>
+                <td><code>$("#p").before(item);</code></td>
+            </tr>
+
+            <tr>
+                <td><code>after()</code></td>
+                <td>Insert content after an element.</td>
+                <td><code>$("#p").after(item);</code></td>
+            </tr>
+
+            <tr>
+                <td><code>addClass()</code></td>
+                <td>Add a CSS class.</td>
+                <td><code>$("#box").addClass("active");</code></td>
+            </tr>
+
+            <tr>
+                <td><code>removeClass()</code></td>
+                <td>Remove a CSS class.</td>
+                <td><code>$("#box").removeClass("active");</code></td>
+            </tr>
+
+            <tr>
+                <td><code>toggleClass()</code></td>
+                <td>Add or remove a class depending on its current state.</td>
+                <td><code>$("#box").toggleClass("active");</code></td>
+            </tr>
+
+            <tr>
+                <td><code>css()</code></td>
+                <td>Get or set CSS properties.</td>
+                <td><code>$("#box").css("width", "200px");</code></td>
+            </tr>
+        </table>
+    </section>
+
+
+    <!-- SELECTOR SUMMARY -->
+    <section>
+        <h2>19. Selector Summary</h2>
+
+        <table>
+            <tr>
+                <th>Selector</th>
+                <th>Meaning</th>
+            </tr>
+
+            <tr>
+                <td><code>$("*")</code></td>
+                <td>All elements.</td>
+            </tr>
+
+            <tr>
+                <td><code>$("#myId")</code></td>
+                <td>Element with the specified ID.</td>
+            </tr>
+
+            <tr>
+                <td><code>$(".intro")</code></td>
+                <td>Elements with the specified class.</td>
+            </tr>
+
+            <tr>
+                <td><code>$("p")</code></td>
+                <td>All paragraph elements.</td>
+            </tr>
+
+            <tr>
+                <td><code>$("p.intro")</code></td>
+                <td>Paragraphs with class <code>intro</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>$("ul li")</code></td>
+                <td>All <code>li</code> elements inside <code>ul</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>$("ul li:first")</code></td>
+                <td>First matched <code>li</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>$("ul li:first-child")</code></td>
+                <td><code>li</code> elements that are first children.</td>
+            </tr>
+
+            <tr>
+                <td><code>$("[href]")</code></td>
+                <td>Elements containing an <code>href</code> attribute.</td>
+            </tr>
+
+            <tr>
+                <td><code>$("a[target='_blank']")</code></td>
+                <td>Links whose target is <code>_blank</code>.</td>
+            </tr>
+
+            <tr>
+                <td><code>$(this)</code></td>
+                <td>The current element inside a callback/event handler.</td>
+            </tr>
+        </table>
+    </section>
+
+
+    <!-- KEY POINTS -->
+    <section>
+        <h2>20. Key Points to Remember</h2>
+
+        <ul>
+            <li>
+                jQuery is a JavaScript library.
+            </li>
+
+            <li>
+                Its purpose is to simplify common JavaScript operations,
+                particularly DOM manipulation and event handling.
+            </li>
+
+            <li>
+                The <code>$</code> symbol is commonly used to access jQuery.
+            </li>
+
+            <li>
+                The basic pattern is
+                <code>$(selector).action()</code>.
+            </li>
+
+            <li>
+                jQuery selectors are largely based on CSS selector syntax.
+            </li>
+
+            <li>
+                <code>$(document).ready()</code> runs code when the DOM is
+                ready.
+            </li>
+
+            <li>
+                <code>text()</code> manipulates text content.
+            </li>
+
+            <li>
+                <code>val()</code> manipulates form values.
+            </li>
+
+            <li>
+                <code>html()</code> manipulates HTML content.
+            </li>
+
+            <li>
+                <code>attr()</code> manipulates HTML attributes.
+            </li>
+
+            <li>
+                <code>append()</code> and <code>prepend()</code> insert
+                content inside an element.
+            </li>
+
+            <li>
+                <code>before()</code> and <code>after()</code> insert content
+                outside an element.
+            </li>
+
+            <li>
+                <code>addClass()</code>, <code>removeClass()</code>, and
+                <code>toggleClass()</code> manipulate CSS classes.
+            </li>
+
+            <li>
+                <code>css()</code> manipulates CSS properties.
+            </li>
+        </ul>
+    </section>
+
+
+    <!-- FINAL SUMMARY -->
+    <section>
+        <h2>21. Final Summary</h2>
+
+        <div class="concept">
+            <strong>jQuery = JavaScript library for simplifying browser
+            programming.</strong>
+        </div>
+
+        <pre><code>$(selector).action();</code></pre>
+
+        <p>
+            The general workflow is:
+        </p>
+
+        <pre><code>Select
+   ↓
+Manipulate
+   ↓
+Respond to events
+   ↓
+Modify the DOM / CSS</code></pre>
+
+        <p>
+            For example:
+        </p>
+
+        <pre><code>$("#button").click(function() {
+
+    $("#message").text("Hello");
+
+});</code></pre>
+
+        <p>
+            This selects an element, listens for an event, and modifies
+            another element when the event occurs.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    jQuery — Study Notes
+</footer>
+
+</body>
+</html>
