@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Bootstrap Notes</title>
+
+<!-- Bootstrap 5 CSS via CDN -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+>
+
+
+</head>
+
+<body class="container py-4">
+
+
+<h1>Bootstrap</h1>
+
+<h2>What is Bootstrap?</h2>
+
+<p>
+    Bootstrap is a front-end framework that makes web development faster
+    and easier. It provides pre-designed HTML and CSS components for
+    typography, forms, buttons, navigation, tables, and many other
+    interface elements.
+</p>
+
+<p>
+    Bootstrap can also be complemented with JavaScript plugins that provide
+    interactive functionality such as dropdowns, alerts, modals, spinners,
+    and other dynamic components.
+</p>
+
+<p>
+    Bootstrap also helps developers create responsive websites.
+</p>
+
+
+<h2>What is Responsive Design?</h2>
+
+<p>
+    Responsive web design is the process of creating a website that
+    automatically adjusts its layout and content to different screen sizes,
+    from small mobile phones to large desktop screens.
+</p>
+
+<ul>
+    <li>Easy to use.</li>
+    <li>Responsive features.</li>
+    <li>Mobile-first approach.</li>
+    <li>Browser compatibility.</li>
+</ul>
+
+
+<h2>How to Use Bootstrap</h2>
+
+<p>Bootstrap can be used in two main ways:</p>
+
+<ol>
+    <li>Include Bootstrap using a CDN.</li>
+    <li>Download Bootstrap and host the files on your own server.</li>
+</ol>
+
+<h3>Using Bootstrap from a CDN</h3>
+
+<pre><code>&lt;link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet"
+>
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script></code></pre>
+
+<h3>What does .min mean?</h3>
+
+<p>
+    Files ending in <code>.min.css</code> or <code>.min.js</code> are
+    minified. Minification removes unnecessary spaces, line breaks, and
+    other characters to reduce the file size and improve loading speed.
+</p>
+
+
+<h3>Downloading Bootstrap Instead of Using a CDN</h3>
+
+<p>
+    Bootstrap files can be downloaded and hosted directly on the
+    application's server.
+</p>
+
+<p>Some advantages include:</p>
+
+<ul>
+    <li>Reduced dependency on external services.</li>
+    <li>The application can still access Bootstrap if the external CDN is unavailable.</li>
+    <li>More control over the files and versions used by the application.</li>
+    <li>Useful in environments with limited or restricted internet access.</li>
+</ul>
+
+<p>
+    However, a CDN can often provide faster loading because its servers may
+    be geographically closer to users and optimized for delivering static
+    files.
+</p>
+
+
+<h2>Bootstrap Containers</h2>
+
+<h3>.container</h3>
+
+<p>
+    The <code>.container</code> class provides a responsive,
+    fixed-width container.
+</p>
+
+<p>
+    It leaves space on the left and right sides of the content. The
+    container width adapts at different Bootstrap breakpoints.
+</p>
+
+<pre><code>| Margin |       .container       | Margin |</code></pre>
+
+<p>
+    Using traditional CSS, similar behavior could be implemented using
+    <code>@media</code> queries, but Bootstrap provides predefined classes
+    that make this easier.
+</p>
+
+
+<h3>.container-fluid</h3>
+
+<p>
+    The <code>.container-fluid</code> class always uses approximately
+    100% of the available viewport width.
+</p>
+
+
+<h2>Bootstrap Grid System</h2>
+
+<p>
+    Bootstrap's grid system is built using Flexbox. It divides each row
+    into 12 available columns.
+</p>
+
+<p>
+    Columns can occupy different amounts of space depending on the layout.
+</p>
+
+<pre><code>col-1
+```
+
+col-4
+col-6
+col-12</code></pre>
+
+```
+<p>
+    The grid system provides many options for organizing application
+    layouts. Rows and columns can also be nested to create more complex
+    layouts.
+</p>
+
+
+<h3>Grid Breakpoints</h3>
+
+<ul>
+    <li><code>col-</code>: Extra small devices.</li>
+    <li><code>col-sm-</code>: Small devices, starting at 576px.</li>
+    <li><code>col-md-</code>: Medium devices, starting at 768px.</li>
+    <li><code>col-lg-</code>: Large devices, starting at 992px.</li>
+    <li><code>col-xl-</code>: Extra large devices, starting at 1200px.</li>
+    <li><code>col-xxl-</code>: Extra extra large devices, starting at 1400px.</li>
+</ul>
+
+
+<h3>Basic Grid Example</h3>
+
+<div class="container border p-3">
+
+    <div class="row">
+        <div class="col border">
+            1 of 2
+        </div>
+
+        <div class="col border">
+            2 of 2
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col border">
+            1 of 3
+        </div>
+
+        <div class="col border">
+            2 of 3
+        </div>
+
+        <div class="col border">
+            3 of 3
+        </div>
+    </div>
+
+</div>
+
+
+<h2>Responsive Columns</h2>
+
+<p>
+    Bootstrap columns can change their size depending on the screen size.
+</p>
+
+<pre><code>&lt;div class="col-sm-3 col-md-6"&gt;
+Content
+```
+
+</div></code></pre>
+
+```
+<p>
+    This means that the column can use different widths at the
+    <code>sm</code> and <code>md</code> breakpoints.
+</p>
+
+
+<h2>Bootstrap Typography</h2>
+
+<p>
+    Bootstrap uses a default font size of <code>1rem</code>, which is
+    usually equal to 16px. Its default line height is approximately 1.5.
+</p>
+
+<p>
+    Paragraph elements have a default top margin of 0 and a bottom margin
+    of approximately 1rem.
+</p>
+
+
+<h3>Headings</h3>
+
+<p>
+    Bootstrap styles HTML headings from <code>&lt;h1&gt;</code> to
+    <code>&lt;h6&gt;</code> with appropriate font weights and responsive
+    typography.
+</p>
+
+<p class="h1">
+    This paragraph uses the Bootstrap h1 class.
+</p>
+
+<p>
+    Classes such as <code>.h1</code> can be used to make an element look
+    like a heading without changing its HTML tag.
+</p>
+
+
+<h3>Small Text</h3>
+
+<p>
+    The <code>&lt;small&gt;</code> element and the
+    <code>.small</code> class can be used to create smaller secondary text.
+</p>
+
+
+<h3>Marked Text</h3>
+
+<p>
+    Bootstrap styles the <mark>&lt;mark&gt; element</mark> with a
+    highlighted background.
+</p>
+
+
+<h2>Bootstrap Tables</h2>
+
+<p>
+    Bootstrap provides classes to improve the appearance of tables.
+</p>
+
+<p>
+    HTML tables can include sections such as:
+</p>
+
+<ul>
+    <li><code>&lt;thead&gt;</code>: Table header.</li>
+    <li><code>&lt;tbody&gt;</code>: Table body.</li>
+    <li><code>&lt;tfoot&gt;</code>: Table footer.</li>
+</ul>
+
+<p>
+    In a dynamic table, the body may initially be empty and rows can be
+    generated when data is retrieved from a database.
+</p>
+
+<p>
+    Pagination can also be used with tables to display a limited number of
+    records per page, reducing the amount of data requested and displayed
+    at once.
+</p>
+
+<p>
+    Advanced features such as exporting tables to Excel, searching, sorting,
+    and hiding columns can be implemented using libraries such as
+    DataTables.
+</p>
+
+
+<h2>Bootstrap Images</h2>
+
+<ul>
+    <li><code>.rounded</code>: Adds rounded corners.</li>
+    <li><code>.rounded-circle</code>: Creates a circular image.</li>
+    <li><code>.img-thumbnail</code>: Adds a thumbnail-style border.</li>
+    <li><code>.img-fluid</code>: Makes images responsive.</li>
+</ul>
+
+
+<h2>Alerts</h2>
+
+<p>
+    Bootstrap alerts provide predefined styles for displaying messages to
+    users.
+</p>
+
+<div class="alert alert-success">
+    This is a success alert.
+</div>
+
+<p>
+    Different alert classes should be used according to the meaning of the
+    message.
+</p>
+
+
+<h2>Buttons</h2>
+
+<p>
+    Bootstrap provides predefined button styles:
+</p>
+
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-secondary">Secondary</button>
+<button class="btn btn-success">Success</button>
+<button class="btn btn-info">Info</button>
+<button class="btn btn-warning">Warning</button>
+<button class="btn btn-danger">Danger</button>
+<button class="btn btn-dark">Dark</button>
+<button class="btn btn-light">Light</button>
+<button class="btn btn-link">Link</button>
+
+<p class="mt-3">
+    The <code>.btn-link</code> class makes a button visually resemble a
+    hyperlink.
+</p>
+
+
+<h2>Progress Bars</h2>
+
+<p>
+    Progress bars are used to show the progress of a process.
+</p>
+
+<div class="progress">
+    <div
+        class="progress-bar"
+        role="progressbar"
+        style="width: 60%;"
+        aria-valuenow="60"
+        aria-valuemin="0"
+        aria-valuemax="100"
+    >
+        60%
+    </div>
+</div>
+
+
+<h2>Spinners</h2>
+
+<p>
+    Spinners are used to indicate that a process is loading.
+</p>
+
+<p>
+    For example, when an application sends a request to a database, a
+    spinner can be displayed while the data is loading and removed when the
+    request is completed.
+</p>
+
+<div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
+
+
+<h2>Pagination</h2>
+
+<p>
+    Pagination is used when an application has a large amount of content
+    that needs to be divided into multiple pages.
+</p>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+
+        <li class="page-item disabled">
+            <a class="page-link" href="#">Previous</a>
+        </li>
+
+        <li class="page-item active">
+            <a class="page-link" href="#">1</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="#">2</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+
+    </ul>
+</nav>
+
+<p>
+    The application code determines which data should be displayed when the
+    user changes pages.
+</p>
+
+
+<h2>Cards</h2>
+
+<p>
+    A Bootstrap card is a flexible content container with borders, padding,
+    and optional components such as headers, footers, images, colors, and
+    body content.
+</p>
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Card Title</h5>
+
+        <p class="card-text">
+            This is an example of a basic Bootstrap card.
+        </p>
+
+        <button class="btn btn-primary">
+            Button
+        </button>
+    </div>
+</div>
+
+
+<h2>Dropdowns</h2>
+
+<p>
+    A dropdown is a toggleable menu that allows users to select an option
+    or access additional actions.
+</p>
+
+<div class="dropdown">
+
+    <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+    >
+        Select an option
+    </button>
+
+    <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="#">
+                Option 1
+            </a>
+        </li>
+
+        <li>
+            <a class="dropdown-item" href="#">
+                Option 2
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+
+<h2>Bootstrap Templates</h2>
+
+<p>
+    Bootstrap provides templates and examples that can help developers
+    start projects more quickly. These pre-designed structures reduce the
+    amount of code that must be written from scratch.
+</p>
+
+
+<h2>What is the integrity Attribute?</h2>
+
+<p>
+    The <code>integrity</code> attribute, often containing a value such as
+    <code>sha384-...</code>, is used for Subresource Integrity (SRI).
+</p>
+
+<p>
+    It allows the browser to verify that a file loaded from a CDN has not
+    been modified unexpectedly. The browser compares the downloaded file
+    against the cryptographic hash provided in the <code>integrity</code>
+    attribute.
+</p>
+
+
+<!-- Bootstrap JavaScript Bundle -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+></script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>Reinforcement Learning — Bellman Equations</title>
+    <style>
+        .key-point {
+            font-weight: bold;
+        }
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Reinforcement Learning — Bellman Equations </h1>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+
+
+    <section>
+    <h1>Markov Decision Process - Part 3</h1>
+
+    <section>
+        <h2>MDP</h2>
+
+        <p>
+            An MDP extends the MRP by including <strong>actions</strong>
+            and a <strong>policy</strong> into the process.
+        </p>
+    </section>
+
+    <section>
+        <h2>Policy</h2>
+
+        <p>
+            In Reinforcement Learning, the agent has the ability to decide
+            how to act in the environment. However, it is not always clear
+            how the agent chooses an action given a state or what rules it
+            uses to make the decision. The <strong>policy</strong> describes
+            this decision process.
+        </p>
+
+        <h3>Policy &pi;</h3>
+
+        <p>
+            A policy is a function that maps each state
+            <em>s</em> to a probability distribution over the set of all
+            possible actions in that state.
+        </p>
+
+        <p>
+            A policy can be:
+        </p>
+
+        <ul>
+            <li>
+                <strong>Deterministic:</strong> it always chooses the same
+                action given a particular state.
+            </li>
+            <li>
+                <strong>Stochastic:</strong> it chooses actions according to
+                a probability distribution.
+            </li>
+        </ul>
+
+        <p class="equation">
+            &pi;(a|s) = P[A<sub>t</sub> = a | S<sub>t</sub> = s]
+        </p>
+
+        <p>
+            for all <em>s</em> &isin; S and <em>a</em> &isin; A.
+        </p>
+
+        <p>
+            The probabilities of all possible actions in a given state must
+            sum to 1:
+        </p>
+
+        <p class="equation">
+            &sum;<sub>a</sub> &pi;(a|s) = 1
+        </p>
+
+        <p>
+            Formally, we say that an agent <strong>follows a policy</strong>.
+        </p>
+    </section>
+
+    <section>
+        <h2>Objective of Reinforcement Learning</h2>
+
+        <p>
+            In Reinforcement Learning, the objective is to formulate
+            effective policies that specify which action to take in each
+            state in order to maximize the return.
+        </p>
+
+        <p>
+            Two important questions are:
+        </p>
+
+        <ul>
+            <li>
+                <strong>How probable is it that an agent selects an action
+                given its state?</strong>
+                This is described by the <strong>policy</strong>.
+            </li>
+            <li>
+                <strong>How good was the action?</strong>
+                This is described by the <strong>value function</strong>.
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Value Functions</h2>
+
+        <p>
+            The goal of Reinforcement Learning is to maximize the reward.
+            For this, we use <strong>value functions</strong>.
+        </p>
+
+        <p>
+            A value function measures the <strong>expected return</strong>
+            when following a particular policy.
+        </p>
+
+        <p>
+            There are two different value functions:
+        </p>
+
+        <ul>
+            <li><strong>State-value function:</strong> V</li>
+            <li><strong>State-action value function:</strong> Q</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>State-Value Function V</h2>
+
+        <p>
+            The state-value function measures the expected return starting
+            in a state and then following a policy up to a horizon
+            <em>H</em>, where <em>H</em> is the length of an episode.
+        </p>
+
+        <p>
+            It gives us the value of a state under a policy &pi;.
+        </p>
+
+        <h3>Return</h3>
+
+        <p class="equation">
+            G<sub>t</sub> =
+            R<sub>t</sub> +
+            &lambda;R<sub>t+1</sub> +
+            &lambda;<sup>2</sup>R<sub>t+2</sub>
+        </p>
+
+        <h3>State-Value Equation</h3>
+
+        <p class="equation">
+            V<sup>&pi;</sup>(s) =
+            E<sup>&pi;</sup>[G<sub>t</sub> | S<sub>t</sub> = s]
+        </p>
+
+        <p>
+            Therefore, V<sup>&pi;</sup>(s) represents the expected return
+            when starting from state <em>s</em> and following policy
+            &pi;.
+        </p>
+    </section>
+
+    <section>
+        <h2>State-Action Value Function Q</h2>
+
+        <p>
+            The state-action value function evaluates the expected return
+            when starting in a state and taking a particular action.
+        </p>
+
+        <p class="equation">
+            Q<sup>&pi;</sup>(s,a) =
+            E<sup>&pi;</sup>[G<sub>t</sub> |
+            S<sub>t</sub> = s, A<sub>t</sub> = a]
+        </p>
+
+        <p>
+            Therefore, Q<sup>&pi;</sup>(s,a) tells us the expected return
+            when the agent is in state <em>s</em>, takes action <em>a</em>,
+            and then follows policy &pi;.
+        </p>
+    </section>
+
+    <section>
+        <h2>GPS Analogy</h2>
+
+        <p>
+            A GPS can be used as an analogy for understanding policies and
+            value functions.
+        </p>
+
+        <ul>
+            <li>
+                <strong>Policy:</strong> turn-by-turn directions, such as
+                "turn left at the next light."
+            </li>
+            <li>
+                <strong>Value function:</strong> the estimated time of
+                arrival (ETA), which tells us how good the current route is.
+            </li>
+        </ul>
+
+        <p>
+            A shorter ETA corresponds to a higher-value state in this
+            analogy.
+        </p>
+    </section>
+</section>
+    </main>        
+    </body>

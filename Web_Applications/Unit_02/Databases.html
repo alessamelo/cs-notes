@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Unit 2 - Databases Review</title>
+</head>
+
+<body>
+<header>
+<h1>Unit 2: Databases Review</h1>
+<p>After looking at web design GUI with JavaScript, HTML and CSS,
+            we are entering the topics that make this subject called
+            <strong>Web Applications</strong> instead of Web Design. </p>
+</header>
+<main><a href="..\index.html">← Back to Web Applications</a>
+
+<h1>HTML</h1>
+
+    <!-- Introduction -->
+    <section>
+        <h2>1. Introduction to Databases</h2>
+        <p>
+            Applications are generally connected with a database or many databases.
+        </p>
+
+        <div class="definition">
+            <strong>Database:</strong>
+            A database is a collection of organized data, information and records.
+            It is software that stores information related to a particular activity
+            or purpose.
+        </div>
+
+        <p>Examples:</p>
+        <ul>
+            <li>Bank</li>
+            <li>Hospital</li>
+            <li>University</li>
+            <li>Internet</li>
+        </ul>
+
+        <p>
+            A database includes tools to help organize and maintain the data.
+            A database design engineer must know and be able to use these tools
+            in order to make the database efficient and accurate.
+        </p>
+    </section>
+
+    <!-- DBMS -->
+    <section>
+        <h2>2. DBMS</h2>
+
+        <p>
+            <strong>DBMS</strong> stands for Database Management System.
+        </p>
+
+        <p>
+            A properly designed database allows information to be updated once,
+            and all other occurrences of this information within the database
+            will be updated automatically.
+        </p>
+
+        <p>
+            A principal requirement of any database system is the ability to
+            generate, store and retrieve data efficiently.
+        </p>
+
+        <p>
+            The user can generate a question through an
+            <strong>interrogation/query</strong>.
+        </p>
+
+        <p>
+            The general process can be represented as:
+        </p>
+
+        <p>
+            <strong>Data → Processing → Information → Reports / Decisions</strong>
+        </p>
+
+        <p>
+            Tools are used throughout this process.
+        </p>
+    </section>
+
+    <!-- SQL -->
+    <section>
+        <h2>3. SQL</h2>
+
+        <p>
+            <strong>SQL</strong> stands for Structured Query Language.
+        </p>
+
+        <p>
+            SQL is associated with structured databases.
+        </p>
+    </section>
+
+    <!-- Database Types -->
+    <section>
+        <h2>4. Types of Databases</h2>
+
+        <h3>Structured Database</h3>
+        <p>
+            All information is saved in the same way.
+        </p>
+
+        <h3>Free-Form Database</h3>
+        <p>
+            A loose collection of information, such as those found on the
+            World Wide Web.
+        </p>
+
+        <h3>Operational Database</h3>
+        <p>
+            A dynamic database that is used by an organization in its
+            day-to-day operations.
+        </p>
+
+        <p class="example">
+            Examples: electrical distribution and oil extraction databases.
+        </p>
+
+        <p>
+            Operational databases are used to collect, maintain, modify
+            and delete data. Decisions can be taken during execution.
+        </p>
+
+        <h3>Analytical Database</h3>
+        <p>
+            A static database where data is rarely modified. It is often used
+            to store and track historical data, make long-term projections
+            and perform analysis.
+        </p>
+
+        <p class="example">
+            Example: population census.
+        </p>
+    </section>
+
+    <!-- Database Models -->
+    <section>
+        <h2>5. Database Models</h2>
+
+        <h3>Hierarchical Model</h3>
+
+        <p>
+            This model can be visualized as a parent-child relationship,
+            wherein a child may only have one parent, but a parent can have
+            several children.
+        </p>
+
+        <p>
+            Another way of looking at this model is as an inverted tree.
+            The single table acts as the root of the inverted tree and the
+            other tables act as branches.
+        </p>
+
+        <h3>Relational Model</h3>
+
+        <p>
+            The relational model is widely used until now.
+        </p>
+
+        <ul>
+            <li>Data is organized into tables.</li>
+            <li>Tables have primary keys.</li>
+            <li>Tables can have relationships between them.</li>
+        </ul>
+
+        <h4>Primary Key</h4>
+        <p>
+            A primary key identifies records in a table.
+        </p>
+
+        <h4>Index</h4>
+        <p>
+            Every database works with an index. The database only searches
+            the index where the IDs are, making the process faster.
+        </p>
+
+        <h4>Foreign Key</h4>
+        <p>
+            A foreign key is a key that exists on the other side of a relationship.
+        </p>
+
+        <p>
+            The relational model was developed by E. F. Codd for IBM in the
+            1970s, partly to solve problems of earlier database models and to
+            make databases less dependent on any particular application.
+        </p>
+
+        <p>
+            The terms include relations, attributes (columns) and domains.
+        </p>
+
+        <h3>Entity-Relationship Model</h3>
+
+        <p>
+            This model was introduced by Peter Chen in 1976. It is an
+            abstract and conceptual representation of data.
+        </p>
+
+        <h3>Dimensional Model</h3>
+
+        <p>
+            A specialized adaptation using the relational model that is used
+            to represent data in data warehouses.
+        </p>
+
+        <p>
+            A data warehouse is essentially storage of digital data of a
+            company or organization.
+        </p>
+
+        <h3>Object-Relational Database</h3>
+
+        <p>
+            Object-oriented programming can be considered as a model of objects.
+            An entity can be considered as a class. OOP has attributes and methods.
+        </p>
+    </section>
+
+    <!-- Database Design -->
+    <section>
+        <h2>6. Database Design</h2>
+
+        <p>
+            Database design involves creating a database structure that
+            satisfies the requirements of the application.
+        </p>
+
+        <h3>Important Design Objectives</h3>
+
+        <ul>
+            <li>Avoid duplicate data.</li>
+            <li>Determine what records are needed in files.</li>
+            <li>Design an appropriate database model.</li>
+        </ul>
+
+        <h3>Data Dependence</h3>
+
+        <p>
+            Data dependence deals with the mechanisms for changing database
+            structure.
+        </p>
+
+        <p>
+            Good database design should ensure that it is relatively easy
+            to make necessary modifications to the structure.
+        </p>
+
+        <h3>Data Redundancy</h3>
+
+        <p>
+            Data redundancy is one of the most common problems.
+        </p>
+
+        <p>
+            If data is replicated, when something is changed in one copy,
+            it needs to be changed in the other copy.
+        </p>
+
+        <h3>Data Anomalies</h3>
+
+        <p>
+            Modification and deletion anomalies are related to data in
+            one-to-many relationships.
+        </p>
+    </section>
+
+    <!-- DBMS Architecture -->
+    <section>
+        <h2>7. Database System Components</h2>
+
+        <ul>
+            <li>Web interface</li>
+            <li>Data structures</li>
+            <li>Data structure relationships</li>
+            <li>Data</li>
+            <li>Access control</li>
+            <li>DBMS</li>
+            <li>Database</li>
+        </ul>
+
+        <p>
+            The general architecture can be represented as:
+        </p>
+
+        <p>
+            <strong>Application → DBMS → Operating System → Hardware</strong>
+        </p>
+
+        <p>
+            Very few applications have to directly consider the operating
+            system and hardware.
+        </p>
+    </section>
+
+    <!-- Database Alternatives -->
+    <section>
+        <h2>8. Database Alternatives</h2>
+
+        <h3>MySQL</h3>
+
+        <p>
+            MySQL uses the ACID model:
+        </p>
+
+        <ul>
+            <li>Atomicity</li>
+            <li>Consistency</li>
+            <li>Isolation</li>
+            <li>Durability</li>
+        </ul>
+
+        <p>
+            It has more than 20 years of history and supports C++ and C.
+        </p>
+
+        <h4>When to use MySQL</h4>
+
+        <p>
+            It is suitable for applications that need a transactional SQL
+            engine, including heavy-traffic websites or mission-critical
+            applications.
+        </p>
+
+        <p>
+            It can be used for horizontal scalability, multi-master ACID
+            transactions and applications that require a converged database.
+        </p>
+
+        <h3>MariaDB</h3>
+
+        <p>
+            MariaDB is designed to provide scalability and is similar to SQL.
+            It uses InnoDB as the storage engine and is intended to provide
+            good performance.
+        </p>
+
+        <p>
+            It is free but has commercial support.
+        </p>
+
+        <p>
+            Recommended when a multimodel database is needed.
+        </p>
+
+        <h3>PostgreSQL</h3>
+
+        <p>
+            PostgreSQL is an open-source relational database management system
+            with good performance. It supports JSON and SQL relational querying.
+        </p>
+
+        <p>
+            It is compatible with C, Java, Python, Ruby and ODBC.
+            It is compatible with Linux, Windows and Unix.
+        </p>
+
+        <p>
+            It offers support for data integrity.
+        </p>
+
+        <h4>Recommended when</h4>
+
+        <ul>
+            <li>A distributed database is used.</li>
+            <li>The system needs to handle millions of transactions.</li>
+            <li>A query planner is required.</li>
+            <li>The application needs disaster recovery and reliability features.</li>
+            <li>Active standby and PITR are required.</li>
+        </ul>
+
+        <h3>SQLite</h3>
+
+        <p>
+            SQLite is lightweight software written in C.
+            The database is stored as a file, similar to a CSV file.
+        </p>
+
+        <ul>
+            <li>No setup or administration is required.</li>
+            <li>Small code footprint.</li>
+            <li>Easy to use.</li>
+            <li>Self-contained with zero dependencies.</li>
+            <li>Embedded database.</li>
+        </ul>
+
+        <h4>Recommended when</h4>
+
+        <p>
+            It can be used when there are limited hardware resources, such as:
+        </p>
+
+        <ul>
+            <li>Electronic devices</li>
+            <li>Cameras</li>
+            <li>Automobiles</li>
+            <li>Airplanes</li>
+            <li>Remote sensors</li>
+            <li>Game consoles</li>
+            <li>Drones</li>
+        </ul>
+
+        <p>
+            It works well as a database engine for websites with low to
+            medium traffic.
+        </p>
+
+        <h3>MongoDB</h3>
+
+        <p>
+            MongoDB is a document-oriented database that offers scalability
+            and flexibility.
+        </p>
+
+        <p>
+            It stores data in flexible JSON-like documents. Fields can differ
+            between documents and the data structure can be modified.
+        </p>
+
+        <h4>Recommended when</h4>
+
+        <ul>
+            <li>A real-time view of data is required.</li>
+            <li>Real-time analytics are required.</li>
+            <li>Data collected from physical works needs to be analyzed.</li>
+            <li>Content needs to be stored and shared.</li>
+            <li>Features need to be built around flexible data.</li>
+        </ul>
+
+        <h3>Redis</h3>
+
+        <p>
+            Redis is an open-source, in-memory data structure store used as
+            a cache database, streaming engine and message broker.
+        </p>
+
+        <p>
+            It is fast and supports data structures such as bitmaps,
+            range queries, HyperLogLogs and streams.
+        </p>
+
+        <p>
+            Because it works in memory, it is usually used as a buffer.
+            For example, it can store queries made to another database.
+        </p>
+
+        <h4>Recommended when</h4>
+
+        <ul>
+            <li>Memory caching is required.</li>
+            <li>Data latency needs to be reduced.</li>
+            <li>Load needs to be reduced on another database.</li>
+            <li>Session data needs to be stored.</li>
+            <li>High availability and persistence are required.</li>
+            <li>Real-time streaming is required.</li>
+        </ul>
+    </section>
+
+    <!-- ORM -->
+    <section>
+        <h2>9. ORM</h2>
+
+        <p>
+            <strong>ORM</strong> stands for
+            <strong>Object-Relational Mapping</strong>.
+        </p>
+
+        <p>
+            ORM is a system for mapping objects to a database.
+            It automates the transfer of data stored in relational database
+            tables into objects commonly used in application code.
+        </p>
+
+        <p>
+            An Object-Relational Mapper maps a relational database system
+            to objects.
+        </p>
+
+        <p>
+            The ORM is independent of which relational database system is used.
+            From languages such as Python, PHP and JavaScript, developers can
+            work with objects through the ORM and map them to the database.
+        </p>
+
+        <h3>Advantages of ORM</h3>
+
+        <ul>
+            <li>Generates database inserts and mappings.</li>
+            <li>Maps database attributes to object attributes.</li>
+            <li>Provides a high-level abstraction over a relational database.</li>
+            <li>Allows developers to write object-oriented code instead of SQL.</li>
+            <li>Supports CRUD operations.</li>
+            <li>Can work with database schemas using objects.</li>
+        </ul>
+
+        <h3>CRUD</h3>
+
+        <ul>
+            <li><strong>Create</strong></li>
+            <li><strong>Read</strong></li>
+            <li><strong>Update</strong></li>
+            <li><strong>Delete</strong></li>
+        </ul>
+
+        <p>
+            A class is relatively equivalent to a SQL table.
+            An instance of the class is equivalent to a record in the table.
+        </p>
+
+        <p>
+            Developers can use the programming language they are comfortable
+            with to work with a database instead of writing SQL statements
+            or stored procedures.
+        </p>
+    </section>
+
+    <!-- ORM Examples -->
+    <section>
+        <h2>10. ORM Examples</h2>
+
+        <ul>
+            <li><strong>Java:</strong> Hibernate</li>
+            <li><strong>.NET:</strong> NHibernate</li>
+            <li><strong>PHP:</strong> Doctrine, Eloquent</li>
+            <li><strong>Python:</strong> Django ORM, SQLAlchemy</li>
+            <li><strong>Ruby:</strong> DataMapper</li>
+            <li><strong>Node.js:</strong> Prisma, Sequelize, Mongoose</li>
+        </ul>
+    </section>
+
+</main>
+
+</body>
+</html>

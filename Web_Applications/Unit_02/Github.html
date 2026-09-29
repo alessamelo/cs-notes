@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="..\..\style.css">
+
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+
+<title>Unit 2 - Github</title>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Unit 2: Github</h1>
+
+<p>Version controls, and repositories</p>
+
+</header>
+
+<main><a href="..\index.html">← Back to Web Applications</a>
+
+    <section>
+        <h1>Introduction to GitHub</h1>
+
+        <section>
+            <h2>Version Control</h2>
+
+            <p>
+                Version control is important because it allows us to keep track
+                of changes made to a project.
+            </p>
+
+            <p>
+                Without version control, developers often create manual copies
+                of their projects to keep previous versions.
+            </p>
+
+            <p>
+                With version control, we can easily search for bugs and understand
+                how the project has changed over time.
+            </p>
+
+            <p>
+                Git is open source and scalable.
+            </p>
+
+            <ul>
+                <li>Git stores files and their history over time.</li>
+                <li>Different versions can be inspected and compared.</li>
+                <li>Changes can be combined.</li>
+                <li>Previous versions can be restored.</li>
+                <li>We can see who made changes.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Git and GitHub</h2>
+
+            <p>
+                Git is the tool that provides version control.
+            </p>
+
+            <p>
+                GitHub is a cloud-based repository platform that can be
+                connected with Git for version control and collaboration.
+            </p>
+
+            <p>
+                GitHub is not the only platform that can be used with Git.
+                Other platforms include GitLab and Bitbucket.
+            </p>
+
+            <h3>Bitbucket</h3>
+
+            <p>
+                Bitbucket is developed by Atlassian, the same company behind
+                Jira. It can connect version control with project management
+                features such as epics and branches.
+            </p>
+        </section>
+
+        <section>
+            <h2>Git and the Shell</h2>
+
+            <p>
+                Git can be used through the shell or terminal.
+            </p>
+
+            <p>
+                The shell is a program used for executing programs and commands.
+            </p>
+
+            <h3>Directory</h3>
+
+            <p>
+                A directory is a location used to organize files and other
+                directories.
+            </p>
+        </section>
+
+        <section>
+            <h2>Terminal Commands</h2>
+
+            <h3>pwd</h3>
+
+            <p>
+                Shows the directory in which we are currently located.
+            </p>
+
+            <pre><code>pwd</code></pre>
+
+            <h3>ls</h3>
+
+            <p>
+                Lists the files and directories in the current directory.
+            </p>
+
+            <pre><code>ls</code></pre>
+
+            <h3>Changing Directory</h3>
+
+            <p>
+                The <code>cd</code> command is used to change the current directory.
+            </p>
+
+            <pre><code>cd archive</code></pre>
+
+            <h3>Checking the Git Version</h3>
+
+            <p>
+                The Git version can be checked using:
+            </p>
+
+            <pre><code>git --version</code></pre>
+        </section>
+
+        <section>
+            <h2>Git Repository</h2>
+
+            <p>
+                A Git repository is a directory that contains files,
+                subdirectories and Git storage.
+            </p>
+
+            <p>
+                Git stores its extra information in a directory called
+                <code>.git</code>, which is located in the repository's main
+                directory.
+            </p>
+
+            <p>
+                Every folder that is a Git repository contains a
+                <code>.git</code> directory.
+            </p>
+
+            <p>
+                The <code>.git</code> directory should not be modified manually.
+                Git commands should be used to modify the repository information.
+            </p>
+
+            <p>
+                In Windows, hidden files and directories can be displayed with:
+            </p>
+
+            <pre><code>ls -la</code></pre>
+
+            <p>
+                <strong>Do not delete or manually modify the <code>.git</code> directory.</strong>
+            </p>
+
+            <h3>Benefits of Repositories</h3>
+
+            <ul>
+                <li>Collaborate with colleagues.</li>
+                <li>Track changes to the project.</li>
+                <li>Compare different versions.</li>
+                <li>Return to previous versions.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Before Starting with Git</h2>
+
+            <p>
+                Before starting to work with Git, we can check the installed
+                version using:
+            </p>
+
+            <pre><code>git --version</code></pre>
+
+            <h3>Git User Configuration</h3>
+
+            <p>
+                Git needs to know the identity of the person making the commits.
+            </p>
+
+            <pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre>
+
+            <p>
+                The current global configuration can be checked with:
+            </p>
+
+            <pre><code>git config --global --list</code></pre>
+
+            <p>
+                The <code>--global</code> option applies the configuration to
+                the user's Git configuration. Without the global option, a
+                different identity can be configured for a specific repository.
+            </p>
+
+            <p>
+                This can be useful when different users or identities are
+                required for different folders or repositories.
+            </p>
+        </section>
+
+        <section>
+            <h2>Creating a Git Repository</h2>
+
+            <p>
+                The command <code>git init</code> can be used to initialize a
+                Git repository.
+            </p>
+
+            <pre><code>git init mental-health-workspace</code></pre>
+
+            <p>
+                This creates a Git repository called
+                <code>mental-health-workspace</code>.
+            </p>
+
+            <p>
+                An existing project can also be converted into a Git repository
+                by running <code>git init</code> inside the project directory.
+            </p>
+
+            <pre><code>git init</code></pre>
+
+            <h3>Checking the Repository Status</h3>
+
+            <p>
+                The current status of the repository can be checked with:
+            </p>
+
+            <pre><code>git status</code></pre>
+
+            <p>
+                <code>git status</code> shows information about the current
+                branch and the state of the files.
+            </p>
+
+            <p>
+                If there are files that Git is not tracking, they appear as
+                <strong>untracked files</strong>.
+            </p>
+        </section>
+
+        <section>
+            <h2>Nested Repositories</h2>
+
+            <p>
+                A nested repository occurs when a Git repository is created
+                inside another Git repository.
+            </p>
+
+            <p>
+                This should generally be avoided because there will be two
+                <code>.git</code> directories, which can create confusion about
+                which repository is tracking the files.
+            </p>
+        </section>
+
+        <section>
+            <h2>Git Mental Model</h2>
+
+            <p>
+                Git can be understood as a sequence of stages through which
+                changes move before they are shared with other developers.
+            </p>
+
+            <ol>
+                <li>
+                    <strong>Working Directory</strong>
+                    <p>
+                        This is where we create and edit the files.
+                    </p>
+                    <pre><code>git add</code></pre>
+                </li>
+
+                <li>
+                    <strong>Staging Area</strong>
+                    <p>
+                        The staging area contains the selected changes that
+                        are going to be included in the next commit.
+                    </p>
+                    <pre><code>git commit</code></pre>
+                </li>
+
+                <li>
+                    <strong>Local Repository</strong>
+                    <p>
+                        The committed changes are stored in the local Git
+                        repository.
+                    </p>
+                    <pre><code>git push</code></pre>
+                </li>
+
+                <li>
+                    <strong>Remote Repository</strong>
+                    <p>
+                        The remote repository contains shared commits and can
+                        be hosted on platforms such as GitHub, GitLab or
+                        Bitbucket.
+                    </p>
+                </li>
+            </ol>
+
+            <p>
+                The important distinction is that <code>git add</code> and
+                <code>git commit</code> modify the local Git workflow, while
+                <code>git push</code> sends committed changes to the remote
+                repository.
+            </p>
+        </section>
+
+        <section>
+            <h2>File States</h2>
+
+            <p>
+                Files can move through different states during the Git workflow.
+            </p>
+
+            <pre><code>Untracked
+    ↓
+git add
+    ↓
+Staged
+    ↓
+git commit
+    ↓
+Committed</code></pre>
+
+            <p>
+                When a file is modified after being committed, Git detects the
+                change and the file becomes modified again.
+            </p>
+
+            <pre><code>Committed
+    ↓
+Edit
+    ↓
+Modified
+    ↓
+git add
+    ↓
+Staged
+    ↓
+git commit
+    ↓
+Committed</code></pre>
+        </section>
+
+        <section>
+            <h2>Staging Files</h2>
+
+            <h3>Adding a File</h3>
+
+            <p>
+                A specific file can be added to the staging area using:
+            </p>
+
+            <pre><code>git add file</code></pre>
+
+            <h3>Adding All Files</h3>
+
+            <p>
+                All files in the current directory can be added using:
+            </p>
+
+            <pre><code>git add .</code></pre>
+
+            <p>
+                It is a good practice to check <code>git status</code> before
+                using <code>git add .</code> to avoid staging unwanted changes.
+            </p>
+
+            <h3>Removing a File from the Staging Area</h3>
+
+            <p>
+                A staged file can be removed from the staging area using:
+            </p>
+
+            <pre><code>git restore --staged file</code></pre>
+        </section>
+
+        <section>
+            <h2>Making a Commit</h2>
+
+            <p>
+                A commit changes files from the staging area into a committed
+                version stored in the local repository.
+            </p>
+
+            <pre><code>git commit -m "Adding"</code></pre>
+
+            <p>
+                The <code>-m</code> option allows us to provide the commit
+                message directly without opening an editor.
+            </p>
+
+            <p>
+                Each commit has an identifier, a date, and information about
+                the changes. Previous versions can be accessed through the
+                commit history.
+            </p>
+
+            <p>
+                A good practice is to make each commit represent a coherent
+                change and use a short message that explains its purpose.
+            </p>
+        </section>
+
+        <section>
+            <h2>Git History</h2>
+
+            <h3>git log --oneline</h3>
+
+            <p>
+                Displays a list of commits in a compact format.
+            </p>
+
+            <pre><code>git log --oneline</code></pre>
+
+            <p>
+                The output includes the commit identifier and the commit
+                message.
+            </p>
+
+            <h3>HEAD</h3>
+
+            <p>
+                <code>HEAD</code> is a pointer that indicates the current
+                position in the commit history, normally pointing to the
+                current branch and its latest commit.
+            </p>
+
+            <h3>git log</h3>
+
+            <p>
+                The <code>git log</code> command provides more information
+                about the commit history, including who made the changes and
+                when they were made.
+            </p>
+
+            <pre><code>git log</code></pre>
+
+            <h3>git show HEAD</h3>
+
+            <p>
+                Shows more detailed information about the commit currently
+                referenced by <code>HEAD</code>.
+            </p>
+
+            <pre><code>git show HEAD</code></pre>
+
+            <h3>Visualizing the Commit History</h3>
+
+            <pre><code>git log --decorate --graph --all</code></pre>
+
+            <p>
+                This can be used to visualize branches and the relationships
+                between commits.
+            </p>
+        </section>
+
+        <section>
+            <h2>Git Diff</h2>
+
+            <p>
+                The <code>git diff</code> command compares different states
+                of files in a repository and shows exactly which lines have
+                been changed, added, or removed.
+            </p>
+
+            <pre><code>git diff</code></pre>
+
+            <p>
+                Diff can also be used to compare files or changes between
+                different branches.
+            </p>
+
+            <p>
+                Using diff, we can inspect the differences between versions
+                before committing or merging changes.
+            </p>
+        </section>
+
+        <section>
+            <h2>Git Ignore</h2>
+
+            <p>
+                A <code>.gitignore</code> file specifies files and folders
+                that Git should not track.
+            </p>
+
+            <p>
+                This is important because a project may contain files that
+                should not be committed, such as:
+            </p>
+
+            <ul>
+                <li>Secret keys.</li>
+                <li>Configuration files containing sensitive information.</li>
+                <li>Generated files.</li>
+                <li>APK files or other build artifacts.</li>
+            </ul>
+
+            <p>
+                <strong>
+                    Adding a secret file to Git and then deleting it from the
+                    working directory does not necessarily remove it from the
+                    repository history.
+                </strong>
+            </p>
+
+            <p>
+                Therefore, <code>.gitignore</code> is also important for
+                preventing sensitive or unnecessary files from being added
+                in the first place.
+            </p>
+
+            <h3>Ignoring and Including Specific Files</h3>
+
+            <p>
+                Git ignore rules can be combined to ignore a folder while
+                allowing specific files or folders inside it to be tracked.
+            </p>
+
+            <pre><code>app/*
+!app/Resources*</code></pre>
+
+            <p>
+                The <code>!</code> symbol can be used to create an exception
+                to an ignore rule.
+            </p>
+        </section>
+
+        <section>
+            <h2>git mv</h2>
+
+            <p>
+                The <code>git mv</code> command can perform file moving or
+                renaming operations while also updating Git's tracking of
+                the file.
+            </p>
+
+            <pre><code>git mv old_name new_name</code></pre>
+        </section>
+
+        <section>
+            <h2>Branches</h2>
+
+            <p>
+                A Git branch is a pointer to a sequence of commits. Branches
+                allow developers to work on different changes independently.
+            </p>
+
+            <pre><code>E1 → E2 → E3 → A → B
+              \
+               → C → D</code></pre>
+
+            <p>
+                Branches can diverge from a common commit and later be merged
+                together.
+            </p>
+
+            <h3>Renaming a Branch</h3>
+
+            <p>
+                The <code>git branch -m</code> command is used to rename a branch.
+            </p>
+
+            <pre><code>git branch -m new-name</code></pre>
+
+            <h3>Creating and Switching to a Branch</h3>
+
+            <p>
+                The <code>git switch -c</code> command creates a new branch
+                and switches to it.
+            </p>
+
+            <pre><code>git switch -c new-branch</code></pre>
+
+            <p>
+                Branches should have intuitive names that describe the work
+                being performed.
+            </p>
+        </section>
+
+        <section>
+            <h2>Merge Conflicts</h2>
+
+            <p>
+                A Git conflict can occur when changes from different branches
+                affect the same part of a file and Git cannot determine
+                automatically which changes should be maintained.
+            </p>
+
+            <p>
+                When this happens, the developer must resolve the conflict
+                manually before the branches can be merged.
+            </p>
+        </section>
+
+        <section>
+            <h2>Working with Remote Repositories</h2>
+
+            <h3>git fetch</h3>
+
+            <p>
+                <code>git fetch</code> retrieves information about changes
+                from a remote repository without directly merging those
+                changes into the current branch.
+            </p>
+
+            <pre><code>git fetch</code></pre>
+
+            <h3>Do Not Work Directly on Main</h3>
+
+            <p>
+                A common development practice is to avoid working directly
+                on the <code>main</code> branch. Instead, developers create
+                a separate branch for their changes.
+            </p>
+
+            <p>
+                This allows the changes to be tested and reviewed before
+                they are incorporated into the main branch.
+            </p>
+        </section>
+
+        <section>
+            <h2>Pull Requests</h2>
+
+            <p>
+                A <strong>pull request</strong> is used to propose changes
+                from one branch to another, usually before merging the changes
+                into the main branch.
+            </p>
+
+            <p>
+                In an industrial development workflow, another developer or
+                an assigned maintainer can review the changes and verify that
+                there are no unresolved conflicts or problems before the
+                changes are merged.
+            </p>
+        </section>
+
+        <section>
+            <h2>Git Workflow</h2>
+
+            <p>
+                A typical Git workflow can be represented as:
+            </p>
+
+            <ol>
+                <li><strong>Sync</strong> with the remote repository.</li>
+                <li><strong>Create or switch to a branch.</strong></li>
+                <li><strong>Edit and test</strong> the project.</li>
+                <li>Use <strong>status</strong> and <strong>diff</strong> to inspect changes.</li>
+                <li><strong>Stage</strong> the desired changes.</li>
+                <li><strong>Commit</strong> the changes.</li>
+                <li><strong>Push</strong> the branch to the remote repository.</li>
+                <li><strong>Review and merge</strong> the changes.</li>
+            </ol>
+
+            <pre><code>Sync
+  ↓
+Branch
+  ↓
+Edit and Test
+  ↓
+Status / Diff
+  ↓
+Stage
+  ↓
+Commit
+  ↓
+Push
+  ↓
+Review / Merge</code></pre>
+        </section>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

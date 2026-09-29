@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Exam Study Guide</title>
+</head>
+     <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            }
+        };
+    </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+        async>
+    </script>
+
+     <style>
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            font-size: 1.2em;
+        }
+
+        .graph {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .graph svg {
+            max-width: 500px;
+            width: 100%;
+        }
+        .final-answer {
+            border: 2px solid #333;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .step {
+            border-left: 4px solid #555;
+            padding-left: 15px;
+            margin: 25px 0;
+        }
+
+                .exam-question {
+            border: 1px solid #999;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #fff;
+        }
+
+
+        .warning {
+            background-color: #f8f8f8;
+            border: 1px solid #aaa;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+
+<body>
+<header>
+<h1>Optimization Methods: Exam Study Guide</h1>
+        <p>
+            Course notes on optimization, numerical optimization,
+            problem classification, convergence, and numerical methods.
+        </p>
+</header>
+<main><a href="..\index.html">← Back to Optimization Methods
+</a>
+
+
+<p>
+    Summary of the main topics, possible exam questions, previous quizzes,
+    iterative optimization methods, constrained optimization, and programming
+    projects.
+</p>
+
+
+
+<!-- ================================================= -->
+<!-- POSSIBLE EXAM IDEAS -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>1. Possible Exam Ideas</h2>
+
+    <div class="exam-question">
+
+        <h3>Question Type: Given a Function, Invent a Descent Direction</h3>
+
+        <p>
+            Given an objective function \(f(x)\), determine a valid descent
+            direction at a given point.
+        </p>
+
+        <p>
+            A vector \(d\) is a descent direction at \(x\) if:
+        </p>
+
+        <div class="formula">
+
+            \[
+            \nabla f(x)^T d < 0.
+            \]
+
+        </div>
+
+        <p>
+            The most common descent direction is the negative gradient:
+        </p>
+
+        <div class="formula">
+
+            \[
+            \boxed{
+            d=-\nabla f(x)
+            }
+            \]
+
+        </div>
+
+        <p>
+            because:
+        </p>
+
+        <div class="formula">
+
+            \[
+            \nabla f(x)^T(-\nabla f(x))
+            =
+            -\|\nabla f(x)\|^2<0
+            \]
+
+        </div>
+
+        <p>
+            whenever:
+        </p>
+
+        <div class="formula">
+
+            \[
+            \nabla f(x)\neq0.
+            \]
+
+        </div>
+
+    </div>
+
+
+    <div class="important">
+
+        <h3>Descent Iterative Methods</h3>
+
+        <p>
+            Descent iterative methods move step by step using local information.
+            Depending on the function and the step size, their trajectory can
+            exhibit zigzag behavior.
+        </p>
+
+        <p>
+            They usually converge to a local minimum determined by the initial
+            point and its basin of attraction rather than explicitly searching
+            all possible extrema.
+        </p>
+
+        <p>
+            Unlike the manual method for constrained optimization, a basic
+            iterative descent method does not separately calculate interior
+            critical points and boundary critical points.
+        </p>
+
+        <p>
+            To solve constrained problems, the constraints must be incorporated
+            into the iterative algorithm using techniques such as:
+        </p>
+
+        <ul>
+
+            <li>Projection methods</li>
+            <li>Penalty methods</li>
+            <li>Barrier methods</li>
+            <li>Lagrange multiplier methods</li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- TOPICS TO REVIEW -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>2. Topics to Review</h2>
+
+    <ul>
+
+        <li>Lagrange Multipliers</li>
+
+        <li>Gradient and descent directions</li>
+
+        <li>Steepest Descent Method</li>
+
+        <li>Newton's Method</li>
+
+        <li>Conjugate Gradient Method</li>
+
+        <li>Stationary points</li>
+
+        <li>Hessian matrix analysis</li>
+
+        <li>First-order necessary conditions</li>
+
+        <li>Second-order sufficient conditions</li>
+
+        <li>Unconstrained optimization problems</li>
+
+        <li>Constrained optimization problems</li>
+
+        <li>Absolute minimum and maximum problems</li>
+
+    </ul>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- PDF MATERIAL -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>3. PDF Material to Review</h2>
+
+    <ul>
+
+        <li>FtOptimization.pdf</li>
+
+        <li>Lagrange Multipliers</li>
+
+        <li>Unconstrained Problems</li>
+
+        <li>Previous Quizzes</li>
+
+    </ul>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- LAGRANGE -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>4. Lagrange Multipliers</h2>
+
+    <p>
+        For a constrained optimization problem:
+    </p>
+
+    <div class="formula">
+
+        \[
+        \min/\max f(x,y)
+        \]
+
+    </div>
+
+    <p>
+        subject to:
+    </p>
+
+    <div class="formula">
+
+        \[
+        g(x,y)=c,
+        \]
+
+    </div>
+
+    <p>
+        the Lagrange condition is:
+    </p>
+
+    <div class="formula">
+
+        \[
+        \boxed{
+        \nabla f(x,y)
+        =
+        \lambda\nabla g(x,y)
+        }
+        \]
+
+    </div>
+
+    <p>
+        together with:
+    </p>
+
+    <div class="formula">
+
+        \[
+        \boxed{
+        g(x,y)=c
+        }
+        \]
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- HESSIAN -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>5. Hessian Matrix Analysis</h2>
+
+    <p>
+        For a function \(f(x_1,x_2)\), the Hessian matrix is:
+    </p>
+
+    <div class="formula">
+
+        \[
+        H_f(x)=
+        \begin{pmatrix}
+
+        \frac{\partial^2f}{\partial x_1^2}
+        &
+        \frac{\partial^2f}{\partial x_1\partial x_2}
+
+        \\
+
+        \frac{\partial^2f}{\partial x_2\partial x_1}
+        &
+        \frac{\partial^2f}{\partial x_2^2}
+
+        \end{pmatrix}.
+        \]
+
+    </div>
+
+
+    <h3>Classification</h3>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Hessian Condition</th>
+
+                <th>Conclusion</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            <tr>
+
+                <td>Positive Definite</td>
+
+                <td>Strict Local Minimum</td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>Negative Definite</td>
+
+                <td>Strict Local Maximum</td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>Indefinite</td>
+
+                <td>Saddle Point</td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>Semidefinite</td>
+
+                <td>Test is Inconclusive</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <div class="important">
+
+        <p>
+            At a stationary point \(x^*\), the first-order necessary condition is:
+        </p>
+
+        <div class="formula">
+
+            \[
+            \boxed{
+            \nabla f(x^*)=0
+            }
+            \]
+
+        </div>
+
+        <p>
+            The Hessian is then used to classify the stationary point.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- PREVIOUS QUIZ -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>6. Previous Quiz: Absolute Minimum</h2>
+
+    <p>
+        A possible question is:
+    </p>
+
+    <div class="exam-question">
+
+        <h3>Find the Absolute Minimum</h3>
+
+        <p>
+            Given a function and a domain, determine the absolute minimum.
+        </p>
+
+        <p>The general procedure is:</p>
+
+        <ol>
+
+            <li>Calculate the gradient.</li>
+
+            <li>Find all stationary points inside the domain.</li>
+
+            <li>Check whether each stationary point belongs to the domain.</li>
+
+            <li>Analyze the boundary if the domain is closed.</li>
+
+            <li>Evaluate the function at every candidate point.</li>
+
+            <li>Compare all values.</li>
+
+        </ol>
+
+
+        <div class="formula">
+
+            \[
+            \boxed{
+            \text{Interior candidates}
+            +
+            \text{Boundary candidates}
+            \rightarrow
+            \text{Compare function values}
+            }
+            \]
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- RECTANGULAR BOX -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>7. Rectangular Box Optimization Problem</h2>
+
+    <div class="exam-question">
+
+        <h3>Problem</h3>
+
+        <p>
+            Construct a rectangular box without a lid using
+            \(2d\text{ m}^2\) of material, where \(d=8\),
+            such that the volume is maximized.
+        </p>
+
+        <p>The questions are:</p>
+
+        <ol>
+
+            <li>
+                Describe and model the problem as a constrained
+                optimization problem.
+            </li>
+
+            <li>
+                Solve the problem as an unconstrained optimization
+                problem by eliminating one of the variables.
+            </li>
+
+        </ol>
+
+    </div>
+
+
+    <h3>Model</h3>
+
+    <p>
+        Suppose the dimensions of the rectangular box are:
+    </p>
+
+    <ul>
+
+        <li>Length: \(x\)</li>
+
+        <li>Width: \(y\)</li>
+
+        <li>Height: \(z\)</li>
+
+    </ul>
+
+
+    <p>The volume is:</p>
+
+    <div class="formula">
+
+        \[
+        V(x,y,z)=xyz.
+        \]
+
+    </div>
+
+
+    <p>
+        Since the box has no lid, the material constraint consists of
+        the bottom and four lateral sides:
+    </p>
+
+    <div class="formula">
+
+        \[
+        xy+2xz+2yz=2d.
+        \]
+
+    </div>
+
+
+    <p>Since \(d=8\):</p>
+
+    <div class="formula">
+
+        \[
+        xy+2xz+2yz=16.
+        \]
+
+    </div>
+
+
+    <h3>Constrained Optimization Form</h3>
+
+    <div class="formula">
+
+        \[
+        \boxed{
+        \max xyz
+        }
+        \]
+
+    </div>
+
+    <p>subject to:</p>
+
+    <div class="formula">
+
+        \[
+        \boxed{
+        xy+2xz+2yz=16.
+        }
+        \]
+
+    </div>
+
+
+    <h3>Unconstrained Approach</h3>
+
+    <p>
+        Solve the constraint equation for one variable, for example \(z\):
+    </p>
+
+    <div class="formula">
+
+        \[
+        z=
+        \frac{16-xy}{2x+2y}.
+        \]
+
+    </div>
+
+    <p>
+        Substitute this expression into the volume function:
+    </p>
+
+    <div class="formula">
+
+        \[
+        V(x,y)
+        =
+        xy
+        \left(
+        \frac{16-xy}{2x+2y}
+        \right).
+        \]
+
+    </div>
+
+    <p>
+        The problem has now been converted into an unconstrained
+        optimization problem in two variables.
+    </p>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- TRAPEZIUM -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>8. Trapezium Perimeter Problem</h2>
+
+    <div class="exam-question">
+
+        <p>
+            Consider the formula expressing the perimeter of a trapezium
+            in terms of its sides \(x\) and \(y\):
+        </p>
+
+        <div class="formula">
+
+            \[
+            P(x,y)
+            =
+            x+y+
+            \sqrt{
+            \frac{4A}{x+y}
+            }.
+            \]
+
+        </div>
+
+        <p>
+            Use the Steepest Descent Method to find the values of
+            \(x\) and \(y\) that minimize \(P\).
+        </p>
+
+        <p>Take:</p>
+
+        <div class="formula">
+
+            \[
+            A=\frac{1}{d}.
+            \]
+
+        </div>
+
+        <p>
+            Describe each step of the algorithm.
+        </p>
+
+    </div>
+
+
+    <h3>Steepest Descent General Procedure</h3>
+
+    <p>Choose an initial point:</p>
+
+    <div class="formula">
+
+        \[
+        x_0=
+        \begin{pmatrix}
+        x_0\\
+        y_0
+        \end{pmatrix}.
+        \]
+
+    </div>
+
+
+    <p>Calculate the gradient:</p>
+
+    <div class="formula">
+
+        \[
+        \nabla P(x_k,y_k).
+        \]
+
+    </div>
+
+
+    <p>The steepest descent direction is:</p>
+
+    <div class="formula">
+
+        \[
+        \boxed{
+        d_k=
+        -\nabla P(x_k,y_k)
+        }
+        \]
+
+    </div>
+
+
+    <p>Choose a step size \(\alpha_k\):</p>
+
+    <div class="formula">
+
+        \[
+        \alpha_k>0.
+        \]
+
+    </div>
+
+
+    <p>Update the variables:</p>
+
+    <div class="formula">
+
+        \[
+        \boxed{
+        x_{k+1}
+        =
+        x_k+\alpha_kd_k
+        }
+        \]
+
+    </div>
+
+
+    <p>Stop when the gradient norm is sufficiently small:</p>
+
+    <div class="formula">
+
+        \[
+        \boxed{
+        \|\nabla P(x_k)\|
+        <
+        \varepsilon
+        }
+        \]
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- PROJECT -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>9. Programming Project</h2>
+
+
+    <h3>Objective Function</h3>
+
+    <div class="formula">
+
+        \[
+        f(x_1,x_2)
+        =
+        (x_1-2)^4
+        +
+        (x_1-2x_2)^2.
+        \]
+
+    </div>
+
+
+    <h3>Required Algorithms</h3>
+
+    <ol>
+
+        <li>Steepest Descent Method</li>
+
+        <li>Newton's Method</li>
+
+        <li>Conjugate Gradient Method</li>
+
+    </ol>
+
+
+    <div class="warning">
+
+        <strong>Internal documentation is mandatory.</strong>
+
+        <p>
+            The code should clearly explain:
+        </p>
+
+        <ul>
+
+            <li>The objective function.</li>
+
+            <li>The gradient calculation.</li>
+
+            <li>The Hessian calculation.</li>
+
+            <li>The search direction.</li>
+
+            <li>The step size.</li>
+
+            <li>The stopping criterion.</li>
+
+            <li>The update rule.</li>
+
+        </ul>
+
+    </div>
+
+
+    <h3>Initial Point</h3>
+
+    <p>
+        Take:
+    </p>
+
+    <div class="formula">
+
+        \[
+        x_0=[1,d].
+        \]
+
+    </div>
+
+    <p>
+        Apply the Steepest Descent Method and the Conjugate Gradient
+        Method to find the minimum.
+    </p>
+
+
+    <h3>Required Results</h3>
+
+    <p>
+        Present a table containing the gradient and its norm for the
+        first iterations.
+    </p>
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Iteration</th>
+
+                <th>\(x_k\)</th>
+
+                <th>\(\nabla f(x_k)\)</th>
+
+                <th>\(\|\nabla f(x_k)\|\)</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>0</td>
+
+                <td>\(x_0\)</td>
+
+                <td>\(\nabla f(x_0)\)</td>
+
+                <td>\(\|\nabla f(x_0)\|\)</td>
+
+            </tr>
+
+            <tr>
+
+                <td>1</td>
+
+                <td>\(x_1\)</td>
+
+                <td>\(\nabla f(x_1)\)</td>
+
+                <td>\(\|\nabla f(x_1)\|\)</td>
+
+            </tr>
+
+            <tr>
+
+                <td>2</td>
+
+                <td>\(x_2\)</td>
+
+                <td>\(\nabla f(x_2)\)</td>
+
+                <td>\(\|\nabla f(x_2)\|\)</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <h3>Required Graph</h3>
+
+    <p>
+        Present a graph showing the relationship between:
+    </p>
+
+    <div class="formula">
+
+        \[
+        \boxed{
+        \text{Iterations}
+        \quad
+        \text{vs}
+        \quad
+        \text{Error}
+        }
+        \]
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- STATIONARY POINTS -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>10. Stationary Points and Second-Order Conditions</h2>
+
+    <p>
+        For each function, determine all stationary points and verify
+        whether they are strict local minima using second-order
+        sufficient conditions.
+    </p>
+
+
+    <div class="exam-question">
+
+        <h3>Function 1</h3>
+
+        <div class="formula">
+
+            \[
+            f(x_1,x_2)
+            =
+            3x_1
+            +
+            \frac{100}{x_1x_2}
+            +
+            5x_2^2.
+            \]
+
+        </div>
+
+
+        <p>Required procedure:</p>
+
+        <ol>
+
+            <li>Calculate \(\nabla f(x_1,x_2)\).</li>
+
+            <li>
+                Solve:
+                \[
+                \nabla f(x_1,x_2)=0.
+                \]
+            </li>
+
+            <li>Find all stationary points.</li>
+
+            <li>Calculate the Hessian matrix.</li>
+
+            <li>Evaluate the Hessian at each stationary point.</li>
+
+            <li>
+                Determine whether the Hessian is positive definite.
+            </li>
+
+            <li>
+                If positive definite, conclude that the point is a
+                strict local minimum.
+            </li>
+
+        </ol>
+
+    </div>
+
+
+
+    <div class="exam-question">
+
+        <h3>Function 2</h3>
+
+        <div class="formula">
+
+            \[
+            f(x_1,x_2)
+            =
+            (x_1-10)^2
+            +
+            x_1x_2
+            +
+            (x_2^2-1)^2.
+            \]
+
+        </div>
+
+
+        <p>Required procedure:</p>
+
+        <ol>
+
+            <li>Calculate the gradient.</li>
+
+            <li>Find all stationary points.</li>
+
+            <li>Calculate the Hessian.</li>
+
+            <li>Analyze the Hessian at each stationary point.</li>
+
+            <li>
+                Determine whether each point is a strict local minimum,
+                maximum, or saddle point.
+            </li>
+
+        </ol>
+
+    </div>
+
+
+    <div class="important">
+
+        <h3>Numerical Verification</h3>
+
+        <p>
+            Use one of the optimization algorithms programmed previously
+            to corroborate the analytical findings.
+        </p>
+
+        <p>
+            For example, use:
+        </p>
+
+        <ul>
+
+            <li>Steepest Descent</li>
+
+            <li>Newton's Method</li>
+
+            <li>Conjugate Gradient</li>
+
+        </ul>
+
+        <p>
+            Compare the numerical result with the stationary points
+            obtained analytically.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- FINAL CHECKLIST -->
+<!-- ================================================= -->
+
+<div class="section">
+
+    <h2>Final Exam Checklist</h2>
+
+    <h3>Analytical Methods</h3>
+
+    <ul>
+
+        <li>Calculate gradients correctly.</li>
+
+        <li>Find stationary points.</li>
+
+        <li>Analyze the Hessian matrix.</li>
+
+        <li>Determine positive definiteness.</li>
+
+        <li>Apply second-order sufficient conditions.</li>
+
+        <li>Find absolute minima and maxima.</li>
+
+        <li>Analyze boundaries.</li>
+
+        <li>Use Lagrange multipliers.</li>
+
+    </ul>
+
+
+    <h3>Numerical Methods</h3>
+
+    <ul>
+
+        <li>Understand descent directions.</li>
+
+        <li>Understand why \(-\nabla f(x)\) is a descent direction.</li>
+
+        <li>Implement Steepest Descent.</li>
+
+        <li>Implement Newton's Method.</li>
+
+        <li>Implement Conjugate Gradient.</li>
+
+        <li>Choose stopping criteria.</li>
+
+        <li>Calculate gradient norms.</li>
+
+        <li>Interpret convergence.</li>
+
+        <li>Understand the influence of the initial point.</li>
+
+        <li>Recognize zigzag behavior.</li>
+
+        <li>Understand how constraints are incorporated into iterative methods.</li>
+
+    </ul>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- KEY CONCEPT -->
+<!-- ================================================= -->
+
+<div class="important">
+
+    <h2>Key Concept for the Exam</h2>
+
+    <div class="formula">
+
+        \[
+        \boxed{
+        \text{Analytical optimization}
+        \rightarrow
+        \text{Find and compare all mathematical candidates}
+        }
+        \]
+
+    </div>
+
+
+    <div class="formula">
+
+        \[
+        \boxed{
+        \text{Iterative optimization}
+        \rightarrow
+        \text{Generate a sequence approaching a solution}
+        }
+        \]
+
+    </div>
+
+
+    <p>
+        For constrained problems, a standard unconstrained iterative
+        method cannot simply ignore the feasible region. The constraint
+        must be incorporated using projection, penalties, barriers,
+        Lagrange multiplier techniques, or other constrained
+        optimization algorithms.
+    </p>
+
+</div>
+
+</main>
+</body>
+
+</html>
+

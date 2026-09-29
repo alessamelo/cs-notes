@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>Monte Carlo Incremental Update</title>
+    <style>
+        .key-point {
+            font-weight: bold;
+        }
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Monte Carlo Incremental Update and Temporal Difference Learning</h1>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+    <h2>Incremental Update</h2>
+
+    <p>
+        In Monte Carlo methods, to update the values, we normally need to
+        <strong>finish the entire episode</strong>.
+    </p>
+
+    <p>
+        An <strong>incremental update</strong> allows estimates to be updated
+        progressively as new data becomes available.
+    </p>
+
+    <h3>Advantages</h3>
+    <ul>
+        <li>Possibility of faster convergence.</li>
+        <li>Better memory efficiency.</li>
+        <li>Ability to update estimates in real time as new data becomes available.</li>
+    </ul>
+
+    <h3>General Incremental Update Formula</h3>
+
+    <p>
+        The general formula is:
+    </p>
+
+    <p>
+        <strong>
+            New Estimate = Old Estimate + Step Size ×
+            (Target − Old Estimate)
+        </strong>
+    </p>
+
+    <ul>
+        <li><strong>Old estimate:</strong> The previous estimate.</li>
+        <li>
+            <strong>Step size:</strong> A small positive constant that determines
+            the size of the update.
+        </li>
+        <li><strong>Target:</strong> The new sample value used to update the estimate.</li>
+    </ul>
+
+    <h2>Monte Carlo Incremental Update for V</h2>
+
+    <p>
+        The incremental update for the state-value function can be written as:
+    </p>
+
+    <p>
+        <strong>
+            V<sup>&pi;</sup>(S<sub>t</sub>) &larr;
+            V<sup>&pi;</sup>(S<sub>t</sub>) +
+            &frac1;<sub>N(S<sub>t</sub>)</sub>
+            [G<sub>t</sub> − V<sup>&pi;</sup>(S<sub>t</sub>)]
+        </strong>
+    </p>
+
+    <p>Where:</p>
+
+    <ul>
+        <li>
+            <strong>V<sup>&pi;</sup>(S<sub>t</sub>):</strong>
+            Current estimate of the value of state S<sub>t</sub>.
+        </li>
+        <li>
+            <strong>N(S<sub>t</sub>):</strong>
+            Number of times the state has been visited.
+        </li>
+        <li>
+            <strong>G<sub>t</sub>:</strong>
+            Return obtained from time t.
+        </li>
+    </ul>
+
+    <h2>Monte Carlo Policy Evaluation for Q<sup>&pi;</sup></h2>
+
+    <p>
+        The incremental update for the action-value function is:
+    </p>
+
+    <p>
+        <strong>
+            Q<sup>&pi;</sup>(S<sub>t</sub>, A<sub>t</sub>) &larr;
+            Q<sup>&pi;</sup>(S<sub>t</sub>, A<sub>t</sub>) +
+            &frac1;<sub>N(S<sub>t</sub>, A<sub>t</sub>)</sub>
+            [G<sub>t</sub> − Q<sup>&pi;</sup>(S<sub>t</sub>, A<sub>t</sub>)]
+        </strong>
+    </p>
+
+    <h2>Problem with the Previous Algorithm</h2>
+
+    <p>
+        The previous algorithm checked in the last class used
+        <strong>V</strong> to calculate <strong>Q</strong>.
+    </p>
+
+    <p>
+        However, the implementation also used a <strong>probability matrix</strong>.
+        This creates a problem because Monte Carlo policy evaluation is intended
+        to be <strong>model-free</strong>.
+    </p>
+
+    <p>
+        The value function V cannot directly provide the required Q-values for
+        a model-free implementation.
+    </p>
+
+    <p>
+        Therefore, for the new implementation, Q-values should be calculated
+        directly from experience using the incremental update.
+    </p>
+
+    <h2>Temporal Difference Learning</h2>
+
+    <p>
+        <strong>Temporal Difference (TD) learning</strong> is called
+        "temporal difference" learning because the agent updates its estimates
+        based on the difference between estimates at different time steps.
+    </p>
+
+    <h3>One-Step Look-Ahead</h3>
+
+    <p>
+        TD learning uses a <strong>one-step look-ahead</strong>.
+        The agent updates the estimated value of a state after receiving:
+    </p>
+
+    <ul>
+        <li>The immediate reward <strong>R<sub>t+1</sub></strong>.</li>
+        <li>The successor state <strong>S<sub>t+1</sub></strong>.</li>
+    </ul>
+
+    <p>
+        The basic experience can be represented as:
+    </p>
+
+    <p>
+        <strong>(S<sub>t</sub>, A<sub>t</sub>, R<sub>t+1</sub>, S<sub>t+1</sub>)</strong>
+    </p>
+
+    <h3>How TD Learning Works</h3>
+
+    <p>
+        For every state, the agent maintains an estimate of how good that state
+        is. When the agent transitions to a new state and receives a reward,
+        it uses the value estimate of the next state to adjust the estimate of
+        the current state.
+    </p>
+
+    <p>
+        TD learning is <strong>model-free</strong>. Algorithms such as
+        <strong>Q-learning</strong> and <strong>SARSA</strong> build upon this
+        principle.
+    </p>
+
+    <h2>Monte Carlo vs. Temporal Difference</h2>
+
+    <h3>Monte Carlo</h3>
+
+    <p>
+        In Monte Carlo learning, the agent must wait until the
+        <strong>episode finishes</strong> before calculating the return and
+        updating the estimate.
+    </p>
+
+    <p>
+        <strong>Analogy:</strong> Imagine estimating how long it will take to
+        arrive home. One approach is to wait until you arrive home and then
+        adjust your estimate.
+    </p>
+
+    <h3>Temporal Difference</h3>
+
+    <p>
+        TD learning updates the estimate <strong>during the episode</strong>.
+        The agent does not need to wait until the final outcome.
+    </p>
+
+    <p>
+        Using the same analogy, instead of waiting until arriving home, you
+        continuously update your estimate during the trip based on how far you
+        have traveled and your current estimate of the remaining travel time.
+    </p>
+
+    <h2>TD Learning Update Formula</h2>
+
+    <p>
+        The basic TD(0) update is:
+    </p>
+
+    <p>
+        <strong>
+            V(S<sub>t</sub>) &larr;
+            V(S<sub>t</sub>) +
+            &alpha;[
+            R<sub>t+1</sub> +
+            &gamma;V(S<sub>t+1</sub>) −
+            V(S<sub>t</sub>)
+            ]
+        </strong>
+    </p>
+
+    <p>Where:</p>
+
+    <ul>
+        <li>
+            <strong>V(S<sub>t</sub>):</strong>
+            Current estimate of the value of the current state.
+        </li>
+        <li>
+            <strong>&alpha;:</strong>
+            Learning rate or step size.
+        </li>
+        <li>
+            <strong>R<sub>t+1</sub>:</strong>
+            Immediate reward received after the transition.
+        </li>
+        <li>
+            <strong>&gamma;:</strong>
+            Discount factor.
+        </li>
+        <li>
+            <strong>V(S<sub>t+1</sub>):</strong>
+            Estimated value of the successor state.
+        </li>
+    </ul>
+
+    <h2>Bootstrapping</h2>
+
+    <p>
+        TD learning uses a concept called <strong>bootstrapping</strong>.
+    </p>
+
+    <p>
+        Instead of waiting for the final outcome, the agent updates its current
+        estimate using another <strong>estimated value</strong>.
+    </p>
+
+    <p>
+        In the TD formula:
+    </p>
+
+    <p>
+        <strong>
+            R<sub>t+1</sub> + &gamma;V(S<sub>t+1</sub>)
+        </strong>
+    </p>
+
+    <p>
+        acts as the target for updating
+        <strong>V(S<sub>t</sub>)</strong>.
+    </p>
+
+    <h2>Summary</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Monte Carlo</th>
+                <th>Temporal Difference</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>When does it update?</td>
+                <td>After the episode finishes</td>
+                <td>During the episode</td>
+            </tr>
+            <tr>
+                <td>Target</td>
+                <td>Actual return G<sub>t</sub></td>
+                <td>Reward + estimated next value</td>
+            </tr>
+            <tr>
+                <td>Bootstrapping</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>Model-free</td>
+                <td>Yes</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>Requires complete episode?</td>
+                <td>Yes</td>
+                <td>No</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

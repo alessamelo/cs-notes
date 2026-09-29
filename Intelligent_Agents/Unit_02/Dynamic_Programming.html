@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>Dynamic Programming</title>
+    <style>
+        .key-point {
+            font-weight: bold;
+        }
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dynamic Programming</h1>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+
+
+
+<section>
+    <h1>Dynamic Programming</h1>
+
+
+<section>
+    <h2>Policy Evaluation</h2>
+    <p>In dynamic programming, <strong>policy evaluation</strong> is used to estimate the value function of a given policy.</p>
+
+    <p>We use the <strong>Bellman equation</strong> while considering the current policy.</p>
+
+    <p>The algorithm takes:</p>
+    <ul>
+        <li>An arbitrary policy <strong>&pi;</strong>.</li>
+        <li>A discount factor <strong>&gamma;</strong>.</li>
+    </ul>
+
+    <p>The algorithm updates the estimated value of each state by taking a weighted average of:</p>
+    <ul>
+        <li>The immediate reward obtained in the next time step.</li>
+        <li>The estimated value of the next state.</li>
+    </ul>
+
+    <p>The current policy <strong>&pi;</strong> is used to select the next action, which is captured in the Bellman equation.</p>
+
+    <h3>Policy Evaluation Algorithm</h3>
+
+    <pre><code>while not converge:
+delta = 0
+
+for s &isin; S:
+    V = V&pi;(s)
+
+    V&pi;(s) = Bellman equation using policy &pi;
+
+    delta = max(delta, |V - V&pi;(s)|)
+
+if delta &lt; tol:
+    stop</code></pre>
+
+    <p>The important idea is that <strong>policy evaluation only evaluates the policy</strong>. It does not improve or change the policy.</p>
+
+    <p>In the lab, the policy evaluation algorithm was used to calculate the value function for a given policy.</p>
+</section>
+
+<section>
+    <h2>Policy Evaluation vs. Value Iteration</h2>
+
+    <p>In <strong>value iteration</strong>, we did not evaluate a specific policy. Instead, we directly use the reward and the possible next states to calculate the optimal value.</p>
+
+    <p>The value iteration update considers:</p>
+
+    <ul>
+        <li>The reward <strong>R(s,a)</strong>.</li>
+        <li>The transition probabilities <strong>P(s'|s,a)</strong>.</li>
+        <li>The current estimate of the optimal value <strong>V*(s')</strong>.</li>
+        <li>The maximum over possible actions.</li>
+    </ul>
+
+    <p>Therefore, the main distinction is:</p>
+
+    <ul>
+        <li><strong>Policy evaluation:</strong> evaluates a given policy &pi;.</li>
+        <li><strong>Value iteration:</strong> directly searches for the optimal value by considering the best action.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Policy Improvement</h2>
+
+    <p>The ultimate goal of reinforcement learning is to find an <strong>optimal policy</strong> that maximizes the expected return for all states in the state space.</p>
+
+    <p>However, searching through every possible policy can be computationally expensive.</p>
+
+    <h3>Why Brute Force Is Expensive</h3>
+
+    <p>For example, consider a grid with:</p>
+
+    <ul>
+        <li>4 possible actions per state.</li>
+        <li>12 states.</li>
+    </ul>
+
+    <p>The number of possible deterministic policies is:</p>
+
+    <pre><code>4^12 = 16,777,216</code></pre>
+
+    <p>Therefore, checking every possible policy using brute force can be computationally expensive.</p>
+
+    <p>Instead of searching through every possible policy, we can make <strong>small iterative improvements</strong> to the current policy.</p>
+
+    <p>We can determine whether a modified policy is better by using the estimated <strong>state-action value Q&pi;</strong>.</p>
+</section>
+
+<section>
+    <h2>Policy Improvement Main Idea</h2>
+
+    <p>For two deterministic policies &pi; and &pi;', the policy improvement principle states:</p>
+
+    <p class="equation">
+        V<sup>&pi;'</sup>(s) &ge; V<sup>&pi;</sup>(s)
+    </p>
+
+    <p>In other words, a modified policy is better than the original policy if it increases the expected return for at least one state, while not decreasing it for the others.</p>
+
+    <h3>Policy Improvement Phases</h3>
+
+    <ol>
+        <li>
+            <strong>Calculate Q</strong>
+            <p>Calculate the state-action values <strong>Q&pi;(s,a)</strong> for the possible actions.</p>
+        </li>
+
+        <li>
+            <strong>Select the Best Action</strong>
+            <p>Assign probability 1 to the action with the maximum Q value and probability 0 to the remaining actions.</p>
+        </li>
+    </ol>
+
+    <p>The main idea is to improve the current policy by choosing the action with the highest estimated state-action value.</p>
+</section>
+
+<section>
+    <h2>Dynamic Programming and the Environment Model</h2>
+
+    <p>Dynamic programming methods assume that the agent has access to a <strong>perfect model of the environment</strong>.</p>
+
+    <p>This includes:</p>
+
+    <ul>
+        <li>The reward function.</li>
+        <li>The dynamics or transition function.</li>
+    </ul>
+
+    <p>Therefore, dynamic programming methods are considered <strong>model-based reinforcement learning methods</strong>.</p>
+
+    <p>However, in real-world reinforcement learning problems, the true model of the environment may be unknown to the agent, and the state or action spaces may be very large.</p>
+</section>
+
+<section>
+    <h1>Monte Carlo Methods</h1>
+
+    <p>Monte Carlo methods are <strong>model-free reinforcement learning methods</strong>.</p>
+
+    <p>Unlike dynamic programming, Monte Carlo methods do not require a model of the environment. Instead, they use the <strong>agent's experience</strong> to estimate value functions by averaging sample returns.</p>
+
+    <p>Monte Carlo methods use sequences of:</p>
+
+    <ul>
+        <li>States.</li>
+        <li>Actions.</li>
+        <li>Rewards.</li>
+    </ul>
+
+    <p>The agent can interact with a simulated environment to generate these samples.</p>
+</section>
+
+<section>
+    <h2>Monte Carlo and the Bellman Equation</h2>
+
+    <p>Since Monte Carlo is a <strong>model-free</strong> reinforcement learning method, we cannot use the model of the environment and the Bellman equation as the update mechanism used in dynamic programming.</p>
+
+    <p>The question becomes:</p>
+
+    <p><strong>How can we compute state values when using Monte Carlo?</strong></p>
+
+    <p>Monte Carlo methods estimate the value of a state using the <strong>returns obtained from complete episodes</strong>.</p>
+
+    <p>The return can be represented as:</p>
+
+    <p class="equation">
+        G<sub>t</sub> = R<sub>t+1</sub> + &gamma;G<sub>t+1</sub>
+    </p>
+
+    <p>Here, <strong>&gamma;</strong> is the discount factor.</p>
+
+    <p>The discount factor is used to reduce the contribution of rewards that occur further in the future. A smaller discount factor gives less importance to future rewards.</p>
+
+    <p>This equation comes from the summation of rewards while adding a discount factor <strong>&gamma;</strong> to future rewards.</p>
+</section>
+
+<section>
+    <h2>Monte Carlo Policy Evaluation</h2>
+
+    <p>Monte Carlo policy evaluation estimates the <strong>state-value function V&pi;</strong> using the returns experienced by the agent while following policy &pi;.</p>
+
+    <p>The agent needs to experience many scenarios or episodes in order to obtain enough samples to estimate the state values.</p>
+
+    <p>The state-value function represents the expected return obtained when starting from a particular state and following the policy.</p>
+
+    <p>The general idea is:</p>
+
+    <ol>
+        <li>The agent follows a policy.</li>
+        <li>The agent interacts with the environment.</li>
+        <li>The agent observes states, actions, and rewards.</li>
+        <li>The episode produces a return for the visited states.</li>
+        <li>The returns are averaged to estimate the state value.</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Dynamic Programming vs. Monte Carlo</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Dynamic Programming</th>
+                <th>Monte Carlo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Model-based</td>
+                <td>Model-free</td>
+            </tr>
+            <tr>
+                <td>Requires the environment model</td>
+                <td>Does not require the environment model</td>
+            </tr>
+            <tr>
+                <td>Uses the Bellman equation for updates</td>
+                <td>Uses sampled returns</td>
+            </tr>
+            <tr>
+                <td>Uses transition probabilities</td>
+                <td>Uses the agent's experience</td>
+            </tr>
+            <tr>
+                <td>Can evaluate a policy</td>
+                <td>Can estimate values from complete episodes</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+</section>

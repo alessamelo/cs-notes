@@ -1,0 +1,795 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Optimization Methods Problems</title>
+</head>
+     <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            }
+        };
+    </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+        async>
+    </script>
+
+     <style>
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            font-size: 1.2em;
+        }
+
+        .graph {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .graph svg {
+            max-width: 500px;
+            width: 100%;
+        }
+        .final-answer {
+            border: 2px solid #333;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .step {
+            border-left: 4px solid #555;
+            padding-left: 15px;
+            margin: 25px 0;
+        }
+    </style>
+
+<body>
+<header>
+<h1>Optimization Methods: Constrained Problems</h1>
+        <p>
+            Course notes on optimization, numerical optimization,
+            problem classification, convergence, and numerical methods.
+        </p>
+</header>
+<main><a href="..\index.html">← Back to Optimization Methods
+</a>
+
+
+
+
+    <!-- LAGRANGE MULTIPLIER THEOREM -->
+
+    <h2>1. Lagrange Multiplier Theorem</h2>
+
+    <p>
+        Let \(f\) and \(g\) have continuous first partial derivatives.
+        Suppose that \(f\) has a local maximum or minimum at a point
+        \((x_0,y_0)\) subject to the smooth constraint:
+    </p>
+
+    <div class="formula">
+        \[
+        g(x,y)=c
+        \]
+    </div>
+
+    <p>and suppose:</p>
+
+    <div class="formula">
+        \[
+        \nabla g(x_0,y_0)\neq 0.
+        \]
+    </div>
+
+    <p>
+        Then there exists a number \(\lambda\), called the
+        <strong>Lagrange multiplier</strong>, such that:
+    </p>
+
+    <div class="formula">
+        \[
+        \boxed{
+        \nabla f(x_0,y_0)=\lambda \nabla g(x_0,y_0)
+        }
+        \]
+    </div>
+
+    <p>
+        This means that, at a constrained extreme point, the gradients
+        of \(f\) and \(g\) are <strong>parallel</strong>.
+    </p>
+
+
+    <h3>Lagrange Multiplier System</h3>
+
+    <p>
+        In two variables, the Lagrange multiplier equation produces
+        the following system:
+    </p>
+
+    <div class="formula">
+        \[
+        \boxed{
+        f_x(x,y)=\lambda g_x(x,y)
+        }
+        \]
+    </div>
+
+    <div class="formula">
+        \[
+        \boxed{
+        f_y(x,y)=\lambda g_y(x,y)
+        }
+        \]
+    </div>
+
+    <p>
+        Together with the constraint:
+    </p>
+
+    <div class="formula">
+        \[
+        \boxed{
+        g(x,y)=c
+        }
+        \]
+    </div>
+
+
+    <!-- GEOMETRIC INTERPRETATION -->
+
+    <h3>Geometric Interpretation</h3>
+
+    <p>
+        The level curve of \(f\) touches the constraint curve at the
+        maximum or minimum point.
+    </p>
+
+    <p>
+        For example, if the constraint is:
+    </p>
+
+    <div class="formula">
+        \[
+        \frac{x^2}{9}+\frac{y^2}{16}=1,
+        \]
+    </div>
+
+    <p>
+        the constraint is an ellipse. At an extreme value, a level
+        curve of \(f\) is tangent to this ellipse.
+    </p>
+
+
+    <!-- EXAMPLE -->
+
+    <h1>Example: Absolute Maximum and Minimum</h1>
+
+    <p>
+        Find the absolute maximum and minimum of:
+    </p>
+
+    <div class="formula">
+        \[
+        f(x,y)=x^2+y^2-x-y
+        \]
+    </div>
+
+    <p>
+        on the region:
+    </p>
+
+    <div class="formula">
+        \[
+        D=\{(x,y):x^2+y^2\leq 1\}.
+        \]
+    </div>
+
+    <p>
+        Because \(D\) is a closed and bounded region and \(f\) is
+        continuous, the Extreme Value Theorem guarantees that \(f\)
+        has an absolute maximum and an absolute minimum on \(D\).
+    </p>
+
+    <p>We must examine:</p>
+
+    <ol>
+        <li>Critical points inside \(D\).</li>
+        <li>Points on the boundary of \(D\).</li>
+    </ol>
+
+
+    <!-- STEP 1 -->
+
+    <div class="step">
+
+        <h2>Step 1: Find Critical Points Inside the Region</h2>
+
+        <p>Calculate the gradient:</p>
+
+        <div class="formula">
+            \[
+            \nabla f(x,y)=
+            \left(
+            \frac{\partial f}{\partial x},
+            \frac{\partial f}{\partial y}
+            \right)
+            \]
+        </div>
+
+        <p>The partial derivatives are:</p>
+
+        <div class="formula">
+            \[
+            f_x=2x-1
+            \]
+        </div>
+
+        <div class="formula">
+            \[
+            f_y=2y-1.
+            \]
+        </div>
+
+        <p>For a critical point:</p>
+
+        <div class="formula">
+            \[
+            \nabla f=0.
+            \]
+        </div>
+
+        <p>Therefore:</p>
+
+        <div class="formula">
+            \[
+            2x-1=0
+            \]
+        </div>
+
+        <p>and:</p>
+
+        <div class="formula">
+            \[
+            2y-1=0.
+            \]
+        </div>
+
+        <p>Thus:</p>
+
+        <div class="formula">
+            \[
+            \boxed{
+            x=\frac12,
+            \qquad
+            y=\frac12
+            }
+            \]
+        </div>
+
+        <p>
+            Therefore, the interior critical point is:
+        </p>
+
+        <div class="formula">
+            \[
+            \boxed{
+            \left(
+            \frac12,
+            \frac12
+            \right)
+            }
+            \]
+        </div>
+
+        <p>We verify that this point belongs to \(D\):</p>
+
+        <div class="formula">
+            \[
+            \left(\frac12\right)^2+
+            \left(\frac12\right)^2
+            =
+            \frac14+\frac14
+            =
+            \frac12<1.
+            \]
+        </div>
+
+        <p>
+            Therefore, the critical point is inside the region.
+        </p>
+
+        <p>Now evaluate \(f\):</p>
+
+        <div class="formula">
+            \[
+            f\left(
+            \frac12,
+            \frac12
+            \right)
+            =
+            \left(\frac12\right)^2+
+            \left(\frac12\right)^2
+            -
+            \frac12-
+            \frac12
+            \]
+        </div>
+
+        <div class="formula">
+            \[
+            =
+            \frac14+
+            \frac14
+            -
+            1
+            =
+            \boxed{-\frac12}.
+            \]
+        </div>
+
+    </div>
+
+
+    <!-- STEP 2 -->
+
+    <div class="step">
+
+        <h2>Step 2: Analyze the Boundary</h2>
+
+        <p>The boundary of \(D\) is:</p>
+
+        <div class="formula">
+            \[
+            x^2+y^2=1.
+            \]
+        </div>
+
+        <p>This is the unit circle.</p>
+
+        <p>
+            Since there is one equation and two variables, we can
+            parametrize the boundary.
+        </p>
+
+        <div class="formula">
+            \[
+            x(t)=\cos t
+            \]
+        </div>
+
+        <div class="formula">
+            \[
+            y(t)=\sin t
+            \]
+        </div>
+
+        <p>where:</p>
+
+        <div class="formula">
+            \[
+            0\leq t\leq2\pi.
+            \]
+        </div>
+
+        <p>Therefore:</p>
+
+        <div class="formula">
+            \[
+            \mathbf{b}(t)
+            =
+            (\cos t,\sin t).
+            \]
+        </div>
+
+        <p>Substitute the parametrization into \(f\):</p>
+
+        <div class="formula">
+            \[
+            f(\cos t,\sin t)
+            =
+            \cos^2t+
+            \sin^2t-
+            \cos t-
+            \sin t.
+            \]
+        </div>
+
+        <p>Using the identity:</p>
+
+        <div class="formula">
+            \[
+            \cos^2t+\sin^2t=1,
+            \]
+        </div>
+
+        <p>we obtain:</p>
+
+        <div class="formula">
+            \[
+            h(t)=1-\cos t-\sin t.
+            \]
+        </div>
+
+    </div>
+
+
+    <!-- STEP 3 -->
+
+    <div class="step">
+
+        <h2>Step 3: Differentiate</h2>
+
+        <p>Differentiate \(h(t)\):</p>
+
+        <div class="formula">
+            \[
+            h'(t)=\sin t-\cos t.
+            \]
+        </div>
+
+        <p>Set the derivative equal to zero:</p>
+
+        <div class="formula">
+            \[
+            \sin t-\cos t=0.
+            \]
+        </div>
+
+        <p>Therefore:</p>
+
+        <div class="formula">
+            \[
+            \sin t=\cos t.
+            \]
+        </div>
+
+        <p>Thus:</p>
+
+        <div class="formula">
+            \[
+            \tan t=1.
+            \]
+        </div>
+
+        <p>
+            On the interval \([0,2\pi]\), the solutions are:
+        </p>
+
+        <div class="formula">
+            \[
+            \boxed{
+            t=\frac{\pi}{4}
+            }
+            \]
+        </div>
+
+        <p>and:</p>
+
+        <div class="formula">
+            \[
+            \boxed{
+            t=\frac{5\pi}{4}
+            }
+            \]
+        </div>
+
+    </div>
+
+
+    <!-- STEP 4 -->
+
+    <div class="step">
+
+        <h2>Step 4: Evaluate the Boundary Candidates</h2>
+
+
+        <h3>Candidate 1: \(t=\frac{\pi}{4}\)</h3>
+
+        <div class="formula">
+            \[
+            \cos\frac{\pi}{4}
+            =
+            \sin\frac{\pi}{4}
+            =
+            \frac{\sqrt2}{2}.
+            \]
+        </div>
+
+        <p>The corresponding point is:</p>
+
+        <div class="formula">
+            \[
+            \boxed{
+            \left(
+            \frac{\sqrt2}{2},
+            \frac{\sqrt2}{2}
+            \right)
+            }.
+            \]
+        </div>
+
+        <p>Evaluate the function:</p>
+
+        <div class="formula">
+            \[
+            h\left(
+            \frac{\pi}{4}
+            \right)
+            =
+            1-
+            \frac{\sqrt2}{2}
+            -
+            \frac{\sqrt2}{2}
+            \]
+        </div>
+
+        <div class="formula">
+            \[
+            =
+            \boxed{
+            1-\sqrt2
+            }.
+            \]
+        </div>
+
+
+        <h3>Candidate 2: \(t=\frac{5\pi}{4}\)</h3>
+
+        <div class="formula">
+            \[
+            \cos\frac{5\pi}{4}
+            =
+            -\frac{\sqrt2}{2}
+            \]
+        </div>
+
+        <div class="formula">
+            \[
+            \sin\frac{5\pi}{4}
+            =
+            -\frac{\sqrt2}{2}.
+            \]
+        </div>
+
+        <p>The corresponding point is:</p>
+
+        <div class="formula">
+            \[
+            \boxed{
+            \left(
+            -\frac{\sqrt2}{2},
+            -\frac{\sqrt2}{2}
+            \right)
+            }.
+            \]
+        </div>
+
+        <p>Evaluate:</p>
+
+        <div class="formula">
+            \[
+            h\left(
+            \frac{5\pi}{4}
+            \right)
+            =
+            1+
+            \frac{\sqrt2}{2}
+            +
+            \frac{\sqrt2}{2}
+            \]
+        </div>
+
+        <div class="formula">
+            \[
+            =
+            \boxed{
+            1+\sqrt2
+            }.
+            \]
+        </div>
+
+    </div>
+
+
+    <!-- STEP 5 -->
+
+    <div class="step">
+
+        <h2>Step 5: Compare All Candidates</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Point</th>
+                    <th>Function Value</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>
+                        \(
+                        \left(
+                        \frac12,
+                        \frac12
+                        \right)
+                        \)
+                    </td>
+
+                    <td>
+                        \(
+                        -\frac12
+                        \)
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        \(
+                        \left(
+                        \frac{\sqrt2}{2},
+                        \frac{\sqrt2}{2}
+                        \right)
+                        \)
+                    </td>
+
+                    <td>
+                        \(
+                        1-\sqrt2
+                        \)
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        \(
+                        \left(
+                        -\frac{\sqrt2}{2},
+                        -\frac{\sqrt2}{2}
+                        \right)
+                        \)
+                    </td>
+
+                    <td>
+                        \(
+                        1+\sqrt2
+                        \)
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <p>Numerically:</p>
+
+        <div class="formula">
+            \[
+            -\frac12=-0.5
+            \]
+        </div>
+
+        <div class="formula">
+            \[
+            1-\sqrt2\approx-0.414
+            \]
+        </div>
+
+        <div class="formula">
+            \[
+            1+\sqrt2\approx2.414.
+            \]
+        </div>
+
+    </div>
+
+
+    <!-- FINAL ANSWER -->
+
+    <div class="final-answer">
+
+        <h1>Final Answer</h1>
+
+        <p>The absolute minimum is:</p>
+
+        <div class="formula">
+            \[
+            \boxed{
+            \text{Absolute minimum}
+            =
+            -\frac12
+            }
+            \]
+        </div>
+
+        <p>at the point:</p>
+
+        <div class="formula">
+            \[
+            \boxed{
+            \left(
+            \frac12,
+            \frac12
+            \right)
+            }.
+            \]
+        </div>
+
+
+        <p>The absolute maximum is:</p>
+
+        <div class="formula">
+            \[
+            \boxed{
+            \text{Absolute maximum}
+            =
+            1+\sqrt2
+            }
+            \]
+        </div>
+
+        <p>at the point:</p>
+
+        <div class="formula">
+            \[
+            \boxed{
+            \left(
+            -\frac{\sqrt2}{2},
+            -\frac{\sqrt2}{2}
+            \right)
+            }.
+            \]
+        </div>
+
+    </div>
+
+
+    <!-- CONCLUSION -->
+
+    <h2>Important Procedure</h2>
+
+    <p>
+        For absolute optimization on a closed and bounded region,
+        the general procedure is:
+    </p>
+
+    <div class="formula">
+        \[
+        \boxed{
+        \text{Interior Critical Points}
+        \quad+\quad
+        \text{Boundary Points}
+        \quad\longrightarrow\quad
+        \text{Compare All Function Values}
+        }
+        \]
+    </div>
+
+    <p>
+        The second derivative test can classify an unconstrained
+        critical point. However, for an absolute optimization problem
+        on a constrained closed region, examining the boundary is
+        essential.
+    </p>
+</main>
+</body>
+</html>

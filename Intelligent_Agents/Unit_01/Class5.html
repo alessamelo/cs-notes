@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>Reinforcement Learning — Bellman Equations</title>
+    <style>
+        .key-point {
+            font-weight: bold;
+        }
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Reinforcement Learning — Bellman Equations </h1>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+
+
+    <h1>Bellman Equations and Optimality</h1>
+
+    <section>
+        <h2>Bellman Expectation Equations for V<sup>π</sup> and Q<sup>π</sup></h2>
+
+        <h3>State Value Function V<sup>π</sup></h3>
+
+        <p>The Bellman Expectation Equation for the state value function is:</p>
+
+        <p class="equation">
+            V<sup>π</sup>(s) =
+            &sum;<sub>a</sub> π(a|s)
+            [R(s,a) + &gamma;
+            &sum;<sub>s'</sub> P(s'|s,a)V<sup>π</sup>(s')]
+        </p>
+
+        <p>
+            The equation expands the Bellman expectation for
+            V<sup>π</sup> by weighting the probability of taking action
+            <em>a</em> when in state <em>s</em> under the policy
+            &pi;.
+        </p>
+
+        <p>
+            What the agent chooses to do is controlled by the policy
+            &pi;.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>Optimal Policy and Optimal Value Functions</h2>
+
+        <p>
+            Solving an MDP means finding a new policy that earns the
+            highest return from every state.
+        </p>
+
+        <p>
+            Given a state, there can be several actions that the agent can
+            take. The Q function tells us that, given a state and an action,
+            what the value is.
+        </p>
+
+        <p>
+            We want to find the action that maximizes the value.
+        </p>
+
+        <h3>The Goal of Reinforcement Learning</h3>
+
+        <ol>
+            <li>Find a policy.</li>
+            <li>Obtain the highest return from every state.</li>
+            <li>Solve the MDP.</li>
+        </ol>
+
+        <p>
+            The idea is to find the maximum value during the trajectory.
+            We want to have the policy that maximizes the return.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>Optimality</h2>
+
+        <p>
+            Optimality is the policy or policies with the maximum state
+            value over all other policies for all states in the state space.
+        </p>
+
+        <p class="equation">
+            &pi;<sup>*</sup>(s) =
+            arg max<sub>&pi;</sub> V<sup>&pi;</sup>(s)
+        </p>
+
+        <p>
+            We want to maintain only the policy that maximizes the value.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>The Two Optimal Value Functions</h2>
+
+        <h3>Optimal State Value Function</h3>
+
+        <p class="equation">
+            V<sup>*</sup>(s) =
+            max<sub>&pi;</sub> V<sup>&pi;</sup>(s)
+        </p>
+
+        <p>
+            V<sup>*</sup>(s) represents the maximum value obtainable from
+            state <em>s</em>.
+        </p>
+
+        <h3>Optimal Action Value Function</h3>
+
+        <p class="equation">
+            Q<sup>*</sup>(s,a) =
+            max<sub>&pi;</sub> Q<sup>&pi;</sup>(s,a)
+        </p>
+
+        <p>
+            When we are in state <em>s</em>, suppose we have three actions
+            that we can take. We calculate the Q function for each action.
+            Each Q value will have its own value, and we take the maximum.
+        </p>
+
+        <p>
+            The maximum Q value determines the action the agent will make.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>Bellman Optimality</h2>
+
+        <p>
+            The Bellman optimality equation for the state value function is:
+        </p>
+
+        <p class="equation">
+            V<sup>*</sup>(s) =
+            max<sub>a</sub>
+            [R(s,a) +
+            &gamma;
+            &sum;<sub>s'</sub>
+            P(s'|s,a)V<sup>*</sup>(s')]
+        </p>
+
+        <p>
+            The equation selects the action that produces the maximum
+            expected value.
+        </p>
+
+        <h3>Optimal Q Function</h3>
+
+        <p class="equation">
+            Q<sup>*</sup>(s,a) =
+            R(s,a) +
+            &gamma;
+            &sum;<sub>s'</sub>
+            P(s'|s,a)
+            max<sub>a'</sub> Q<sup>*</sup>(s',a')
+        </p>
+
+        <p>
+            In GridWorld, this can be used to determine the best action
+            from each state.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>Deterministic Optimal State Value Bellman Equation</h2>
+
+        <p>
+            In reinforcement learning, the goal is to help the agent make
+            decisions that lead to the best possible long-term outcomes.
+        </p>
+
+        <h3>State Value Equation</h3>
+
+        <p class="equation">
+            V(s) =
+            max<sub>a</sub>
+            [R(s,a) + &gamma;V(s')]
+        </p>
+
+        <p>
+            The deterministic equation is smaller because the next state
+            is deterministic.
+        </p>
+
+        <p>
+            The state value equation combines the reward obtained now and
+            the expected reward in the future.
+        </p>
+
+        <p>
+            The goal of using the state value equation is to guide the agent
+            toward an optimal policy.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>How the Deterministic Bellman Equation Works</h2>
+
+        <p>Given an initial state, we have:</p>
+
+        <ul>
+            <li><strong>State:</strong> s</li>
+            <li><strong>Action:</strong> a</li>
+            <li><strong>Reward:</strong> R(s,a)</li>
+            <li><strong>Next state:</strong> s'</li>
+        </ul>
+
+        <p>
+            The agent evaluates the available actions and chooses the action
+            that provides the highest value.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>GridWorld Example</h2>
+
+        <p>
+            In GridWorld, the state <em>s</em> can be represented by a
+            coordinate:
+        </p>
+
+        <p class="equation">
+            s = (x,y)
+        </p>
+
+        <p>The possible actions are:</p>
+
+        <ul>
+            <li>Up</li>
+            <li>Down</li>
+            <li>Left</li>
+            <li>Right</li>
+        </ul>
+
+        <p>
+            The next state <em>s'</em> is the next deterministic state
+            resulting from the selected action.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>Discount Factor &gamma;</h2>
+
+        <p>
+            &gamma; plays a control role and determines the importance of
+            future rewards.
+        </p>
+
+        <h3>&gamma; = 0</h3>
+
+        <p>
+            If &gamma; is 0, the agent becomes short-sighted and only
+            considers immediate rewards.
+        </p>
+
+        <h3>&gamma; close to 1</h3>
+
+        <p>
+            If &gamma; is close to 1, the agent becomes more far-sighted,
+            taking long-term outcomes into account.
+        </p>
+
+        <p>
+            The selection of &gamma; has to consider the environment,
+            because sometimes short-term rewards are more important while
+            in other situations long-term rewards are more important.
+        </p>
+
+        <ul>
+            <li>
+                <strong>&gamma; close to 0:</strong>
+                short-sighted behavior, focusing on immediate rewards.
+            </li>
+            <li>
+                <strong>&gamma; close to 1:</strong>
+                far-sighted behavior, taking long-term outcomes into account.
+            </li>
+        </ul>
+
+        <p>
+            For example, in a social network environment, using a very small
+            &gamma; would focus the agent on immediate rewards without
+            sufficiently considering long-term outcomes.
+        </p>
+
+        <p>
+            The objective can therefore be to combine immediate rewards
+            with long-term rewards.
+        </p>
+
+        <p>
+            Future rewards can be uncertain or less urgent compared with
+            rewards that can be obtained immediately.
+        </p>
+    </section>
+
+
+    <section>
+        <h2>Value Iteration</h2>
+
+        <p>
+            At the beginning, the agent does not have knowledge of the
+            environment and will move randomly.
+        </p>
+
+        <p>
+            At a certain point, the agent reaches a state next to a state
+            that has a known value, such as a green state in GridWorld.
+        </p>
+
+        <p>
+            The agent can use this information to update the value of the
+            neighboring state.
+        </p>
+
+        <p>
+            This process is called <strong>value iteration</strong> because
+            we obtain a value and then update it.
+        </p>
+
+        <h3>Basic Process</h3>
+
+        <ol>
+            <li>Start with initial state values.</li>
+            <li>Evaluate the possible actions.</li>
+            <li>Apply the Bellman optimality equation.</li>
+            <li>Update the state values.</li>
+            <li>Repeat the process.</li>
+        </ol>
+    </section>
+</main>
+</body>
+</html>
