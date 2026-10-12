@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Unit 2 - DBack-End</title>
+</head>
+
+<body>
+<header>
+<h1>Back-End Development</h1>
+</header>
+<main>
+<a href="..\index.html">← Back to Web Applications</a>
+
+<br>
+
+        <section>
+            <h2>MVC: Model-View-Controller</h2>
+
+            <p>
+                MVC stands for <strong>Model-View-Controller</strong>. It is a software
+                architectural pattern commonly used to organize web applications.
+            </p>
+
+            <h3>Model</h3>
+            <p>
+                The model is responsible for the application's data and the logic used
+                to handle that data. It represents and manages the information used by
+                the application.
+            </p>
+
+            <h3>View</h3>
+            <p>
+                The view is the <strong>front-end</strong>, or the part of the application
+                that the user sees and interacts with. It represents the user interface,
+                such as a web page displayed in the browser.
+            </p>
+
+            <h3>Controller</h3>
+            <p>
+                The controller handles user input and interactions, including buttons,
+                forms, and other interface actions.
+            </p>
+
+            <p>
+                The controller captures user actions, processes them, and communicates
+                with the model. Changes in the model can then be reflected in the view.
+            </p>
+
+            <p>
+                An <strong>update</strong> does not necessarily mean a database update.
+                It can simply mean a change in the application's state or in what is
+                displayed in the user interface.
+            </p>
+
+            <p>
+                In a web application, the controller can be closely related to what
+                we expose through an <strong>API</strong>, because it receives requests,
+                processes them, and determines what response should be returned.
+            </p>
+        </section>
+
+        <section>
+            <h2>MVC in Web Applications</h2>
+
+            <p>
+                In the Web Applications course, we developed a web application that
+                could potentially be transformed into a mobile application. In this
+                type of design, the controller is important because it separates the
+                application's logic from the interface and manages communication
+                between the different parts of the system.
+            </p>
+        </section>
+
+        <section>
+            <h2>Monolithic Architecture</h2>
+
+            <p>
+                A <strong>monolithic system</strong> is a system in which the different
+                components of the application are contained and developed as a single
+                unit. The front end, application logic, and other components may be
+                deployed together.
+            </p>
+
+            <p>
+                Modern applications can instead separate different responsibilities
+                into different services or servers. For example, a project could have
+                separate servers or services for the front end, database, and
+                application logic.
+            </p>
+        </section>
+
+        <section>
+            <h2>Frontend and Backend</h2>
+
+            <h3>Frontend</h3>
+
+            <p>
+                The <strong>frontend</strong> is the part of an application that the
+                user sees and interacts with. In a web application, it is responsible
+                for displaying content in the browser and interacting with the backend
+                through requests and responses.
+            </p>
+
+            <p>
+                The frontend can attend to user interactions and webpage-related
+                requests, display information in the browser, and communicate with
+                backend services.
+            </p>
+
+            <h3>Backend</h3>
+
+            <p>
+                The <strong>backend</strong> contains the application's server-side
+                logic. It is the core of the application and can include application
+                logic, web-server functionality, file-system operations, database
+                access, authentication, and APIs.
+            </p>
+
+            <p>
+                Backend development refers to the development of server-side logic
+                that powers websites and applications behind the scenes. It includes
+                the code and configuration needed to build and operate the database,
+                server, and application logic, from database migrations and API
+                integration to configuring the server-side technologies that make a
+                website or application function.
+            </p>
+
+            <p>
+                A backend web developer may therefore be responsible for building the
+                server-side components needed to get a project running.
+            </p>
+        </section>
+
+        <section>
+            <h2>Web Servers</h2>
+
+            <p>
+                A traditional web application requires a <strong>web server</strong>
+                to receive HTTP requests and return responses.
+            </p>
+
+            <p>
+                However, it is possible to design systems where some requests do not
+                need to go through a traditional web server. Different components can
+                communicate directly through other protocols or services depending on
+                the architecture.
+            </p>
+
+            <p>
+                It is also possible to use multiple servers or services for different
+                parts of a project, such as:
+            </p>
+
+            <ul>
+                <li>A frontend server or service</li>
+                <li>A database server</li>
+                <li>An application-logic server</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>What Is the Backend?</h2>
+
+            <p>
+                The backend is the <strong>logic of the application</strong> and
+                represents the core functionality that operates behind the user
+                interface.
+            </p>
+
+            <p>
+                A <strong>Web API</strong> acts as a communication layer between the
+                frontend and backend. The frontend makes API calls using defined
+                methods, and the backend processes those requests and returns data
+                or other responses.
+            </p>
+
+            <p>
+                Data can be transmitted from the backend to the frontend using
+                formats such as <strong>JSON</strong>.
+            </p>
+
+            <p>
+                The backend therefore provides the services and application logic
+                that drive the functionality of the system.
+            </p>
+        </section>
+
+        <section>
+            <h2>APIs</h2>
+
+            <p>
+                An <strong>API (Application Programming Interface)</strong> defines
+                how different software components communicate with each other.
+            </p>
+
+            <p>
+                An API can provide a structured way for a frontend or another
+                application to access data and functionality provided by the backend.
+            </p>
+
+            <p>
+                The API can therefore act as a layer through which data is exchanged
+                between a database-backed application and the software accessing that
+                application.
+            </p>
+
+            <p>
+                For a project, it is generally recommended to construct an API when
+                multiple clients or components may need to access the same backend
+                functionality. For example, a web application and a mobile
+                application can consume the same API.
+            </p>
+        </section>
+
+        <section>
+            <h2>Frontend Communication</h2>
+
+            <h3>AJAX</h3>
+
+            <p>
+                <strong>AJAX</strong> allows web pages to communicate with a server
+                asynchronously without requiring the entire page to reload after
+                every request.
+            </p>
+
+            <p>
+                Modern web applications commonly use the <strong>Fetch API</strong>
+                for this type of communication. Fetch allows the frontend to send
+                requests to a server asynchronously and process the response when
+                it becomes available.
+            </p>
+
+            <h3>Axios</h3>
+
+            <p>
+                <strong>Axios</strong> is another commonly used JavaScript library
+                for making HTTP requests from frontend applications and other
+                JavaScript environments.
+            </p>
+
+            <p>
+                Traditional direct HTTP request techniques still exist, but modern
+                applications commonly use higher-level APIs and libraries such as
+                Fetch or Axios.
+            </p>
+        </section>
+
+        <section>
+            <h2>Backend Frameworks</h2>
+
+            <p>
+                Backend frameworks are software frameworks that provide structures,
+                libraries, and tools for developing server-side applications. They
+                provide predefined mechanisms for handling common backend tasks,
+                allowing developers to construct the structure of a web application
+                more efficiently.
+            </p>
+
+            <p>
+                The framework provides both reusable functionality and an execution
+                environment or structure in which the application's server-side
+                logic operates.
+            </p>
+
+            <h3>How Many Backend Frameworks Are There?</h3>
+
+            <p>
+                There is no official number of backend frameworks. Depending on how
+                frameworks are counted, there can be approximately <strong>50–100</strong>
+                frameworks with established communities, around <strong>25–40</strong>
+                with significant adoption, and approximately <strong>15–20</strong>
+                that are widely relevant in the industry.
+            </p>
+
+            <p>
+                These numbers are approximate because the ecosystem changes over
+                time and the definition of what qualifies as a framework varies.
+            </p>
+
+            <h3>Node.js</h3>
+
+            <p>
+                <strong>Node.js is not a backend framework.</strong> It is a
+                <strong>JavaScript runtime environment</strong> that allows
+                JavaScript code to run outside the web browser, including on servers.
+            </p>
+
+            <p>
+                Frameworks such as <strong>Express</strong>, <strong>NestJS</strong>,
+                and <strong>Fastify</strong> run on top of Node.js.
+            </p>
+
+            <p>
+                One important advantage of Node.js is that it allows both the frontend
+                and backend to be developed using JavaScript.
+            </p>
+
+            <p>
+                A benchmark for comparing different web frameworks is available at:
+                <a href="https://web-frameworks-benchmark.netlify.app">
+                    Web Frameworks Benchmarkm Link
+                </a>
+            </p>
+        </section>
+
+        <section>
+            <h2>Backend Programming Languages</h2>
+
+            <h3>C++</h3>
+
+            <p>
+                <strong>C++</strong> combines many of the features of C with
+                object-oriented programming features such as classes. It is a
+                relatively low-level programming language and provides direct control
+                over system resources.
+            </p>
+
+            <h3>C#</h3>
+
+            <p>
+                <strong>C#</strong> is widely used in Microsoft environments and is
+                commonly used for Windows-based server applications with
+                <strong>ASP.NET</strong>.
+            </p>
+
+            <h3>Java</h3>
+
+            <p>
+                <strong>Java</strong> is a general-purpose, object-oriented
+                programming language designed with cross-platform compatibility in
+                mind. Programs can run on systems that have a compatible
+                <strong>Java Virtual Machine (JVM)</strong>.
+            </p>
+
+            <p>
+                Java has a relatively significant learning curve compared with some
+                other languages.
+            </p>
+
+            <h3>JavaScript and Node.js</h3>
+
+            <p>
+                <strong>JavaScript</strong> has traditionally been considered a
+                frontend language because it runs in web browsers. The introduction
+                of <strong>Node.js</strong> made it possible to execute JavaScript
+                on the server.
+            </p>
+
+            <p>
+                This allows both the frontend and backend of an application to be
+                developed using JavaScript.
+            </p>
+
+            <h3>PHP</h3>
+
+            <p>
+                <strong>PHP</strong> is one of the most widely used backend languages
+                for web development. It appeared around the early development of
+                dynamic web pages and can be embedded into HTML to generate content
+                dynamically.
+            </p>
+
+            <p>
+                PHP has received criticism related to aspects such as its historical
+                type system, performance, and security practices. However, the
+                language has evolved considerably over time and remains widely used.
+            </p>
+
+            <p>
+                PHP supports object-oriented programming and is commonly used for
+                web applications. <strong>WordPress</strong> is primarily written
+                in PHP, and <strong>Moodle</strong> is also written in PHP.
+            </p>
+
+            <h3>Python</h3>
+
+            <p>
+                <strong>Python</strong> is a general-purpose programming language
+                with an extensive ecosystem of libraries. For backend development,
+                Python provides high programmer productivity through its relatively
+                simple syntax and concise code.
+            </p>
+
+            <p>
+                Some Python libraries implement performance-critical functionality
+                in languages such as C, C++, or Fortran while exposing those
+                capabilities through Python. This allows developers to combine
+                Python's productivity with native-code performance for computationally
+                intensive operations.
+            </p>
+
+            <h3>Perl</h3>
+
+            <p>
+                <strong>Perl</strong> became popular during the 1990s, particularly
+                in Linux and Unix environments. Its strengths include
+                <strong>text manipulation</strong>, scripting, and log processing.
+                It is useful for writing scripts that perform text-processing and
+                system-administration tasks.
+            </p>
+
+            <h3>Scala</h3>
+
+            <p>
+                <strong>Scala</strong> supports both object-oriented programming and
+                functional programming. It runs on the Java Virtual Machine and can
+                interact with Java libraries.
+            </p>
+
+            <h3>Ruby</h3>
+
+            <p>
+                <strong>Ruby</strong> is a dynamically typed, general-purpose
+                programming language designed with programmer productivity in mind.
+                It supports procedural, functional, and object-oriented programming
+                paradigms.
+            </p>
+
+            <p>
+                Ruby is particularly associated with web development through
+                frameworks such as <strong>Ruby on Rails</strong>.
+            </p>
+        </section>
+
+        <section>
+            <h2>Backend Technologies</h2>
+
+            <p>
+                Backend development can involve several different technologies and
+                responsibilities, including:
+            </p>
+
+            <ul>
+                <li>Server-side programming languages</li>
+                <li>Backend frameworks</li>
+                <li>Web servers</li>
+                <li>Databases</li>
+                <li>APIs</li>
+                <li>Authentication and authorization</li>
+                <li>Security</li>
+                <li>File-system operations</li>
+                <li>Server configuration and administration</li>
+                <li>Database migrations</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Skills Needed for Backend Developers</h2>
+
+            <p>
+                A backend developer should have a basic understanding of frontend
+                technologies such as <strong>HTML, JavaScript, and CSS</strong>.
+            </p>
+
+            <p>
+                Backend developers should have working knowledge of backend
+                development, server configuration, server administration, and
+                database management.
+            </p>
+
+            <h3>Important Skills</h3>
+
+            <ul>
+                <li>
+                    Basic understanding of frontend technologies such as HTML,
+                    JavaScript, and CSS
+                </li>
+                <li>
+                    Working knowledge of backend development
+                </li>
+                <li>
+                    Configuration, administration, and management of databases
+                    and servers
+                </li>
+                <li>
+                    Knowledge of server-side programming languages
+                </li>
+                <li>
+                    Knowledge of database technologies
+                </li>
+                <li>
+                    Linux knowledge
+                </li>
+                <li>
+                    Security and authentication best practices
+                </li>
+                <li>
+                    Experience writing RESTful APIs
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>RESTful APIs</h2>
+
+            <p>
+                A <strong>RESTful API</strong> is an API designed according to the
+                principles of REST (Representational State Transfer). It provides
+                structured endpoints through which clients can interact with
+                resources provided by a backend.
+            </p>
+
+            <p>
+                RESTful APIs are commonly used to connect frontend applications,
+                mobile applications, and other software with backend services.
+            </p>
+        </section>
+
+    </main>
+
+</body>
+</html>

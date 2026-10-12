@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="..\..\style.css">
+<link rel="icon" type="image/png" href="../../assets/icon.png">
+<title>Unit 2 - API</title>
+</head>
+
+<body>
+<header>
+<h1>API</h1>
+</header>
+<main>
+<a href="..\index.html">← Back to Web Applications</a>
+
+<br>
+
+    <section>
+    
+
+    <p>
+        An <strong>API (Application Programming Interface)</strong> is a common
+        interface that allows different systems or software components to
+        communicate with each other.
+    </p>
+
+    <p>
+        An API can be defined as a set of subroutine definitions, protocols,
+        and tools for building application software. It provides methods for
+        accessing data and functionality from an application without directly
+        using the application's user interface.
+    </p>
+
+    <p>
+        APIs make it easier for developers to use specific technologies and
+        functionality when building applications.
+    </p>
+
+    <h2>Why Use an API?</h2>
+
+    <p>
+        Not all users or applications are the same. Some users or clients may
+        need individual capabilities, components, or specific data from an
+        application.
+    </p>
+
+    <p>
+        User needs and requirements are constantly changing. APIs allow
+        applications to expose specific functionality so that different
+        clients can use it according to their needs.
+    </p>
+
+    <h3>Example: Stripe</h3>
+
+    <p>
+        <strong>Stripe</strong> provides APIs that allow applications to
+        integrate payment functionality without having to implement the entire
+        payment infrastructure themselves.
+    </p>
+
+    <h2>API vs. Framework</h2>
+
+    <p>
+        A framework can contain or expose APIs, but an API is not necessarily
+        a framework.
+    </p>
+
+    <p>
+        A framework provides a structure and reusable functionality for
+        developing applications, while an API defines an interface through
+        which software components can communicate or access functionality.
+    </p>
+
+    <h2>API Endpoints</h2>
+
+    <p>
+        An API is commonly based on one or more publicly exposed
+        <strong>endpoints</strong> and a defined contract describing how
+        requests should be made and how responses are returned.
+    </p>
+
+    <p>
+        In the last laboratory, we created a service running on
+        <strong>port 8000</strong>.
+    </p>
+
+    <h3>Electrical Analogy</h3>
+
+    <p>
+        An API can be compared to a list of services in an electrical system,
+        while the endpoints can be compared to the electrical outlets
+        (<em>enchufes</em>) through which those services can be accessed.
+    </p>
+
+    <h2>Ports</h2>
+
+    <p>
+        A <strong>port</strong> is a logical communication endpoint used by
+        applications and services to receive network traffic.
+    </p>
+
+    <p>
+        Common ports include:
+    </p>
+
+    <ul>
+        <li><strong>80</strong> - commonly used for HTTP</li>
+        <li><strong>443</strong> - commonly used for HTTPS</li>
+        <li><strong>8080</strong> - commonly used for alternative HTTP services and development servers</li>
+        <li><strong>8000</strong> - commonly used by development servers</li>
+    </ul>
+
+    <p>
+        A service listens on a particular port for incoming requests. Once a
+        request arrives, the server determines which endpoint or application
+        should handle it.
+    </p>
+
+    <h2>Protocols</h2>
+
+    <p>
+        A <strong>protocol</strong> is a set of rules that defines how systems
+        communicate and exchange information over a network.
+    </p>
+
+    <h3>Authentication and Authorization</h3>
+
+    <p>
+        <strong>Authentication</strong> determines who a user or client is.
+    </p>
+
+    <p>
+        <strong>Authorization</strong> determines what an authenticated user
+        or client is allowed to access or perform.
+    </p>
+
+    <p>
+        For example, logging into a bank account is authentication. Having
+        permission to transfer money from that account is authorization.
+    </p>
+</section>
+
+<section>
+    <h1>Network Protocols</h1>
+
+    <h2>IP</h2>
+
+    <p>
+        <strong>IP (Internet Protocol)</strong> is responsible for addressing
+        devices and delivering packets between networks.
+    </p>
+
+    <p>
+        A simplified process can be represented as:
+    </p>
+
+    <pre><code>domain name → DNS → IP address → packet delivery</code></pre>
+
+    <h2>DNS</h2>
+
+    <p>
+        <strong>DNS (Domain Name System)</strong> translates human-readable
+        domain names into IP addresses.
+    </p>
+
+    <p>
+        For example:
+    </p>
+
+    <pre><code>server.example.com → DNS → IP address</code></pre>
+
+    <h2>TCP</h2>
+
+    <p>
+        <strong>TCP (Transmission Control Protocol)</strong> provides reliable,
+        ordered communication between applications running on networked
+        devices.
+    </p>
+
+    <h2>HTTP</h2>
+
+    <p>
+        <strong>HTTP (Hypertext Transfer Protocol)</strong> is an application-layer
+        protocol used to transfer resources and information between clients and
+        servers.
+    </p>
+
+    <h2>HTTPS</h2>
+
+    <p>
+        <strong>HTTPS</strong> is HTTP transmitted over a secure TLS connection.
+        It provides encryption and helps protect the confidentiality and
+        integrity of data exchanged between the client and server.
+    </p>
+
+    <h2>Network Layers</h2>
+
+    <p>
+        A simplified network model can be represented using the following
+        layers:
+    </p>
+
+    <ol>
+        <li>Application</li>
+        <li>Transport</li>
+        <li>Network</li>
+        <li>Physical</li>
+    </ol>
+</section>
+
+<section>
+    <h1>URL and URI Structure</h1>
+
+    <p>
+        Consider the following example:
+    </p>
+
+    <pre><code>https://best.server.com:8080/api/endpoints/cars?brand=FERRARI&amp;color=RED</code></pre>
+
+    <p>
+        A URL can contain several components:
+    </p>
+
+    <ul>
+        <li><strong>Protocol:</strong> HTTPS</li>
+        <li><strong>Host:</strong> best.server.com</li>
+        <li><strong>Port:</strong> 8080</li>
+        <li><strong>Path:</strong> /api/endpoints/cars</li>
+        <li><strong>Query string:</strong> ?brand=FERRARI&amp;color=RED</li>
+    </ul>
+
+    <p>
+        More generally, a URL identifies the location of a resource and can
+        specify the protocol, host, port, path, query string, and fragment.
+    </p>
+
+    <p>
+        The path and other components can identify a resource or endpoint on
+        the server. A URI is a broader concept that identifies a resource,
+        while a URL is a type of URI that also provides information about
+        how to locate that resource.
+    </p>
+
+    <p>
+        When HTTPS is used, the HTTP communication is protected by TLS
+        encryption.
+    </p>
+
+    <h2>Web APIs and Mobile Applications</h2>
+
+    <p>
+        A Web API provides the advantage of allowing different applications
+        to use the same backend functionality.
+    </p>
+
+    <p>
+        For example, consider a bank that provides both a mobile application
+        and a web application. The bank can create different interfaces for
+        the mobile and web applications while keeping the same backend logic.
+    </p>
+
+    <p>
+        The bank does not need to rewrite the business logic for calculating
+        an employee's salary separately for every client. Both applications
+        can request that functionality through the same backend API.
+    </p>
+
+    <p>
+        API endpoints can communicate with backend services that access
+        databases and perform business logic.
+    </p>
+</section>
+
+<section>
+    <h1>SOAP vs. REST</h1>
+
+    <h2>SOAP</h2>
+
+    <p>
+        <strong>SOAP (Simple Object Access Protocol)</strong> is a protocol
+        for exchanging structured information between systems.
+    </p>
+
+    <p>
+        SOAP commonly uses <strong>XML</strong> as its message format and
+        provides a formal specification for message structure and related
+        mechanisms.
+    </p>
+
+    <p>
+        SOAP is less common in many modern public web APIs, although it is
+        still used in some enterprise and legacy systems.
+    </p>
+
+    <p>
+        SOAP has standardized mechanisms for features such as security,
+        including specifications such as WS-Security.
+    </p>
+
+    <h2>REST</h2>
+
+    <p>
+        <strong>REST (Representational State Transfer)</strong> is an
+        architectural style for designing networked applications.
+    </p>
+
+    <p>
+        REST APIs commonly use HTTP and can use different representations
+        such as JSON, XML, HTML, or other formats.
+    </p>
+
+    <p>
+        Security is not automatically provided by REST itself. Security
+        mechanisms such as HTTPS, authentication, authorization, and token
+        management must be implemented as part of the system.
+    </p>
+
+    <h2>SOAP and REST Comparison</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Characteristic</th>
+                <th>SOAP</th>
+                <th>REST</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Type</td>
+                <td>Protocol</td>
+                <td>Architectural style</td>
+            </tr>
+            <tr>
+                <td>Common data format</td>
+                <td>XML</td>
+                <td>JSON, XML, HTML, and others</td>
+            </tr>
+            <tr>
+                <td>Security</td>
+                <td>Can use standardized WS-Security mechanisms</td>
+                <td>Implemented using mechanisms such as HTTPS and authentication</td>
+            </tr>
+            <tr>
+                <td>Typical use</td>
+                <td>Enterprise and systems requiring formal contracts</td>
+                <td>Web APIs and distributed applications</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>REST Principles</h2>
+
+    <h3>Resources</h3>
+
+    <p>
+        Resources should be exposed through clear and understandable URIs.
+        The URI structure should make it possible to identify the resources
+        being accessed.
+    </p>
+
+    <h3>Representations</h3>
+
+    <p>
+        Resources can be represented using formats such as JSON or XML. These
+        representations contain the resource's data, objects, and attributes.
+    </p>
+
+    <h3>Messages</h3>
+
+    <p>
+        REST uses HTTP methods explicitly to communicate the intended operation
+        on a resource.
+    </p>
+
+    <h3>Statelessness</h3>
+
+    <p>
+        REST interactions are <strong>stateless</strong>. This means that the
+        server does not store client-specific session context between individual
+        requests as part of the REST interaction.
+    </p>
+
+    <p>
+        For example, when a client makes a request, the server processes the
+        request using the information contained in that request and returns a
+        response. The next request should contain the information necessary
+        for the server to process it.
+    </p>
+
+    <p>
+        Statelessness can be beneficial because the server does not need to
+        maintain the state of every client between requests, which can make
+        systems easier to scale.
+    </p>
+
+    <h3>Question: What Application Would Not Naturally Fit a Purely Stateless Model?</h3>
+
+    <p>
+        Real-time applications such as <strong>chat applications</strong>
+        often require persistent communication and server-side awareness of
+        connections. They therefore commonly use technologies such as
+        WebSockets rather than relying exclusively on independent REST
+        requests.
+    </p>
+</section>
+
+<section>
+    <h1>HTTP Methods</h1>
+
+    <p>
+        HTTP defines several methods that indicate the intended operation of
+        a request.
+    </p>
+
+    <ul>
+        <li>
+            <strong>GET:</strong> Retrieve information or a resource.
+        </li>
+        <li>
+            <strong>POST:</strong> Submit data or request that the server
+            perform an operation using the provided representation.
+        </li>
+        <li>
+            <strong>PUT:</strong> Create or completely replace a resource
+            representation at a specified URI.
+        </li>
+        <li>
+            <strong>PATCH:</strong> Partially update a resource, such as
+            modifying a specific field.
+        </li>
+        <li>
+            <strong>DELETE:</strong> Remove a resource.
+        </li>
+        <li>
+            <strong>HEAD:</strong> Retrieve the headers that would be returned
+            for a corresponding GET request without the response body.
+        </li>
+        <li>
+            <strong>OPTIONS:</strong> Request information about the communication
+            options supported by a resource or server.
+        </li>
+        <li>
+            <strong>TRACE:</strong> Perform a diagnostic loop-back test of the
+            request path.
+        </li>
+        <li>
+            <strong>CONNECT:</strong> Establish a tunnel to the server,
+            commonly used with proxies.
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h1>HTTP Status Codes</h1>
+
+    <p>
+        HTTP status codes are divided into five main categories:
+    </p>
+
+    <ul>
+        <li>
+            <strong>1xx - Informational:</strong> The request was received and
+            processing is continuing.
+        </li>
+        <li>
+            <strong>2xx - Success:</strong> The request was successfully
+            received, understood, and processed.
+        </li>
+        <li>
+            <strong>3xx - Redirection:</strong> Further action is required,
+            often involving another resource or location.
+        </li>
+        <li>
+            <strong>4xx - Client Error:</strong> The request contains an error
+            or cannot be fulfilled due to something associated with the client.
+        </li>
+        <li>
+            <strong>5xx - Server Error:</strong> The server failed to fulfill
+            a valid request.
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h1>Webhooks</h1>
+
+    <p>
+        A <strong>webhook</strong> is an HTTP endpoint used to receive event
+        notifications from another system.
+    </p>
+
+    <p>
+        The technical mechanism is still an HTTP request sent to an endpoint.
+        The main distinction is semantic: a webhook is generally used when
+        the provider sends a notification because an event occurred, rather
+        than the client repeatedly asking whether the event has occurred.
+    </p>
+
+    <h2>Endpoint vs. Webhook</h2>
+
+    <p>
+        The HTTP mechanism is essentially the same. A webhook is an endpoint
+        whose role in an integration contract is to receive event notifications,
+        usually asynchronously.
+    </p>
+
+    <h3>Example: Payment</h3>
+
+    <p>
+        Suppose a customer wants to buy a monitor.
+    </p>
+
+    <p>
+        With polling, the application could repeatedly ask the payment service:
+        "Has the customer paid for the monitor?"
+    </p>
+
+    <p>
+        It would continue asking until the payment is completed.
+    </p>
+
+    <p>
+        With a webhook, the payment service can notify the application when the
+        customer actually completes the payment.
+    </p>
+
+    <h3>Example: Fast-Food System</h3>
+
+    <p>
+        Consider a fast-food system where a customer buys a burger. The customer
+        receives an order number or notification mechanism.
+    </p>
+
+    <p>
+        Instead of repeatedly asking whether the burger is ready, the system
+        can send a notification when the employees finish preparing it. The
+        customer can then go and receive the order.
+    </p>
+
+    <h2>Webhook vs. WebSocket</h2>
+
+    <p>
+        A <strong>webhook</strong> should not be confused with a
+        <strong>WebSocket</strong>.
+    </p>
+
+    <p>
+        A webhook is an HTTP-based mechanism for delivering event notifications
+        to an endpoint.
+    </p>
+
+    <p>
+        A WebSocket is a communication protocol that establishes a persistent,
+        bidirectional communication channel between a client and server.
+    </p>
+
+    <p>
+        WebSockets operate over TCP. They are useful when continuous,
+        bidirectional, real-time communication is required.
+    </p>
+
+    <p>
+        REST APIs generally use independent HTTP request-response interactions,
+        while WebSockets maintain an established communication connection.
+    </p>
+</section>
+
+<section>
+    <h1>Uniform Resource Locator</h1>
+
+    <p>
+        A <strong>URL (Uniform Resource Locator)</strong> is a formatted string
+        used to identify and locate a resource.
+    </p>
+
+    <p>
+        A URL can contain:
+    </p>
+
+    <ul>
+        <li>Communication protocol</li>
+        <li>Host or IP address</li>
+        <li>Port</li>
+        <li>Path</li>
+        <li>Query string</li>
+        <li>Fragment</li>
+    </ul>
+
+    <h2>URL Components</h2>
+
+    <pre><code>https://example.com:8080/api/cars?brand=FERRARI#details</code></pre>
+
+    <ul>
+        <li><strong>https</strong> - protocol</li>
+        <li><strong>example.com</strong> - host</li>
+        <li><strong>8080</strong> - port</li>
+        <li><strong>/api/cars</strong> - path</li>
+        <li><strong>?brand=FERRARI</strong> - query string</li>
+        <li><strong>#details</strong> - fragment</li>
+    </ul>
+
+    <h2>Ports</h2>
+
+    <p>
+        A port number identifies a logical communication endpoint on a host.
+        TCP and UDP port numbers range from <strong>0 to 65535</strong>.
+    </p>
+
+    <p>
+        Ports below 1024 are generally known as well-known ports. Ports such
+        as 8080 and 8000 are commonly used for development or alternative
+        application services.
+    </p>
+
+    <h2>Virtual Hosts</h2>
+
+    <p>
+        A <strong>virtual host</strong> allows a single physical or virtual
+        server to host multiple websites or services, with requests being
+        directed according to information such as the hostname.
+    </p>
+
+    <h2>RFC</h2>
+
+    <p>
+        <strong>RFC (Request for Comments)</strong> documents are publications
+        used to specify and document Internet protocols, standards, and
+        related technical information.
+    </p>
+</section>
+
+<section>
+    <h1>URL Encoding</h1>
+
+    <p>
+        URLs have restrictions on which characters can be used directly.
+        Some characters have special meanings within URLs, while others must
+        be encoded.
+    </p>
+
+    <p>
+        Characters that cannot safely be used directly in a URL can be
+        <strong>percent-encoded</strong> using the format:
+    </p>
+
+    <pre><code>% + hexadecimal character code</code></pre>
+
+    <p>
+        For example, a space can be encoded as <code>%20</code>. In the
+        <code>application/x-www-form-urlencoded</code> format commonly used
+        for query strings and HTML form data, a space can also be represented
+        by <code>+</code>.
+    </p>
+
+    <p>
+        These restrictions are not only determined by the operating system.
+        URL syntax and character restrictions are also defined by the relevant
+        Internet standards and protocols.
+    </p>
+
+    <h2>PHP URL Encoding</h2>
+
+    <p>
+        PHP provides functions for encoding and decoding URL components:
+    </p>
+
+    <pre><code>urlencode(string)
+urldecode(string)</code></pre>
+
+    <p>
+        URL encoding is particularly relevant when values are placed inside
+        a URL, such as query parameters.
+    </p>
+
+    <p>
+        In the last workshop, we did not have to configure URL encoding for
+        the data sent in the request body because the information was not
+        being placed directly in the URL.
+    </p>
+</section>
+
+<section>
+    <h1>HTML Forms and APIs</h1>
+
+    <p>
+        In the first workshop, when creating an HTML form, the
+        <code>action</code> attribute determines where the form data should
+        be sent.
+    </p>
+
+    <p>
+        Now that APIs and endpoints have been introduced, the
+        <code>action</code> attribute can be connected to an API endpoint so
+        that the form sends its information to the backend service.
+    </p>
+
+    <pre><code>&lt;form action="/api/users" method="POST"&gt;
+    ...
+&lt;/form&gt;</code></pre>
+
+    <p>
+        The form can therefore send data to an endpoint, where the backend
+        processes the submitted information.
+    </p>
+</section>
+
+<section>
+    <h1>MIME Types</h1>
+
+    <p>
+        <strong>MIME (Multipurpose Internet Mail Extensions)</strong> types
+        identify the format of data being transmitted.
+    </p>
+
+    <p>
+        MIME types are widely used in email and are also important in HTTP
+        communication.
+    </p>
+
+    <p>
+        APIs commonly use JSON for data exchange, but the format must be
+        indicated using the appropriate content type when necessary.
+    </p>
+
+    <p>
+        For JSON, the MIME type is:
+    </p>
+
+    <pre><code>application/json</code></pre>
+
+    <p>
+        JSON does not directly contain binary image data in the same way that
+        an image file does. Binary data may need to be encoded, for example
+        using Base64, or the image can be sent using an appropriate
+        <code>Content-Type</code> such as <code>image/jpeg</code> or
+        <code>image/png</code>.
+    </p>
+
+    <p>
+        Different content types can be used depending on the data being
+        transmitted.
+    </p>
+</section>
+
+<section>
+    <h1>Query Strings</h1>
+
+    <p>
+        In a URL, the <strong>question mark (<code>?</code>)</strong> begins
+        the query string.
+    </p>
+
+    <p>
+        For example:
+    </p>
+
+    <pre><code>/api/cars?brand=FERRARI&amp;color=RED</code></pre>
+
+    <p>
+        In this example, the query string contains two parameters:
+    </p>
+
+    <ul>
+        <li><strong>brand</strong> = FERRARI</li>
+        <li><strong>color</strong> = RED</li>
+    </ul>
+</section>
+
+<section>
+    <h1>POST Request Method</h1>
+
+    <p>
+        The <strong>POST</strong> HTTP method is commonly used to submit data
+        to a server or request the creation of a resource.
+    </p>
+
+    <p>
+        Unlike GET, where parameters are commonly included in the URL, POST
+        data is typically transmitted in the <strong>request body</strong>.
+        The body can use different formats depending on the API, such as
+        JSON or form-encoded data.
+    </p>
+
+    <p>
+        For example, a client can send:
+    </p>
+
+    <pre><code>POST /api/users
+
+Content-Type: application/json
+
+{
+    "name": "John",
+    "age": 25
+}</code></pre>
+
+    <p>
+        The backend receives the request, processes the submitted data, and
+        returns an appropriate HTTP response.
+    </p>
+</section>
