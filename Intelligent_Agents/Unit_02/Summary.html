@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>Summary</title>
+    <style>
+        .key-point {
+            font-weight: bold;
+        }
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Reinforcement Learning: Summary</h1>
+        <p>Topics: Markov Decision Processes, Bellman Equations, Dynamic Programming, Monte Carlo</p>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+
+
+<section id="mdp">
+    <h2>1. Stochasticity and Markov Decision Processes</h2>
+
+    <h3>1.1. How good is a state or an action?</h3>
+
+    In Reinforcement Learning (RL), an agent needs a way to evaluate the quality of the states it visits and the actions it performs.
+
+    There are two fundamental questions:
+
+    <ul>
+        <li><strong>Policy:</strong> How probable is it that an agent selects a particular action from a given state?</li>
+        <li><strong>Value functions:</strong> How good is a particular state or action for the agent?</li>
+    </ul>
+
+    A policy determines the probability of selecting an action given a state:
+
+    $$\pi(a|s) = P(A_t=a \mid S_t=s)$$
+
+    The value functions evaluate the quality of states and state-action pairs:
+
+    <ul>
+        <li><strong>State-value function:</strong> $V^\pi(s)$ evaluates how good it is to be in state $s$ while following policy $\pi$.</li>
+        <li><strong>Action-value function:</strong> $Q^\pi(s,a)$ evaluates how good it is to take action $a$ in state $s$ and subsequently follow policy $\pi$.</li>
+    </ul>
+
+    Therefore, given an environment:
+    <ul>
+        <li>The policy $\pi$ determines the probability of selecting actions.</li>
+        <li>The value functions $V^\pi$ and $Q^\pi$ evaluate the expected long-term return.</li>
+    </ul>
+
+    The value of a state or action is not necessarily its immediate reward. It considers both the immediate reward and the expected future rewards.
+
+    <h3>1.2. Deterministic environments</h3>
+
+    We initially consider the deterministic form of the Bellman optimality equation.
+
+    In a deterministic environment, given a state and an action, the agent always transitions to one specific next state.
+
+    In other words, the transition probability is always 1 for the expected successor state and 0 for all other possible states.
+
+    The Bellman optimality equation for state values is:
+
+    $$V^*(s)=\max_a \left[R(s,a)+\gamma V^*(s')\right]$$
+
+    Where:
+    <ul>
+        <li>$V^*(s)$: Optimal value of the current state.</li>
+        <li>$a$: An available action.</li>
+        <li>$R(s,a)$: Immediate reward obtained by taking action $a$ in state $s$.</li>
+        <li>$s'$: The next state resulting from the action.</li>
+        <li>$\gamma$: Discount factor, which determines the importance of future rewards.</li>
+    </ul>
+
+    We were initially simulating a scenario in which the agent moves through an environment. Given an action, the resulting state is always the same.
+
+    For example, if the agent chooses to move right, it will always move to the cell immediately to its right, assuming that the transition is valid.
+
+    <h3>1.3. Stochasticity in Bellman expectation equations</h3>
+
+    In a stochastic environment, taking an action does not guarantee that the agent will reach one specific state.
+
+    Instead, there is a probability distribution over the possible successor states.
+
+    Consider the previous dog example. The dog is in a room and attempts to go outside.
+
+    In a deterministic environment, selecting the action "Go Outside" always makes the dog leave the room.
+
+    In a stochastic environment, the same action can produce different outcomes:
+
+    <ul>
+        <li>50% probability of going outside.</li>
+        <li>25% probability of going to Room 1.</li>
+        <li>25% probability of going to Room 3.</li>
+    </ul>
+
+    Therefore, the agent must consider all possible outcomes of an action instead of assuming that only one successor state will occur.
+
+    <h3>1.4. Why do we need stochasticity?</h3>
+
+    Real-world environments are rarely perfectly deterministic.
+
+    An agent might select an action but fail to obtain the expected result because of uncertainty or external factors.
+
+    Examples include:
+    <ul>
+        <li>A robot attempting to move forward on a slippery surface.</li>
+        <li>A self-driving car dealing with unpredictable traffic.</li>
+        <li>An agent navigating an environment with uncertain movements.</li>
+        <li>A dog attempting to move between rooms but sometimes choosing a different direction.</li>
+    </ul>
+
+    Stochasticity allows us to model these uncertainties realistically.
+
+    It also forces the agent to consider the risk associated with an action. The agent must evaluate not only the direction it wants to move toward but also the possibility of ending up in undesirable states.
+
+    <h3>1.5. Transition probabilities</h3>
+
+    Given a state $s$ and an action $a$, the transition probability describes the probability of reaching a successor state $s'$.
+
+    $$P(s'|s,a)=P(S_{t+1}=s' \mid S_t=s,A_t=a)$$
+
+    This probability is part of the transition model of a Markov Decision Process (MDP).
+
+    The transition probabilities must satisfy:
+
+    $$\sum_{s'}P(s'|s,a)=1$$
+
+    For every state-action pair, the probabilities of all possible successor states must add up to 1.
+
+    <h3>1.6. Deterministic transition matrix</h3>
+
+    In a deterministic environment, the transition matrix assigns a probability of 1 to the state that will be reached and 0 to all other states.
+
+    Example:
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Room 1</th>
+                <th>Room 2</th>
+                <th>Room 3</th>
+                <th>Outside</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Go to Room 1</td>
+                <td>1.0</td>
+                <td>0.0</td>
+                <td>0.0</td>
+                <td>0.0</td>
+            </tr>
+            <tr>
+                <td>Go to Room 2</td>
+                <td>0.0</td>
+                <td>1.0</td>
+                <td>0.0</td>
+                <td>0.0</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Each action has one guaranteed outcome.</p>
+
+    <h3>1.7. Stochastic transition matrix</h3>
+
+    In a stochastic environment, an action can have several possible outcomes, each with a different probability.
+
+    Example:
+
+    <pre><code>transitions = {
+    "Go to Room 1": [0.6, 0.0, 0.0, 0.4, 0.0],
+    "Go to Room 2": [0.0, 1.0, 0.0, 0.0, 0.0],
+    "Go to Room 3": [0.0, 0.0, 0.2, 0.8, 0.0],
+    "Go Outside":   [0.0, 0.0, 0.0, 1.0, 0.0],
+    "Go Inside":    [0.0, 1.0, 0.0, 0.0, 0.0],
+    "Search":       [0.0, 1.0, 0.0, 0.0, 0.0]
+}</code></pre>
+
+    Each list represents the probability distribution over the possible destination states.
+
+    For example, when choosing "Go to Room 1":
+    <ul>
+        <li>There is a 60% probability of reaching the first state.</li>
+        <li>There is a 40% probability of reaching the fourth state.</li>
+        <li>All other outcomes have probability 0.</li>
+    </ul>
+
+    <p>Note: The example assumes that the current state is already incorporated into the transition model. A complete MDP transition model normally indexes probabilities by current state, action, and next state.</p>
+
+    <h3>1.8. Bellman equation for stochastic environments</h3>
+
+    The main difference between deterministic and stochastic environments is that the agent must calculate the expected value of all possible successor states.
+
+    In a deterministic environment:
+
+    $$V^*(s)=\max_a \left[R(s,a)+\gamma V^*(s')\right]$$
+
+    In a stochastic environment:
+
+    $$V^*(s)=\max_a \sum_{s'}P(s'|s,a)
+    \left[R(s,a,s')+\gamma V^*(s')\right]$$
+
+    The difference is that the value of each successor state is multiplied by its transition probability.
+
+    Therefore, the agent calculates the expected return associated with each possible action.
+
+    If an action has a high probability of reaching a good state but also a small probability of reaching a dangerous state, both outcomes contribute to its expected value.
+
+    <h3>1.9. Stochasticity and risk</h3>
+
+    Stochasticity can increase the risk of ending up in states with negative rewards or penalties.
+
+    This changes the value of states near dangerous areas.
+
+    For example, consider a grid world containing a goal (+1) and a trap (-1).
+
+    If the environment is deterministic, the agent can calculate a direct route to the goal.
+
+    However, if the environment is stochastic, an action intended to move toward the goal might accidentally move the agent toward the trap.
+
+    Consequently:
+    <ul>
+        <li>The agent must consider the intended direction.</li>
+        <li>It must also consider unintended outcomes.</li>
+        <li>States near dangerous cells may have lower values.</li>
+        <li>A longer but safer route may become more valuable than a shorter risky route.</li>
+    </ul>
+
+    <h3>1.10. Two-dimensional Grid World example</h3>
+
+    We are modeling an environment in the form of a 2D grid world.
+
+    The environment contains:
+    <ul>
+        <li><strong>Goal:</strong> A terminal state with a positive reward, such as +1.</li>
+        <li><strong>Trap:</strong> A terminal or undesirable state with a negative reward, such as -1.</li>
+        <li><strong>Invalid cells:</strong> Cells that the agent cannot enter, such as walls or obstacles.</li>
+        <li><strong>Normal cells:</strong> States through which the agent can move.</li>
+    </ul>
+
+    The agent explores the environment and analyzes its current position.
+
+    After defining the transition model and rewards, we can calculate the value of every possible state using the Bellman equation.
+
+    In a deterministic approach, if the agent is instructed to move up, it will move up, assuming the movement is valid.
+
+    In a stochastic approach, the same action can have multiple possible outcomes.
+
+    For example, if the agent attempts to move up:
+    <ul>
+        <li>80% probability of moving up.</li>
+        <li>10% probability of moving left.</li>
+        <li>10% probability of moving right.</li>
+    </ul>
+
+    This models an environment in which movement is not perfectly reliable.
+
+    <h3>1.11. Living penalty</h3>
+
+    A living penalty is a small negative reward that the agent receives for every step it takes.
+
+    Its purpose is to encourage the agent to complete its task efficiently.
+
+    For example, if every normal cell has a reward of -0.04, the agent accumulates a penalty for every movement.
+
+    This encourages the agent to find shorter paths because longer paths accumulate more negative rewards.
+
+    The living penalty helps optimize the path length:
+
+    <ul>
+        <li>Short paths accumulate fewer penalties.</li>
+        <li>Long paths accumulate more penalties.</li>
+        <li>The agent is encouraged to reach the goal as efficiently as possible.</li>
+    </ul>
+
+    The magnitude of the living penalty matters. If it is too large, the agent may prefer risky shortcuts or behave unexpectedly instead of prioritizing safety.
+
+    <h3>1.12. Optimal policy</h3>
+
+    The optimal policy selects the action that maximizes the optimal action-value function.
+
+    $$\pi^*(s)=\arg\max_a Q^*(s,a)$$
+
+    Alternatively, using the optimal state-value function:
+
+    $$\pi^*(s)=\arg\max_a \sum_{s'}P(s'|s,a)
+    [R(s,a,s')+\gamma V^*(s')]$$
+
+    The optimal policy tells the agent which action it should select in each state to maximize its expected cumulative reward.
+
+</section>
+
+<section id="dynamic-programming">
+    <h2>2. Dynamic Programming</h2>
+
+    <h3>2.1. What is Dynamic Programming?</h3>
+
+    Dynamic Programming (DP) is a collection of methods used to solve complex problems by dividing them into smaller, manageable subproblems.
+
+    The concept of Dynamic Programming, introduced by Richard Bellman in the 1950s, is not the same as the modern concept of computer programming.
+
+    In Reinforcement Learning, Dynamic Programming uses the Bellman equations to calculate value functions and improve policies.
+
+    DP algorithms require a complete model of the environment.
+
+    This means that the agent must have access to:
+    <ul>
+        <li>The state space.</li>
+        <li>The available actions.</li>
+        <li>The reward function.</li>
+        <li>The transition probabilities.</li>
+    </ul>
+
+    These components define a Markov Decision Process (MDP).
+
+    Therefore, Dynamic Programming algorithms are model-based methods.
+
+    <h3>2.2. Solving Markov Reward Processes</h3>
+
+    Dynamic Programming can also be used to solve Markov Reward Processes (MRPs).
+
+    An MRP is a Markov process with rewards and a discount factor, but without explicit actions or a policy.
+
+    The Bellman expectation equation for the state-value function of an MRP is:
+
+    $$V(s)=R(s)+\gamma\sum_{s'}P(s'|s)V(s')$$
+
+    Where:
+    <ul>
+        <li>$R(s)$: Expected immediate reward in state $s$.</li>
+        <li>$P(s'|s)$: Probability of transitioning from $s$ to $s'$.</li>
+        <li>$V(s')$: Value of the successor state.</li>
+        <li>$\gamma$: Discount factor.</li>
+    </ul>
+
+    For an MDP, we also need to consider the policy that determines which actions are selected.
+
+    <h3>2.3. Main Dynamic Programming algorithms</h3>
+
+    There are four fundamental concepts associated with Dynamic Programming:
+
+    <ol>
+        <li><strong>Policy Evaluation:</strong> Calculate the value function of a given policy.</li>
+        <li><strong>Policy Improvement:</strong> Improve a policy by selecting actions that produce higher expected returns.</li>
+        <li><strong>Policy Iteration:</strong> Alternate between policy evaluation and policy improvement.</li>
+        <li><strong>Value Iteration:</strong> Directly update state values using the Bellman optimality equation.</li>
+    </ol>
+
+    <h3>2.4. Policy Evaluation</h3>
+
+    Policy evaluation calculates the value function associated with a specific policy.
+
+    Given a policy $\pi$, we calculate how good each state is when the agent follows that policy.
+
+    The Bellman expectation equation is:
+
+    $$V^\pi(s)=\sum_a\pi(a|s)\sum_{s'}P(s'|s,a)
+    [R(s,a,s')+\gamma V^\pi(s')]$$
+
+    This equation considers:
+    <ul>
+        <li>The probability of selecting an action according to policy $\pi$.</li>
+        <li>The probability of reaching a successor state.</li>
+        <li>The immediate reward.</li>
+        <li>The discounted value of the successor state.</li>
+    </ul>
+
+    Policy evaluation is generally performed iteratively until the value estimates converge or reach a specified tolerance.
+
+    <h3>2.5. Policy Improvement</h3>
+
+    Once we have evaluated a policy, we can improve it.
+
+    The idea is to select actions that produce higher expected returns based on the current value function.
+
+    $$\pi'(s)=\arg\max_a\sum_{s'}P(s'|s,a)
+    [R(s,a,s')+\gamma V^\pi(s')]$$
+
+    The new policy becomes greedy with respect to the evaluated value function.
+
+    <h3>2.6. Policy Iteration</h3>
+
+    Policy Iteration combines policy evaluation and policy improvement.
+
+    The algorithm follows these steps:
+
+    <ol>
+        <li>Initialize an arbitrary policy.</li>
+        <li>Evaluate the current policy to calculate $V^\pi(s)$.</li>
+        <li>Improve the policy by selecting better actions.</li>
+        <li>Check whether the policy has changed.</li>
+        <li>If it has changed, repeat the evaluation and improvement steps.</li>
+        <li>Stop when the policy becomes stable.</li>
+    </ol>
+
+    A stable policy means that further policy improvement does not change the selected actions.
+
+    <h3>2.7. Value Iteration</h3>
+
+    Value Iteration combines policy evaluation and improvement into a single update.
+
+    Instead of completely evaluating a policy before improving it, the algorithm directly applies the Bellman optimality equation.
+
+    $$V_{k+1}(s)=\max_a\sum_{s'}P(s'|s,a)
+    [R(s,a,s')+\gamma V_k(s')]$$
+
+    The process is repeated until the values converge.
+
+    Once the optimal value function has been calculated, we can extract the optimal policy:
+
+    $$\pi^*(s)=\arg\max_a\sum_{s'}P(s'|s,a)
+    [R(s,a,s')+\gamma V^*(s')]$$
+
+    <p>Value Iteration is often simpler to implement than Policy Iteration because it does not require a separate, complete policy evaluation phase.</p>
+
+</section>
+
+<section id="monte-carlo">
+    <h2>3. Monte Carlo Methods</h2>
+
+    <h3>3.1. Introduction</h3>
+
+    Monte Carlo (MC) methods are model-free Reinforcement Learning algorithms.
+
+    Unlike Dynamic Programming, Monte Carlo methods do not require the agent to know the transition probability matrix or the complete model of the environment.
+
+    Instead, they learn directly from interactions with the environment and observed experience.
+
+    The agent performs episodes, collects rewards, and uses the observed returns to estimate the value functions.
+
+    A complete episode typically consists of:
+
+    $$S_0,A_0,R_1,S_1,A_1,R_2,\ldots,S_T$$
+
+    Monte Carlo methods generally require episodic tasks because they calculate returns after an episode terminates.
+
+    <h3>3.2. Return calculation</h3>
+
+    The return is the cumulative discounted reward obtained from a particular time step.
+
+    $$G_t=R_{t+1}+\gamma R_{t+2}+\gamma^2R_{t+3}+\cdots$$
+
+    Equivalently:
+
+    $$G_t=R_{t+1}+\gamma G_{t+1}$$
+
+    Monte Carlo methods use the observed return to estimate the value of a state or state-action pair.
+
+    <h3>3.3. First-Visit Monte Carlo</h3>
+
+    First-Visit Monte Carlo updates the value estimate using only the first occurrence of a state during an episode.
+
+    If a state is visited multiple times in the same episode, only its first occurrence is considered for that episode.
+
+    The algorithm:
+    <ol>
+        <li>Generate an episode using a policy.</li>
+        <li>Identify the first occurrence of each state.</li>
+        <li>Calculate the return following that occurrence.</li>
+        <li>Update the value estimate.</li>
+    </ol>
+
+    <h3>3.4. Every-Visit Monte Carlo</h3>
+
+    Every-Visit Monte Carlo updates the value estimate every time a state is visited during an episode.
+
+    Unlike First-Visit MC, repeated occurrences of the same state are all considered.
+
+    The main difference is:
+
+    <ul>
+        <li><strong>First-Visit MC:</strong> Uses only the first visit to a state in each episode.</li>
+        <li><strong>Every-Visit MC:</strong> Uses every occurrence of a state in each episode.</li>
+    </ul>
+
+    Both methods estimate the expected return from observed episodes.
+
+    <h3>3.5. Incremental updates</h3>
+
+    Instead of storing all returns and calculating their average from scratch, we can update the estimate incrementally.
+
+    $$V(S_t)\leftarrow V(S_t)+\alpha[G_t-V(S_t)]$$
+
+    Where:
+    <ul>
+        <li>$V(S_t)$: Current value estimate.</li>
+        <li>$G_t$: Observed return.</li>
+        <li>$\alpha$: Learning rate or step size.</li>
+    </ul>
+
+    This allows the agent to update its estimates without storing the entire history of returns.
+
+    <h3>3.6. Exploring Starts and Epsilon-Greedy</h3>
+
+    Monte Carlo control requires exploration to discover better actions.
+
+    Two common approaches are:
+
+    <strong>Exploring Starts:</strong>
+
+    The agent begins episodes from different state-action pairs, ensuring that every possible state-action pair has a non-zero probability of being explored.
+
+    <strong>Epsilon-Greedy:</strong>
+
+    The agent chooses between exploration and exploitation.
+
+    With probability $1-\epsilon$, it selects the action with the highest estimated value.
+
+    With probability $\epsilon$, it selects a random action.
+
+    This allows the agent to continue exploring while gradually improving its policy.
+
+    <h3>3.7. Unbiased estimates</h3>
+
+    Monte Carlo estimates based on sampled returns can be unbiased under appropriate sampling conditions.
+
+    The agent uses actual observed returns rather than relying on another estimated value to construct its target.
+
+    This is an important difference compared with Temporal Difference Learning, which uses bootstrapping.
+
+</section>
+
+</main>
+
+<footer>
+    <p>End of Reinforcement Learning class notes.</p>
+</footer>
+
+</body>

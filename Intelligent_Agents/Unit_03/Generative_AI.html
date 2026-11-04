@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>Introduction to Generative AI and Prompt Engineering</title>
+    <style>
+        .key-point {
+            font-weight: bold;
+        }
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Introduction to Generative Artificial Intelligence</h1>
+    <p>Topics: Generative AI, Transformers, Attention Mechanisms, Prompt Engineering, Temperature, Top-K, and Top-P Sampling.</p>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+
+
+<section id="generative-ai">
+    <h2>1. Introduction to Generative Artificial Intelligence</h2>
+
+    <h3>1.1. What is Generative AI?</h3>
+
+    Generative Artificial Intelligence (Generative AI) is a branch of Artificial Intelligence that focuses on creating new content based on patterns learned from training data.
+
+    Unlike traditional AI systems that primarily classify, predict, or recognize information, Generative AI models can produce new outputs that resemble the data on which they were trained.
+
+    These outputs can include:
+
+    <ul>
+        <li><strong>Text:</strong> Articles, summaries, conversations, code, and translations.</li>
+        <li><strong>Images:</strong> Illustrations, photographs, digital artwork, and designs.</li>
+        <li><strong>Audio:</strong> Speech, music, and sound effects.</li>
+        <li><strong>Video:</strong> Generated animations and video sequences.</li>
+        <li><strong>Code:</strong> Programming solutions, functions, and complete software components.</li>
+    </ul>
+
+    Generative AI models learn the underlying statistical patterns and relationships in their training data. They use this knowledge to generate new outputs.
+
+    <h3>1.2. Generative AI vs. Traditional AI</h3>
+
+    Traditional AI systems are frequently designed to make predictions or decisions based on input data.
+
+    For example:
+    <ul>
+        <li>A classification model determines whether an email is spam or legitimate.</li>
+        <li>A regression model predicts the price of a house.</li>
+        <li>An image recognition model identifies objects in a photograph.</li>
+    </ul>
+
+    Generative AI focuses on producing new content.
+
+    For example:
+    <ul>
+        <li>A language model generates an email based on a user instruction.</li>
+        <li>An image generation model creates an illustration from a text description.</li>
+        <li>A code generation model produces a Python function from a programming requirement.</li>
+    </ul>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Characteristic</th>
+                <th>Traditional AI</th>
+                <th>Generative AI</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Main objective</td>
+                <td>Prediction, classification, or decision-making</td>
+                <td>Generating new content</td>
+            </tr>
+            <tr>
+                <td>Output</td>
+                <td>Labels, predictions, or scores</td>
+                <td>Text, images, audio, video, or code</td>
+            </tr>
+            <tr>
+                <td>Example</td>
+                <td>Spam detection</td>
+                <td>Email generation</td>
+            </tr>
+            <tr>
+                <td>Common models</td>
+                <td>Decision Trees, Random Forests, SVMs</td>
+                <td>Transformers, GANs, VAEs, Diffusion Models</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>1.3. Large Language Models (LLMs)</h3>
+
+    Large Language Models (LLMs) are generative AI models trained on large collections of textual data.
+
+    Their primary objective is to learn the statistical relationships between tokens and predict the next token given a sequence of previous tokens.
+
+    A token is a basic unit of text processed by a language model. It can represent:
+    <ul>
+        <li>A complete word.</li>
+        <li>A part of a word.</li>
+        <li>A punctuation mark.</li>
+        <li>A character or other text element.</li>
+    </ul>
+
+    For example, given the sequence:
+
+    <blockquote>
+        The cat sat on the ...
+    </blockquote>
+
+    The model calculates a probability distribution over possible next tokens.
+
+    Possible predictions could include:
+    <ul>
+        <li>mat</li>
+        <li>floor</li>
+        <li>chair</li>
+        <li>table</li>
+    </ul>
+
+    The model selects a token according to its generation strategy and adds it to the existing sequence.
+
+    This process is repeated autoregressively until the model reaches a stopping condition.
+
+    <h3>1.4. Autoregressive generation</h3>
+
+    Autoregressive generation means that each newly generated token depends on the previously generated tokens.
+
+    Mathematically, the probability of a sequence can be expressed using the chain rule:
+
+    $$P(x_1,x_2,\ldots,x_n)=
+    \prod_{t=1}^{n}P(x_t|x_1,\ldots,x_{t-1})$$
+
+    The model predicts one token at a time:
+
+    <ol>
+        <li>Receive the initial prompt.</li>
+        <li>Process the input sequence.</li>
+        <li>Calculate the probability distribution of the next token.</li>
+        <li>Select a token using a decoding strategy.</li>
+        <li>Append the selected token to the sequence.</li>
+        <li>Repeat until generation stops.</li>
+    </ol>
+
+</section>
+
+<section id="transformers">
+    <h2>2. Transformers: Attention Is All You Need</h2>
+
+    <h3>2.1. Introduction to Transformers</h3>
+
+    Transformers are a neural network architecture introduced in the research paper:
+
+    <blockquote>
+        <strong>Attention Is All You Need</strong><br>
+        Ashish Vaswani et al., 2017.
+    </blockquote>
+
+    The paper introduced an architecture based entirely on attention mechanisms, eliminating the need for recurrent and convolutional layers as the primary mechanisms for sequence modeling.
+
+    Before Transformers, many sequence-processing models relied on Recurrent Neural Networks (RNNs), including Long Short-Term Memory networks (LSTMs) and Gated Recurrent Units (GRUs).
+
+    These architectures processed sequences sequentially, which made parallel computation more difficult.
+
+    Transformers introduced a different approach: instead of processing tokens one after another through recurrent connections, they use attention mechanisms to model relationships between tokens.
+
+    <h3>2.2. The problem with traditional sequence models</h3>
+
+    Recurrent Neural Networks process sequences in chronological order.
+
+    For example, given the sentence:
+
+    <blockquote>
+        The animal didn't cross the street because it was tired.
+    </blockquote>
+
+    The model must understand that the word "it" refers to "the animal".
+
+    RNNs process the sentence sequentially, maintaining a hidden state that carries information from previous tokens.
+
+    However, traditional recurrent architectures can experience:
+    <ul>
+        <li>Difficulty learning long-range dependencies.</li>
+        <li>Vanishing and exploding gradient problems.</li>
+        <li>Limited parallelization during training.</li>
+        <li>Increasing computational dependencies as sequence length grows.</li>
+    </ul>
+
+    Transformers address these limitations through attention mechanisms.
+
+    <h3>2.3. The Attention Mechanism</h3>
+
+    Attention allows a model to determine which parts of an input sequence are important when processing a particular token.
+
+    Instead of relying only on the immediately preceding token, the model can consider relationships between different positions in the sequence.
+
+    For example:
+
+    <blockquote>
+        The dog chased the ball because it was moving.
+    </blockquote>
+
+    When processing the word "it", the attention mechanism can assign different importance to the previous words to identify relevant contextual information.
+
+    The fundamental idea is that each token can establish relationships with other tokens in the sequence.
+
+    <h3>2.4. Scaled Dot-Product Attention</h3>
+
+    The central attention operation introduced in the paper is called Scaled Dot-Product Attention.
+
+    It uses three components:
+
+    <ul>
+        <li><strong>Query (Q):</strong> Represents what information a token is looking for.</li>
+        <li><strong>Key (K):</strong> Represents the information available for comparison.</li>
+        <li><strong>Value (V):</strong> Represents the information that can be retrieved.</li>
+    </ul>
+
+    The attention mechanism compares queries with keys to calculate attention scores.
+
+    The mathematical equation is:
+
+    $$Attention(Q,K,V)=
+    softmax\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+
+    Where:
+
+    <ul>
+        <li>$Q$: Query matrix.</li>
+        <li>$K$: Key matrix.</li>
+        <li>$V$: Value matrix.</li>
+        <li>$d_k$: Dimension of the key vectors.</li>
+        <li>$QK^T$: Similarity scores between queries and keys.</li>
+        <li>$\sqrt{d_k}$: Scaling factor.</li>
+        <li>$softmax$: Converts attention scores into normalized weights.</li>
+    </ul>
+
+    The process works as follows:
+
+    <ol>
+        <li>Calculate the similarity between queries and keys using a dot product.</li>
+        <li>Divide the scores by $\sqrt{d_k}$ to prevent excessively large values.</li>
+        <li>Apply Softmax to obtain normalized attention weights.</li>
+        <li>Multiply the attention weights by the value vectors.</li>
+        <li>Combine the weighted values to obtain the attention output.</li>
+    </ol>
+
+    The result is a representation in which each token incorporates information from other relevant tokens.
+
+    <h3>2.5. Why do we divide by the square root of the dimension?</h3>
+
+    The scaling factor prevents the dot-product values from becoming excessively large when the dimensionality of the key vectors increases.
+
+    Large values can cause the Softmax function to produce extremely concentrated probability distributions.
+
+    This can lead to very small gradients, making optimization more difficult.
+
+    Dividing by $\sqrt{d_k}$ helps maintain more stable attention scores and gradients.
+
+    <h3>2.6. Multi-Head Attention</h3>
+
+    The Transformer architecture uses Multi-Head Attention.
+
+    Instead of calculating attention only once, it performs multiple attention operations in parallel.
+
+    Each attention head can learn to focus on different relationships between tokens.
+
+    For example:
+    <ul>
+        <li>One head might focus on grammatical relationships.</li>
+        <li>Another might focus on relationships between subjects and verbs.</li>
+        <li>Another might capture long-distance contextual dependencies.</li>
+    </ul>
+
+    These are illustrative possibilities; the model does not explicitly assign a predefined linguistic function to each head.
+
+    The outputs of the attention heads are concatenated and passed through a learned linear transformation.
+
+    The equation is:
+
+    $$MultiHead(Q,K,V)=
+    Concat(head_1,\ldots,head_h)W^O$$
+
+    Where each attention head is calculated as:
+
+    $$head_i=Attention(QW_i^Q,KW_i^K,VW_i^V)$$
+
+    The matrices $W_i^Q$, $W_i^K$, $W_i^V$, and $W^O$ are learned parameters.
+
+    <h3>2.7. Positional Encoding</h3>
+
+    Unlike RNNs, Transformers do not process tokens sequentially by default.
+
+    Therefore, they need an additional mechanism to represent the order of tokens.
+
+    The original Transformer architecture introduced Positional Encoding.
+
+    Positional encodings are added to token embeddings to provide information about their positions in the sequence.
+
+    The original paper used sinusoidal functions:
+
+    $$PE(pos,2i)=
+    \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right)$$
+
+    $$PE(pos,2i+1)=
+    \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)$$
+
+    Where:
+    <ul>
+        <li>$pos$: Position of the token in the sequence.</li>
+        <li>$i$: Dimension index.</li>
+        <li>$d_{model}$: Embedding dimension.</li>
+    </ul>
+
+    These positional encodings allow the model to incorporate information about token order.
+
+    <h3>2.8. Transformer Architecture</h3>
+
+    The original Transformer architecture consists of two main components:
+
+    <ul>
+        <li><strong>Encoder:</strong> Processes the input sequence and creates contextual representations.</li>
+        <li><strong>Decoder:</strong> Generates the output sequence using the encoder representations and previously generated tokens.</li>
+    </ul>
+
+    <strong>Encoder components:</strong>
+    <ol>
+        <li>Multi-Head Self-Attention.</li>
+        <li>Residual connection and Layer Normalization.</li>
+        <li>Position-wise Feed-Forward Network.</li>
+        <li>Another residual connection and Layer Normalization.</li>
+    </ol>
+
+    <strong>Decoder components:</strong>
+    <ol>
+        <li>Masked Multi-Head Self-Attention.</li>
+        <li>Residual connection and Layer Normalization.</li>
+        <li>Encoder-Decoder Attention.</li>
+        <li>Residual connection and Layer Normalization.</li>
+        <li>Position-wise Feed-Forward Network.</li>
+        <li>Another residual connection and Layer Normalization.</li>
+    </ol>
+
+    <h3>2.9. Masked Self-Attention</h3>
+
+    The decoder uses masked self-attention to prevent the model from accessing future tokens during autoregressive generation.
+
+    For example, when predicting the third token, the model can use the first and second tokens but cannot use the fourth or subsequent tokens.
+
+    This ensures that the model learns to predict the next token using only the available preceding context.
+
+    <h3>2.10. Feed-Forward Networks</h3>
+
+    Each Transformer encoder and decoder layer contains a position-wise Feed-Forward Network.
+
+    It consists of two linear transformations with a non-linear activation function between them.
+
+    In the original paper, the function is:
+
+    $$FFN(x)=max(0,xW_1+b_1)W_2+b_2$$
+
+    This component transforms the representations produced by the attention mechanism.
+
+    <h3>2.11. From Transformers to modern LLMs</h3>
+
+    The Transformer architecture became the foundation for many modern language models.
+
+    However, not all modern Transformer models use the complete original encoder-decoder architecture.
+
+    There are three major architectural approaches:
+
+    <ul>
+        <li><strong>Encoder-only:</strong> Processes input sequences and creates contextual representations. Example: BERT.</li>
+        <li><strong>Decoder-only:</strong> Uses causal attention to generate sequences autoregressively. Examples: GPT-style models.</li>
+        <li><strong>Encoder-decoder:</strong> Uses an encoder to process the input and a decoder to generate the output. Examples: T5 and the original Transformer.</li>
+    </ul>
+
+    Modern Generative AI systems commonly use decoder-only Transformers for general-purpose text generation.
+
+    <p>Reference: Vaswani et al. (2017), <em>Attention Is All You Need</em>.</p>
+
+</section>
+
+<section id="prompt-engineering">
+    <h2>3. Prompt Engineering</h2>
+
+    <h3>3.1. What is Prompt Engineering?</h3>
+
+    Prompt Engineering is the process of designing and structuring instructions given to a generative AI model to obtain more relevant, accurate, and useful outputs.
+
+    A prompt is the input provided to the model.
+
+    It can contain:
+    <ul>
+        <li>Instructions.</li>
+        <li>Contextual information.</li>
+        <li>Examples.</li>
+        <li>Constraints.</li>
+        <li>Expected output format.</li>
+        <li>Additional information needed to complete the task.</li>
+    </ul>
+
+    The quality and structure of a prompt can significantly influence the generated response.
+
+    <h3>3.2. Elements of a good prompt</h3>
+
+    A well-structured prompt can include the following components:
+
+    <ol>
+        <li><strong>Role:</strong> Defines the perspective or expertise the model should adopt.</li>
+        <li><strong>Task:</strong> Explains what the model must accomplish.</li>
+        <li><strong>Context:</strong> Provides the relevant background information.</li>
+        <li><strong>Constraints:</strong> Defines limitations, requirements, or restrictions.</li>
+        <li><strong>Output format:</strong> Specifies how the response should be structured.</li>
+        <li><strong>Examples:</strong> Demonstrates the expected behavior or output.</li>
+    </ol>
+
+    <h3>3.3. Example of prompt engineering</h3>
+
+    <strong>Basic prompt:</strong>
+
+    <blockquote>
+        Explain machine learning.
+    </blockquote>
+
+    This prompt is relatively broad and does not specify the desired level of detail or format.
+
+    <strong>Improved prompt:</strong>
+
+    <blockquote>
+        Act as a university professor specializing in Artificial Intelligence.
+
+        Explain the fundamental concepts of Machine Learning to a computer science student.
+
+        Cover supervised learning, unsupervised learning, and reinforcement learning.
+
+        Include practical examples, mathematical definitions, and a comparison table.
+
+        Use technical but accessible language and organize the answer into sections.
+    </blockquote>
+
+    The improved prompt provides context, specifies the task, and defines the expected output.
+
+</section>
+
+<section id="temperature">
+    <h2>4. Temperature</h2>
+
+    <h3>4.1. What is Temperature?</h3>
+
+    Temperature is a parameter used during text generation to control the randomness of token selection.
+
+    It modifies the probability distribution over the possible next tokens.
+
+    Temperature is commonly represented by the parameter $T$.
+
+    It is generally non-negative. A temperature of zero is supported by some generation systems as a greedy or nearly greedy decoding setting. Other systems may use a small positive value instead.
+
+    Temperature can also be greater than 1.
+
+    <h3>4.2. How does Temperature work?</h3>
+
+    Before selecting a token, the model produces a set of scores called logits.
+
+    Temperature modifies the logits before applying Softmax.
+
+    The probability of selecting a token is calculated as:
+
+    $$P(x_i)=\frac{e^{z_i/T}}{\sum_j e^{z_j/T}}$$
+
+    Where:
+    <ul>
+        <li>$z_i$: Logit associated with token $i$.</li>
+        <li>$T$: Temperature.</li>
+        <li>$P(x_i)$: Probability of selecting token $i$.</li>
+    </ul>
+
+    Temperature changes the shape of the probability distribution.
+
+    <h3>4.3. Low Temperature</h3>
+
+    Low temperatures make the probability distribution more concentrated around the most probable tokens.
+
+    Consequently:
+    <ul>
+        <li>The most probable tokens become more likely.</li>
+        <li>Less probable tokens become less likely.</li>
+        <li>Generation becomes more focused and predictable.</li>
+        <li>The output generally contains less variation.</li>
+    </ul>
+
+    A very low temperature approaches greedy selection, in which the most probable token is selected at each step.
+
+    <h3>4.4. High Temperature</h3>
+
+    High temperatures make the probability distribution flatter.
+
+    Consequently:
+    <ul>
+        <li>Less probable tokens become more likely.</li>
+        <li>The difference between token probabilities decreases.</li>
+        <li>Generation becomes more diverse and unpredictable.</li>
+        <li>The model has more opportunities to select alternative continuations.</li>
+    </ul>
+
+    High temperature does not mean that the model selects completely random tokens. The probability distribution still influences token selection.
+
+    <h3>4.5. Probability distribution example</h3>
+
+    Suppose the model predicts the next token using the following initial probabilities:
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Token</th>
+                <th>Original probability</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>mat</td>
+                <td>0.60</td>
+            </tr>
+            <tr>
+                <td>floor</td>
+                <td>0.25</td>
+            </tr>
+            <tr>
+                <td>chair</td>
+                <td>0.10</td>
+            </tr>
+            <tr>
+                <td>table</td>
+                <td>0.05</td>
+            </tr>
+        </tbody>
+    </table>
+
+    At low temperature, the probability of selecting "mat" becomes more dominant.
+
+    At high temperature, the probabilities become more evenly distributed, increasing the chance of selecting alternatives such as "floor" or "chair".
+
+    <h3>4.6. Practical temperature recommendations</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Application</th>
+                <th>Suggested temperature</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Creative writing</td>
+                <td>0.8</td>
+                <td>Allows more diversity and creative responses.</td>
+            </tr>
+            <tr>
+                <td>Code generation</td>
+                <td>0.1 - 0.3</td>
+                <td>Encourages consistent and predictable outputs.</td>
+            </tr>
+            <tr>
+                <td>Customer service / Chatbots</td>
+                <td>0.2 - 0.4</td>
+                <td>Encourages consistency and controlled responses.</td>
+            </tr>
+            <tr>
+                <td>FrozenLake / deterministic planning</td>
+                <td>Low, or greedy selection</td>
+                <td>Reduces unnecessary variation in action selection.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>These values are illustrative starting points. The best temperature depends on the model, task, and evaluation criteria.</p>
+
+</section>
+
+<section id="top-k">
+    <h2>5. Top-K Sampling</h2>
+
+    <h3>5.1. What is Top-K?</h3>
+
+    Top-K sampling is a decoding strategy that limits the number of candidate tokens considered when generating the next token.
+
+    Instead of considering the entire vocabulary, the model only considers the K most probable tokens.
+
+    The parameter $K$ determines the number of candidate tokens.
+
+    <h3>5.2. How does Top-K work?</h3>
+
+    Suppose the model generates the following probability distribution:
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Token</th>
+                <th>Probability</th>
+                <th>Rank</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>mat</td>
+                <td>0.40</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>floor</td>
+                <td>0.25</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>chair</td>
+                <td>0.15</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>table</td>
+                <td>0.10</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>car</td>
+                <td>0.06</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>cloud</td>
+                <td>0.04</td>
+                <td>6</td>
+            </tr>
+        </tbody>
+    </table>
+
+    If $K=3$, only the following tokens are considered:
+
+    <ul>
+        <li>mat</li>
+        <li>floor</li>
+        <li>chair</li>
+    </ul>
+
+    The remaining tokens are excluded from the candidate set.
+
+    The probabilities of the selected tokens are then renormalized so that they sum to 1.
+
+    <h3>5.3. What happens when K = 1?</h3>
+
+    If:
+
+    $$K=1$$
+
+    Only the most probable token remains available.
+
+    Therefore, Top-K sampling becomes equivalent to greedy selection at that step, regardless of temperature.
+
+    <h3>5.4. Advantages of Top-K</h3>
+
+    <ul>
+        <li>Reduces the number of possible candidate tokens.</li>
+        <li>Prevents the selection of very unlikely tokens.</li>
+        <li>Provides direct control over the size of the candidate set.</li>
+        <li>Can improve the coherence of generated text.</li>
+    </ul>
+
+    <h3>5.5. Limitations of Top-K</h3>
+
+    Top-K always considers a fixed number of candidate tokens.
+
+    However, the probability distribution can vary significantly between generation steps.
+
+    For example:
+    <ul>
+        <li>Sometimes the next token is highly predictable.</li>
+        <li>Sometimes many different tokens are plausible.</li>
+    </ul>
+
+    A fixed K does not adapt to these changes.
+
+</section>
+
+<section id="top-p">
+    <h2>6. Top-P Sampling (Nucleus Sampling)</h2>
+
+    <h3>6.1. What is Top-P?</h3>
+
+    Top-P sampling, also called Nucleus Sampling, is a decoding strategy that dynamically determines the number of candidate tokens based on their cumulative probability.
+
+    Unlike Top-K, which uses a fixed number of tokens, Top-P selects the smallest group of most probable tokens whose cumulative probability reaches or exceeds a specified threshold $p$.
+
+    This group is called the nucleus.
+
+    <h3>6.2. How does Top-P work?</h3>
+
+    Consider the following probability distribution:
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Token</th>
+                <th>Probability</th>
+                <th>Cumulative probability</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>mat</td>
+                <td>0.40</td>
+                <td>0.40</td>
+            </tr>
+            <tr>
+                <td>floor</td>
+                <td>0.25</td>
+                <td>0.65</td>
+            </tr>
+            <tr>
+                <td>chair</td>
+                <td>0.15</td>
+                <td>0.80</td>
+            </tr>
+            <tr>
+                <td>table</td>
+                <td>0.10</td>
+                <td>0.90</td>
+            </tr>
+            <tr>
+                <td>car</td>
+                <td>0.06</td>
+                <td>0.96</td>
+            </tr>
+            <tr>
+                <td>cloud</td>
+                <td>0.04</td>
+                <td>1.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    Suppose:
+
+    $$TopP=0.80$$
+
+    The model selects the smallest group of tokens whose cumulative probability reaches at least 0.80.
+
+    The selected nucleus is:
+
+    <ul>
+        <li>mat: 0.40</li>
+        <li>floor: 0.25</li>
+        <li>chair: 0.15</li>
+    </ul>
+
+    The cumulative probability is:
+
+    $$0.40+0.25+0.15=0.80$$
+
+    The other tokens are excluded from the candidate set.
+
+    The probabilities of the remaining tokens are renormalized before sampling.
+
+    <h3>6.3. Why is Top-P dynamic?</h3>
+
+    Top-P adapts the number of candidate tokens according to the shape of the probability distribution.
+
+    For example:
+
+    <ul>
+        <li>If the model is very confident about the next token, the nucleus may contain only a few tokens.</li>
+        <li>If the model is uncertain, the nucleus may contain many more tokens.</li>
+    </ul>
+
+    Therefore, Top-P provides a flexible alternative to Top-K.
+
+    <h3>6.4. Advantages of Top-P</h3>
+
+    <ul>
+        <li>Adapts the candidate set to the probability distribution.</li>
+        <li>Excludes tokens with very low probabilities.</li>
+        <li>Allows diversity without considering the entire vocabulary.</li>
+        <li>Can produce more natural and contextually appropriate outputs.</li>
+    </ul>
+
+</section>
+
+<section id="sampling-comparison">
+    <h2>7. Comparing Temperature, Top-K, and Top-P</h2>
+
+    <h3>7.1. Main differences</h3>
+
+    These three parameters influence token generation, but they perform different functions.
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>Function</th>
+                <th>Main effect</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Temperature</td>
+                <td>Modifies the probability distribution.</td>
+                <td>Controls randomness.</td>
+            </tr>
+            <tr>
+                <td>Top-K</td>
+                <td>Limits the number of candidate tokens.</td>
+                <td>Uses a fixed candidate count.</td>
+            </tr>
+            <tr>
+                <td>Top-P</td>
+                <td>Limits candidates using cumulative probability.</td>
+                <td>Uses a dynamic candidate count.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>7.2. Example: "The cat sat on the..."</h3>
+
+    Without Top-K or Top-P restrictions, the model can theoretically sample from the entire vocabulary.
+
+    This means that even very unlikely tokens could be selected, depending on their probabilities and the sampling procedure.
+
+    With Top-K:
+
+    The model only considers the K most probable tokens.
+
+    With Top-P:
+
+    The model considers the smallest set of tokens that reaches the cumulative probability threshold.
+
+    With Temperature:
+
+    The probabilities of the candidate tokens are modified before sampling.
+
+    These parameters can be combined, although the exact order and implementation may depend on the generation system.
+
+    <h3>7.3. Practical parameter recommendations</h3>
+
+    <strong>Creative writing</strong>
+
+    <ul>
+        <li>Temperature: 0.8.</li>
+        <li>Top-P: Relatively high, for example 0.9.</li>
+        <li>Top-K: Moderate or high, depending on the system.</li>
+    </ul>
+
+    Objective: Increase diversity and allow the model to explore alternative expressions and ideas.
+
+    <strong>Code generation</strong>
+
+    <ul>
+        <li>Temperature: 0.1 - 0.3.</li>
+        <li>Top-P: 0.7 - 0.9.</li>
+        <li>Top-K: 10 - 20.</li>
+    </ul>
+
+    Objective: Generate more consistent and predictable outputs while reducing unnecessary variation.
+
+    <strong>Customer service and chatbots</strong>
+
+    <ul>
+        <li>Temperature: 0.2 - 0.4.</li>
+        <li>Top-P: 0.7 - 0.9.</li>
+        <li>Top-K: 20 - 50.</li>
+    </ul>
+
+    Objective: Maintain consistent responses and reduce unexpected variations.
+
+    <strong>FrozenLake and reinforcement learning</strong>
+
+    <ul>
+        <li>Temperature: Low or greedy action selection.</li>
+        <li>Top-P: Usually unnecessary.</li>
+        <li>Top-K: Usually unnecessary.</li>
+    </ul>
+
+    Objective: Select actions based on the learned policy or Q-values.
+
+    <p>Important distinction: Temperature, Top-K, and Top-P are language-model decoding parameters. They are not normally used directly in tabular Reinforcement Learning or standard DQN. In FrozenLake, action selection is generally controlled through epsilon-greedy exploration, a learned policy, or a softmax policy over Q-values.</p>
+
+    <h3>7.4. Important considerations</h3>
+
+    <ul>
+        <li>Low temperature does not guarantee factual correctness.</li>
+        <li>High temperature does not necessarily improve creativity in every task.</li>
+        <li>Top-K and Top-P restrict candidate tokens but do not guarantee that the generated response is correct.</li>
+        <li>Using both Top-K and Top-P may further restrict the candidate set.</li>
+        <li>Some model APIs do not expose all three parameters.</li>
+        <li>Some APIs use different parameter ranges or defaults.</li>
+    </ul>
+
+</section>
+
+<section id="summary">
+    <h2>8. Final Summary</h2>
+
+    <h3>8.1. Important concepts</h3>
+
+    <ul>
+        <li><strong>Generative AI:</strong> Artificial Intelligence that creates new content based on learned patterns.</li>
+        <li><strong>LLM:</strong> A Large Language Model trained to understand and generate sequences of tokens.</li>
+        <li><strong>Transformer:</strong> A neural network architecture based on attention mechanisms.</li>
+        <li><strong>Attention:</strong> Allows the model to determine the importance of relationships between tokens.</li>
+        <li><strong>Query:</strong> Represents the information a token is searching for.</li>
+        <li><strong>Key:</strong> Represents information used to calculate attention scores.</li>
+        <li><strong>Value:</strong> Represents the information retrieved through attention.</li>
+        <li><strong>Positional Encoding:</strong> Provides information about token positions.</li>
+        <li><strong>Prompt Engineering:</strong> Designing instructions to guide model outputs.</li>
+        <li><strong>Temperature:</strong> Controls the concentration of the probability distribution.</li>
+        <li><strong>Top-K:</strong> Restricts sampling to a fixed number of the most probable tokens.</li>
+        <li><strong>Top-P:</strong> Restricts sampling to a dynamically selected group based on cumulative probability.</li>
+    </ul>
+
+    <h3>8.2. Important equations</h3>
+
+    <strong>Autoregressive probability:</strong>
+
+    $$P(x_1,\ldots,x_n)=\prod_{t=1}^{n}
+    P(x_t|x_1,\ldots,x_{t-1})$$
+
+    <strong>Scaled Dot-Product Attention:</strong>
+
+    $$Attention(Q,K,V)=
+    softmax\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+
+    <strong>Multi-Head Attention:</strong>
+
+    $$MultiHead(Q,K,V)=
+    Concat(head_1,\ldots,head_h)W^O$$
+
+    <strong>Temperature sampling:</strong>
+
+    $$P(x_i)=\frac{e^{z_i/T}}{\sum_j e^{z_j/T}}$$
+
+</section>
+
+</main>
+
+<footer>
+    <p>End of Introduction to Generative AI and Prompt Engineering notes.</p>
+</footer>
+
+</body>

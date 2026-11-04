@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>Summary</title>
+    <style>
+        .key-point {
+            font-weight: bold;
+        }
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Temporal Difference: SARSA, Q-Learning</h1>
+        <p>Topics: Temporal Difference Learning, SARSA, Q-Learning, and DQN.</p>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+
+<section id="td">
+    <h2>1. Temporal Difference Learning</h2>
+
+    <h3>1.1. Introduction</h3>
+
+    Temporal Difference (TD) Learning is another family of model-free Reinforcement Learning algorithms.
+
+    It combines ideas from Dynamic Programming and Monte Carlo methods.
+
+    Like Monte Carlo methods:
+    <ul>
+        <li>It learns directly from interactions with the environment.</li>
+        <li>It does not require a transition probability matrix.</li>
+        <li>It can learn from sampled experience.</li>
+    </ul>
+
+    Like Dynamic Programming:
+    <ul>
+        <li>It uses the Bellman equation as the basis for its updates.</li>
+        <li>It uses bootstrapping to update estimates based on other value estimates.</li>
+    </ul>
+
+    <h3>1.2. What is bootstrapping?</h3>
+
+    Bootstrapping refers to updating a value estimate using another estimated value rather than waiting until the final return is known.
+
+    Monte Carlo methods generally wait until an episode finishes before calculating the complete return.
+
+    Temporal Difference Learning does not need to wait for the episode to terminate.
+
+    Instead, it uses the immediate reward and the estimated value of the next state.
+
+    This makes TD learning useful for both episodic and continuing tasks.
+
+    <h3>1.3. One-step look-ahead</h3>
+
+    TD methods use a one-step look-ahead approach.
+
+    Instead of considering the entire episode, the agent uses the most recent transition:
+
+    $$S_t,A_t,R_{t+1},S_{t+1}$$
+
+    The agent updates its value estimate using the observed reward and the value estimate of the next state.
+
+    <h3>1.4. TD update equation</h3>
+
+    The general incremental update rule is:
+
+    $$\text{New Estimate}=\text{Old Estimate}+
+    \alpha(\text{TD Target}-\text{Old Estimate})$$
+
+    For state-value learning:
+
+    $$V(S_t)\leftarrow V(S_t)+\alpha[
+    R_{t+1}+\gamma V(S_{t+1})-V(S_t)]$$
+
+    Where:
+    <ul>
+        <li>$\alpha$: Learning rate.</li>
+        <li>$R_{t+1}$: Immediate reward.</li>
+        <li>$\gamma$: Discount factor.</li>
+        <li>$V(S_{t+1})$: Estimated value of the next state.</li>
+    </ul>
+
+    The TD error is:
+
+    $$\delta_t=R_{t+1}+\gamma V(S_{t+1})-V(S_t)$$
+
+    It measures the difference between the current estimate and the new target.
+
+    <h3>1.5. Monte Carlo vs. Temporal Difference</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Characteristic</th>
+                <th>Monte Carlo</th>
+                <th>Temporal Difference</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Model required</td>
+                <td>No</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>Update timing</td>
+                <td>After an episode finishes</td>
+                <td>After each transition</td>
+            </tr>
+            <tr>
+                <td>Target</td>
+                <td>Observed return</td>
+                <td>Reward + estimated next value</td>
+            </tr>
+            <tr>
+                <td>Bootstrapping</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>Continuing tasks</td>
+                <td>Not directly with ordinary episodic MC</td>
+                <td>Yes</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>1.6. Episodic and continuing tasks</h3>
+
+    Reinforcement Learning problems can be divided into two categories.
+
+    <strong>Episodic tasks:</strong>
+
+    Each episode has a terminal state. Once the agent reaches that state, the episode ends.
+
+    Examples include:
+    <ul>
+        <li>Solving a maze.</li>
+        <li>Playing a game with a defined ending.</li>
+        <li>Reaching a goal in a grid world.</li>
+    </ul>
+
+    <strong>Continuing tasks:</strong>
+
+    The interaction between the agent and the environment continues indefinitely, without a predefined terminal state.
+
+    Examples include:
+    <ul>
+        <li>Controlling a robot that operates continuously.</li>
+        <li>Managing an industrial process.</li>
+        <li>Continuous resource allocation.</li>
+    </ul>
+
+    The objective is to maximize cumulative discounted rewards or, in some formulations, the average reward over time.
+
+</section>
+
+<section id="on-off-policy">
+    <h2>5. On-Policy and Off-Policy Learning</h2>
+
+    <h3>5.1. Behavior policy and target policy</h3>
+
+    In Reinforcement Learning, it is important to distinguish between two policies:
+
+    <ul>
+        <li><strong>Behavior policy ($\mu$):</strong> The policy that the agent follows when interacting with the environment to generate experience.</li>
+        <li><strong>Target policy ($\pi$):</strong> The policy that the agent is trying to evaluate or learn.</li>
+    </ul>
+
+    Every agent can be understood as having two roles:
+
+    <strong>Behavior policy:</strong>
+
+    It chooses the actions that actually happen and generates the experience data.
+
+    Think of it as the driver behind the wheel.
+
+    <strong>Target policy:</strong>
+
+    It represents the strategy that the agent wants to learn or improve using the collected data.
+
+    <h3>5.2. On-Policy Learning</h3>
+
+    In On-Policy learning, the behavior policy and target policy are the same.
+
+    $$\mu=\pi$$
+
+    The agent learns about the policy it is currently using to interact with the environment.
+
+    The process is:
+
+    <ol>
+        <li>The current policy interacts with the environment.</li>
+        <li>The agent generates new experience.</li>
+        <li>The agent updates its policy using that experience.</li>
+        <li>The updated policy interacts with the environment again.</li>
+        <li>The process repeats.</li>
+    </ol>
+
+    The agent learns from its own current behavior.
+
+    Examples of On-Policy algorithms include:
+    <ul>
+        <li>SARSA.</li>
+        <li>REINFORCE.</li>
+        <li>A2C and A3C.</li>
+        <li>TRPO.</li>
+        <li>PPO.</li>
+    </ul>
+
+    <h3>5.3. Off-Policy Learning</h3>
+
+    In Off-Policy learning, the behavior policy and target policy are different.
+
+    $$\mu\neq\pi$$
+
+    The agent can learn a target policy using experience generated by another behavior policy.
+
+    This experience can come from:
+    <ul>
+        <li>Previous versions of the agent.</li>
+        <li>Random exploration.</li>
+        <li>Other agents.</li>
+        <li>Human demonstrations.</li>
+        <li>Previously collected experiences.</li>
+    </ul>
+
+    Experience can be stored in a replay buffer and sampled multiple times for learning.
+
+    This allows the agent to reuse previously collected data instead of requiring every update to come from newly generated experience.
+
+    Q-Learning is a fundamental example of an Off-Policy algorithm.
+
+    <h3>5.4. On-Policy vs. Off-Policy: Real-world examples</h3>
+
+    <strong>Example 1: Learning to ride a bicycle</strong>
+
+    On-Policy:
+
+    You ride the bicycle yourself, wobble, lose balance, fall, and adjust your technique. Every lesson comes from your own current behavior.
+
+    Off-Policy:
+
+    You watch videos of other people riding bicycles, including beginners making mistakes, and learn what good riding looks like from their experiences.
+
+    <strong>Example 2: Improving at chess</strong>
+
+    On-Policy:
+
+    You study only your recent games, generated using your current playing strategy.
+
+    Off-Policy:
+
+    You study grandmaster games and beginner mistakes to learn better strategies using experience generated by other players.
+
+    <h3>5.5. Main differences</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Characteristic</th>
+                <th>On-Policy</th>
+                <th>Off-Policy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Behavior policy</td>
+                <td>Same as target policy</td>
+                <td>Different from target policy</td>
+            </tr>
+            <tr>
+                <td>Experience source</td>
+                <td>Current policy</td>
+                <td>Can come from other policies</td>
+            </tr>
+            <tr>
+                <td>Experience reuse</td>
+                <td>Usually limited in standard implementations</td>
+                <td>Can reuse previously collected data</td>
+            </tr>
+            <tr>
+                <td>Example</td>
+                <td>SARSA</td>
+                <td>Q-Learning</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Important: On-Policy does not mean that the agent cannot use exploration. It can use an exploratory policy, such as epsilon-greedy. The distinction is that the target policy is the same policy used to generate experience.</p>
+
+</section>
+
+<section id="sarsa">
+    <h2>6. SARSA Algorithm</h2>
+
+    <h3>6.1. Introduction</h3>
+
+    SARSA is a model-free, On-Policy Temporal Difference control algorithm.
+
+    It learns the action-value function $Q^\pi(s,a)$ by interacting with the environment and updating its estimates after each transition.
+
+    The name SARSA comes from the five elements used in its update:
+
+    <ol>
+        <li><strong>S:</strong> Current state ($S_t$).</li>
+        <li><strong>A:</strong> Current action ($A_t$).</li>
+        <li><strong>R:</strong> Reward received ($R_{t+1}$).</li>
+        <li><strong>S:</strong> Next state ($S_{t+1}$).</li>
+        <li><strong>A:</strong> Next action ($A_{t+1}$).</li>
+    </ol>
+
+    Therefore, the experience required for SARSA is:
+
+    $$S_t,A_t,R_{t+1},S_{t+1},A_{t+1}$$
+
+    <h3>6.2. SARSA update equation</h3>
+
+    The SARSA update rule is:
+
+    $$Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha[
+    R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t)]$$
+
+    Where:
+    <ul>
+        <li>$Q(S_t,A_t)$: Current estimated value of the state-action pair.</li>
+        <li>$\alpha$: Learning rate.</li>
+        <li>$R_{t+1}$: Reward received after performing the action.</li>
+        <li>$\gamma$: Discount factor.</li>
+        <li>$Q(S_{t+1},A_{t+1})$: Estimated value of the next state-action pair.</li>
+    </ul>
+
+    The key characteristic is that SARSA uses the actual next action selected by the behavior policy.
+
+    <h3>6.3. Why is SARSA On-Policy?</h3>
+
+    SARSA is On-Policy because the action used in the update is the action actually selected by the current policy.
+
+    The agent learns from the same behavior it uses to interact with the environment.
+
+    For example, if the agent uses an epsilon-greedy policy, the next action may be exploratory rather than greedy.
+
+    SARSA incorporates that actual exploratory action into its update.
+
+    <h3>6.4. Exploration and exploitation</h3>
+
+    SARSA uses an exploration rate, commonly represented by $\epsilon$.
+
+    Exploration:
+
+    The agent searches for new actions to discover more information about the environment.
+
+    Exploitation:
+
+    The agent takes advantage of its current knowledge by selecting actions with high estimated values.
+
+    <h3>6.5. Epsilon-Greedy policy</h3>
+
+    SARSA commonly uses an epsilon-greedy policy.
+
+    The policy selects:
+
+    <ul>
+        <li>The action with the highest estimated Q-value with probability $1-\epsilon$.</li>
+        <li>A random action with probability $\epsilon$.</li>
+    </ul>
+
+    Mathematically, a simple version is:
+
+    $$\pi(a|s)=
+    \begin{cases}
+    1-\epsilon+\frac{\epsilon}{|A|}, & a=\arg\max_a Q(s,a)\\
+    \frac{\epsilon}{|A|}, & \text{otherwise}
+    \end{cases}$$
+
+    This assumes uniform random exploration over the available actions and a unique greedy action.
+
+    <h3>6.6. SARSA algorithm steps</h3>
+
+    <ol>
+        <li>Initialize the Q-table with arbitrary values, usually zeros.</li>
+        <li>Initialize the agent in a starting state.</li>
+        <li>Select an action using the epsilon-greedy policy.</li>
+        <li>Execute the action and observe the reward and next state.</li>
+        <li>Select the next action using the same epsilon-greedy policy.</li>
+        <li>Update the Q-value using the SARSA equation.</li>
+        <li>Move to the next state and continue.</li>
+        <li>Repeat until the episode reaches a terminal state.</li>
+        <li>Start another episode and continue learning.</li>
+    </ol>
+
+    <p>For a terminal next state, the next-state Q-value is treated as zero, and the update target is simply the terminal reward.</p>
+
+    <h3>6.7. SARSA and episodic tasks</h3>
+
+    SARSA can be used in episodic tasks, where each episode has a terminal state.
+
+    For example, in a grid world:
+    <ul>
+        <li>The agent starts at an initial position.</li>
+        <li>It explores the environment.</li>
+        <li>It receives rewards and penalties.</li>
+        <li>The episode ends when it reaches the goal or a terminal trap.</li>
+    </ul>
+
+    SARSA can also be extended to continuing tasks.
+
+    <h3>6.8. SARSA and risk</h3>
+
+    Because SARSA learns from the actions actually selected by its exploratory policy, it accounts for the consequences of exploration.
+
+    For example, if an exploratory action can lead the agent toward a trap, this possibility influences the learned Q-values.
+
+    This can make SARSA learn a more conservative strategy than Q-Learning in environments where exploration itself can be dangerous.
+
+</section>
+
+<section id="q-learning">
+    <h2>7. Q-Learning Algorithm</h2>
+
+    <h3>7.1. Introduction</h3>
+
+    Q-Learning is a model-free, Off-Policy Temporal Difference control algorithm.
+
+    It learns the optimal action-value function:
+
+    $$Q^*(s,a)$$
+
+    Unlike SARSA, Q-Learning does not use the next action actually selected by the behavior policy in its update.
+
+    Instead, it assumes that the agent will choose the best possible action in the next state.
+
+    <h3>7.2. Bellman optimality equation for Q-values</h3>
+
+    Recall the Bellman optimality equation for the optimal action-value function:
+
+    $$Q^*(s,a)=\mathbb{E}[R_{t+1}+
+    \gamma\max_{a'}Q^*(S_{t+1},a')]$$
+
+    This equation states that the optimal Q-value of a state-action pair is the expected immediate reward plus the discounted maximum Q-value of the next state.
+
+    <h3>7.3. Q-Learning update equation</h3>
+
+    The Q-Learning update rule is:
+
+    $$Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha[
+    R_{t+1}+\gamma\max_{a'}Q(S_{t+1},a')-Q(S_t,A_t)]$$
+
+    Where:
+    <ul>
+        <li>$Q(S_t,A_t)$: Current estimate.</li>
+        <li>$\alpha$: Learning rate.</li>
+        <li>$R_{t+1}$: Immediate reward.</li>
+        <li>$\gamma$: Discount factor.</li>
+        <li>$\max_{a'}Q(S_{t+1},a')$: Maximum estimated value among the available next actions.</li>
+    </ul>
+
+    <h3>7.4. Why is Q-Learning Off-Policy?</h3>
+
+    Q-Learning is Off-Policy because it learns the optimal greedy policy while allowing the behavior policy to explore the environment.
+
+    The behavior policy might use epsilon-greedy exploration.
+
+    However, the update always uses the maximum estimated Q-value in the next state.
+
+    Therefore:
+
+    <ul>
+        <li>The behavior policy determines which action is actually performed.</li>
+        <li>The target policy is greedy with respect to the Q-values.</li>
+    </ul>
+
+    <h3>7.5. Q-Learning algorithm steps</h3>
+
+    <ol>
+        <li>Initialize the Q-table.</li>
+        <li>Initialize the agent in a starting state.</li>
+        <li>Select an action using the behavior policy, commonly epsilon-greedy.</li>
+        <li>Execute the action.</li>
+        <li>Observe the reward and next state.</li>
+        <li>Find the maximum Q-value among the available actions in the next state.</li>
+        <li>Update the current Q-value using the Q-Learning equation.</li>
+        <li>Continue until the episode terminates.</li>
+        <li>Repeat the process for multiple episodes.</li>
+    </ol>
+
+    <p>For terminal states, the future Q-value is zero because no additional actions can be taken.</p>
+
+    <h3>7.6. SARSA vs. Q-Learning</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Characteristic</th>
+                <th>SARSA</th>
+                <th>Q-Learning</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Learning type</td>
+                <td>On-Policy</td>
+                <td>Off-Policy</td>
+            </tr>
+            <tr>
+                <td>Algorithm type</td>
+                <td>Model-free TD</td>
+                <td>Model-free TD</td>
+            </tr>
+            <tr>
+                <td>Experience required</td>
+                <td>S, A, R, S', A'</td>
+                <td>S, A, R, S'</td>
+            </tr>
+            <tr>
+                <td>Update target</td>
+                <td>Actual next action</td>
+                <td>Maximum next Q-value</td>
+            </tr>
+            <tr>
+                <td>Exploration</td>
+                <td>Included in the update</td>
+                <td>Used to generate experience</td>
+            </tr>
+            <tr>
+                <td>Policy being learned</td>
+                <td>Current behavior policy</td>
+                <td>Greedy optimal policy</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>7.7. Understanding the difference with an example</h3>
+
+    Imagine that an agent is navigating a grid world and is currently in state $S_t$.
+
+    It selects an action and reaches state $S_{t+1}$.
+
+    Suppose the next state's Q-values are:
+
+    <ul>
+        <li>Up: 10</li>
+        <li>Down: 8</li>
+        <li>Left: 5</li>
+        <li>Right: 2</li>
+    </ul>
+
+    Suppose the epsilon-greedy policy selects the action "Down" because of exploration.
+
+    SARSA uses:
+
+    $$Q(S_{t+1},Down)=8$$
+
+    Q-Learning uses:
+
+    $$\max_{a'}Q(S_{t+1},a')=10$$
+
+    Therefore, SARSA updates its estimate using the actual next action, while Q-Learning uses the maximum estimated action value.
+
+    This is the fundamental difference between these two algorithms.
+
+</section>
+
+
+</main>
+
+<footer>
+    <p>End of Reinforcement Learning class notes.</p>
+</footer>
+
+</body>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>DQN</title>
+    <style>
+        .key-point {
+            font-weight: bold;
+        }
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header>
+        <h1>DQN</h1>
+        <p>Topics: DQN.</p>
+    </header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+
+<section id="dqn">
+    <h2>8. Deep Q-Networks (DQN)</h2>
+
+    <h3>8.1. Introduction to neural networks</h3>
+
+    Before understanding Deep Q-Networks, we need to understand the basic idea of an artificial neural network.
+
+    A single artificial neuron is a simplified mathematical model inspired by biological neurons.
+
+    It receives input values, multiplies them by weights, adds a bias, and applies an activation function.
+
+    The mathematical expression is:
+
+    $$z=\sum_{i=1}^{n}w_ix_i+b$$
+
+    $$y=f(z)$$
+
+    Where:
+    <ul>
+        <li>$x_i$: Input values.</li>
+        <li>$w_i$: Weights associated with each input.</li>
+        <li>$b$: Bias.</li>
+        <li>$f$: Activation function.</li>
+        <li>$y$: Output of the neuron.</li>
+    </ul>
+
+    <h3>8.2. Neural networks and supervised learning</h3>
+
+    In a basic supervised learning problem, a neural network receives an input $x$ and attempts to predict an output $y'$.
+
+    The prediction is compared with the actual target $y$ using a loss function.
+
+    The network adjusts its weights to reduce the prediction error.
+
+    The general process is:
+
+    <ol>
+        <li>Provide an input.</li>
+        <li>Calculate the network prediction.</li>
+        <li>Compare the prediction with the expected target.</li>
+        <li>Calculate the loss.</li>
+        <li>Use backpropagation to calculate gradients.</li>
+        <li>Update the weights using an optimization algorithm.</li>
+    </ol>
+
+    <h3>8.3. Why do we need activation functions?</h3>
+
+    Activation functions introduce non-linearity into neural networks.
+
+    Without non-linear activation functions, stacking multiple linear layers would still produce an overall linear transformation.
+
+    This would limit the network's ability to learn complex relationships.
+
+    Common activation functions include:
+
+    <ul>
+        <li><strong>ReLU:</strong> $f(x)=\max(0,x)$.</li>
+        <li><strong>Sigmoid:</strong> $f(x)=\frac{1}{1+e^{-x}}$.</li>
+        <li><strong>Tanh:</strong> $f(x)=\tanh(x)$.</li>
+        <li><strong>Softmax:</strong> Converts a vector of values into a probability distribution.</li>
+    </ul>
+
+    ReLU is commonly used in the hidden layers of DQN networks.
+
+    <h3>8.4. From Q-Learning to Deep Q-Networks</h3>
+
+    Traditional Q-Learning stores action values in a Q-table.
+
+    This works well when the state space and action space are relatively small and discrete.
+
+    However, when the state space becomes very large or continuous, storing every possible state-action pair becomes impractical.
+
+    Deep Q-Networks solve this problem by using a neural network to approximate the Q-function.
+
+    Instead of storing all Q-values in a table, the network learns a mapping:
+
+    $$Q(s,a;\theta)$$
+
+    Where:
+    <ul>
+        <li>$s$: State provided as input.</li>
+        <li>$a$: Available action.</li>
+        <li>$\theta$: Neural network parameters.</li>
+        <li>$Q(s,a;\theta)$: Estimated action value.</li>
+    </ul>
+
+    In a standard DQN architecture, the network receives the state and produces one Q-value for each available discrete action.
+
+    $$Q(s;\theta)=[Q(s,a_1),Q(s,a_2),\ldots,Q(s,a_n)]$$
+
+    The agent selects an action using an exploration strategy such as epsilon-greedy.
+
+    <h3>8.5. DQN and Q-Learning</h3>
+
+    DQN combines the Q-Learning algorithm with a deep neural network.
+
+    The objective is still to approximate the optimal action-value function.
+
+    The target used to train the network is based on the Q-Learning update:
+
+    $$y_t=R_{t+1}+\gamma\max_{a'}Q(S_{t+1},a';\theta^-)$$
+
+    Where $\theta^-$ represents the parameters of the target network.
+
+    The network is trained by minimizing the difference between its predicted Q-value and the target:
+
+    $$L(\theta)=\mathbb{E}[
+    (y_t-Q(S_t,A_t;\theta))^2]$$
+
+    <h3>8.6. Main components of DQN</h3>
+
+    A standard DQN implementation introduces two important mechanisms:
+
+    <strong>1. Experience Replay:</strong>
+
+    The agent stores previous transitions in a replay buffer.
+
+    Each transition contains:
+
+    $$ (S_t,A_t,R_{t+1},S_{t+1},Done) $$
+
+    During training, the agent samples random batches of transitions from this buffer.
+
+    Benefits:
+    <ul>
+        <li>Reduces correlations between consecutive experiences.</li>
+        <li>Allows the agent to reuse previously collected experiences.</li>
+        <li>Improves training stability and data efficiency.</li>
+    </ul>
+
+    <strong>2. Target Network:</strong>
+
+    DQN maintains a separate target network to calculate the target Q-values.
+
+    The target network has parameters $\theta^-$, while the online network has parameters $\theta$.
+
+    The online network is updated during training.
+
+    The target network is periodically synchronized with the online network.
+
+    This helps stabilize the learning process because the target values do not change after every gradient update.
+
+    <h3>8.7. DQN training process</h3>
+
+    <ol>
+        <li>Initialize the online Q-network.</li>
+        <li>Initialize the target network with the same parameters.</li>
+        <li>Initialize the replay buffer.</li>
+        <li>Observe the current state.</li>
+        <li>Select an action using epsilon-greedy.</li>
+        <li>Execute the action in the environment.</li>
+        <li>Observe the reward and next state.</li>
+        <li>Store the transition in the replay buffer.</li>
+        <li>Sample a random mini-batch of transitions.</li>
+        <li>Calculate the target Q-values using the target network.</li>
+        <li>Calculate the loss between predicted and target Q-values.</li>
+        <li>Update the online network using backpropagation and gradient descent.</li>
+        <li>Periodically synchronize the target network.</li>
+        <li>Repeat the process.</li>
+    </ol>
+
+    <h3>8.8. DQN characteristics</h3>
+
+    <ul>
+        <li>Model-free Reinforcement Learning.</li>
+        <li>Off-Policy learning.</li>
+        <li>Based on Q-Learning.</li>
+        <li>Uses a neural network to approximate the action-value function.</li>
+        <li>Uses experience replay.</li>
+        <li>Uses a target network.</li>
+        <li>Designed primarily for environments with discrete action spaces.</li>
+    </ul>
+
+</section>
+
+<section id="midterm">
+    <h2>9. Midterm Examination Notes</h2>
+
+    <h3>9.1. Midterm Part 1: Manual calculations</h3>
+
+    We need to be able to solve problems manually and calculate $V^\pi$ and $Q^\pi$ for one of the algorithms.
+
+    At least one iteration must be calculated manually.
+
+    Topics to prepare:
+    <ul>
+        <li>Bellman expectation equations.</li>
+        <li>Bellman optimality equations.</li>
+        <li>State-value functions.</li>
+        <li>Action-value functions.</li>
+        <li>Transition probabilities.</li>
+        <li>Policy evaluation.</li>
+        <li>TD updates.</li>
+        <li>SARSA updates.</li>
+        <li>Q-Learning updates.</li>
+    </ul>
+
+    <h3>9.2. Midterm Part 2: Group competency</h3>
+
+    The second part of the midterm involves demonstrating competency in groups.
+
+    We should be able to explain the algorithms, their differences, and their application to different environments.
+
+</section>
+
+<section id="summary">
+    <h2>10. Summary of Reinforcement Learning Concepts</h2>
+
+    <h3>10.1. Main categories</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Algorithm</th>
+                <th>Model requirement</th>
+                <th>Learning approach</th>
+                <th>Update target</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Dynamic Programming</td>
+                <td>Model-based</td>
+                <td>Bellman equations</td>
+                <td>Expected next-state values</td>
+            </tr>
+            <tr>
+                <td>Monte Carlo</td>
+                <td>Model-free</td>
+                <td>Return-based</td>
+                <td>Complete observed return</td>
+            </tr>
+            <tr>
+                <td>Temporal Difference</td>
+                <td>Model-free</td>
+                <td>Bootstrapping</td>
+                <td>Reward + estimated next value</td>
+            </tr>
+            <tr>
+                <td>SARSA</td>
+                <td>Model-free</td>
+                <td>On-Policy TD control</td>
+                <td>Actual next action</td>
+            </tr>
+            <tr>
+                <td>Q-Learning</td>
+                <td>Model-free</td>
+                <td>Off-Policy TD control</td>
+                <td>Maximum next Q-value</td>
+            </tr>
+            <tr>
+                <td>DQN</td>
+                <td>Model-free</td>
+                <td>Deep Off-Policy Q-Learning</td>
+                <td>Target network Q-value</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>10.2. Important equations to remember</h3>
+
+    <strong>Policy:</strong>
+    $$\pi(a|s)=P(A_t=a|S_t=s)$$
+
+    <strong>State-value function:</strong>
+    $$V^\pi(s)=\mathbb{E}_\pi[G_t|S_t=s]$$
+
+    <strong>Action-value function:</strong>
+    $$Q^\pi(s,a)=\mathbb{E}_\pi[G_t|S_t=s,A_t=a]$$
+
+    <strong>Bellman expectation equation:</strong>
+    $$V^\pi(s)=\sum_a\pi(a|s)\sum_{s'}P(s'|s,a)
+    [R(s,a,s')+\gamma V^\pi(s')]$$
+
+    <strong>Bellman optimality equation:</strong>
+    $$V^*(s)=\max_a\sum_{s'}P(s'|s,a)
+    [R(s,a,s')+\gamma V^*(s')]$$
+
+    <strong>Monte Carlo update:</strong>
+    $$V(S_t)\leftarrow V(S_t)+\alpha[G_t-V(S_t)]$$
+
+    <strong>TD(0) update:</strong>
+    $$V(S_t)\leftarrow V(S_t)+\alpha[
+    R_{t+1}+\gamma V(S_{t+1})-V(S_t)]$$
+
+    <strong>SARSA update:</strong>
+    $$Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha[
+    R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t)]$$
+
+    <strong>Q-Learning update:</strong>
+    $$Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha[
+    R_{t+1}+\gamma\max_{a'}Q(S_{t+1},a')-Q(S_t,A_t)]$$
+
+    <strong>DQN target:</strong>
+    $$y_t=R_{t+1}+\gamma\max_{a'}Q(S_{t+1},a';\theta^-)$$
+
+</section>
+
+</main>
+
+<footer>
+    <p>End of Reinforcement Learning class notes.</p>
+</footer>
+
+</body>
