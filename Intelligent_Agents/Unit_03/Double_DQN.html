@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="../../style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/icon.png">
+    <title>DQN and Double DQN - Reinforcement Learning</title>
+
+    <style>
+        .key-point {
+            font-weight: bold;
+        }
+        .definition {
+            background: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid #555;
+            margin: 15px 0;
+        }
+
+        .formula {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border-radius: 6px;
+            font-family: "Times New Roman", serif;
+            font-size: 1.15em;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header>
+    <h1>Deep Q-Networks (DQN) and Double DQN</h1>
+    <p>Reinforcement Learning: Deep Q-Learning, Target Networks, Experience Replay, and Overestimation Bias.</p>
+</header>
+
+    <main>
+        <section>
+        <p> <a href="../index.html"> ← Back to Intelligent Agents</a></p>
+        </section>
+
+
+<section id="introduction">
+    <h2>1. Introduction to DQN</h2>
+
+    <h3>1.1. From Q-Learning to Deep Q-Networks</h3>
+
+    Traditional Q-Learning uses a Q-table to store the estimated value of every state-action pair.
+
+    However, when the state space becomes very large, storing all possible Q-values becomes impractical.
+
+    Deep Q-Networks (DQN) address this limitation by using a neural network to approximate the action-value function.
+
+    Instead of maintaining a table, the agent uses a neural network to estimate the Q-values associated with the available actions.
+
+    The network learns the mapping:
+
+    $$Q(s,a;\theta)$$
+
+    Where:
+    <ul>
+        <li>$s$: Current state.</li>
+        <li>$a$: Selected action.</li>
+        <li>$\theta$: Parameters (weights and biases) of the neural network.</li>
+        <li>$Q(s,a;\theta)$: Estimated value of taking action $a$ in state $s$.</li>
+    </ul>
+
+    The objective is to approximate the optimal action-value function:
+
+    $$Q^*(s,a)$$
+
+    <h3>1.2. The problem with standard Q-Learning in deep networks</h3>
+
+    In traditional Q-Learning, the Q-table is updated directly using the Bellman equation.
+
+    In DQN, the Q-values are approximated using a neural network. Therefore, the network parameters must be adjusted through optimization.
+
+    The learning process introduces additional challenges:
+
+    <ul>
+        <li>Consecutive experiences are highly correlated.</li>
+        <li>The target values change while the network is being trained.</li>
+        <li>Small estimation errors can influence future predictions.</li>
+        <li>The network can become unstable during training.</li>
+    </ul>
+
+    DQN introduces two fundamental mechanisms to improve training stability:
+
+    <ol>
+        <li><strong>Experience Replay:</strong> Stores and samples previous experiences.</li>
+        <li><strong>Target Network:</strong> Uses a separate network to calculate more stable target values.</li>
+    </ol>
+
+</section>
+
+<section id="experience-replay">
+    <h2>2. Experience Replay</h2>
+
+    <h3>2.1. What is Experience Replay?</h3>
+
+    Experience Replay is a mechanism that stores the agent's previous interactions with the environment in a data structure called the Replay Buffer.
+
+    Instead of training the neural network using only the most recent experience, the agent stores transitions and randomly samples a mini-batch for training.
+
+    Each transition contains:
+
+    $$ (S_t,A_t,R_{t+1},S_{t+1},Done) $$
+
+    Where:
+    <ul>
+        <li>$S_t$: Current state.</li>
+        <li>$A_t$: Action performed.</li>
+        <li>$R_{t+1}$: Reward received.</li>
+        <li>$S_{t+1}$: Next state.</li>
+        <li>$Done$: Indicates whether the episode terminated.</li>
+    </ul>
+
+    <h3>2.2. Replay Buffer and Mini-batches</h3>
+
+    The Replay Buffer stores a collection of transitions.
+
+    During training, the agent randomly selects a mini-batch of experiences from the buffer.
+
+    For example:
+
+    <pre><code>Replay Buffer:
+[
+    (state_1, action_1, reward_1, next_state_1, done_1),
+    (state_2, action_2, reward_2, next_state_2, done_2),
+    (state_3, action_3, reward_3, next_state_3, done_3),
+    ...
+]</code></pre>
+
+    A mini-batch is a subset of these stored transitions.
+
+    For example, if the batch size is 64, the network trains using 64 randomly sampled transitions.
+
+    <strong>Important:</strong> The mini-batch is not the Replay Buffer itself. It is a sample taken from the Replay Buffer.
+
+    <h3>2.3. Why do we use Experience Replay?</h3>
+
+    Experience Replay provides several advantages:
+
+    <ul>
+        <li><strong>Reduces correlation:</strong> Consecutive transitions are often highly correlated. Random sampling makes the training batches less dependent on their original temporal order.</li>
+        <li><strong>Improves data efficiency:</strong> The same experience can be used multiple times during training.</li>
+        <li><strong>Stabilizes learning:</strong> It helps reduce abrupt changes caused by learning exclusively from recent transitions.</li>
+        <li><strong>Improves training efficiency:</strong> Mini-batches allow the network to perform vectorized computations.</li>
+    </ul>
+
+</section>
+
+<section id="target-network">
+    <h2>3. Target Network</h2>
+
+    <h3>3.1. What is a Target Network?</h3>
+
+    A Target Network is a second neural network used by DQN to calculate the target Q-values during training.
+
+    A standard DQN architecture maintains two networks:
+
+    <ol>
+        <li><strong>Online Network:</strong> The network that is actively trained and updated through gradient descent.</li>
+        <li><strong>Target Network:</strong> A separate, temporarily frozen copy of the online network used to calculate target values.</li>
+    </ol>
+
+    Both networks have the same architecture, but they do not necessarily have the same parameters at every training step.
+
+    We represent their parameters as:
+
+    <ul>
+        <li>Online Network: $\theta$</li>
+        <li>Target Network: $\theta^-$</li>
+    </ul>
+
+    <h3>3.2. Why do we need a Target Network?</h3>
+
+    In standard Q-Learning, the update target is:
+
+    $$y_t=R_{t+1}+\gamma\max_{a'}Q(S_{t+1},a')$$
+
+    If we use the same neural network to calculate both the current Q-value and the target Q-value, the network is constantly changing the values used as its own learning targets.
+
+    This creates a moving-target problem.
+
+    Every time the online network is updated:
+    <ul>
+        <li>Its current predictions change.</li>
+        <li>The estimated next-state Q-values also change.</li>
+        <li>The target used to calculate the loss changes.</li>
+    </ul>
+
+    This can make the learning process unstable.
+
+    The Target Network addresses this problem by providing a separate set of parameters for calculating the targets.
+
+    <h3>3.3. Frozen copy of the Online Network</h3>
+
+    Initially, the Target Network receives a copy of the Online Network's parameters.
+
+    $$\theta^- \leftarrow \theta$$
+
+    This means both networks start with the same weights and biases.
+
+    However, during normal training:
+
+    <ul>
+        <li>The Online Network is continuously updated.</li>
+        <li>The Target Network remains frozen between synchronization steps.</li>
+    </ul>
+
+    After a predefined number of training steps, the current Online Network parameters are copied into the Target Network.
+
+    $$\theta^- \leftarrow \theta$$
+
+    This process is called a hard update or hard synchronization.
+
+    <h3>3.4. Target Network synchronization</h3>
+
+    Suppose we define a synchronization interval $C$.
+
+    Every $C$ training steps, we copy the Online Network's parameters into the Target Network.
+
+    For example:
+
+    <pre><code>if training_step % C == 0:
+    target_network.load_state_dict(
+        online_network.state_dict()
+    )</code></pre>
+
+    The process works as follows:
+
+    <ol>
+        <li>Initialize the Online Network.</li>
+        <li>Copy its parameters into the Target Network.</li>
+        <li>Train the Online Network using mini-batches from the Replay Buffer.</li>
+        <li>Keep the Target Network frozen while the Online Network changes.</li>
+        <li>After every $C$ training steps, synchronize the Target Network.</li>
+        <li>Repeat the process.</li>
+    </ol>
+
+    <h3>3.5. Online Network vs. Target Network behavior</h3>
+
+    The two networks have different update behaviors.
+
+    <strong>Online Network:</strong>
+
+    Its parameters change dynamically during training because gradient descent continuously adjusts its weights.
+
+    <strong>Target Network:</strong>
+
+    Its parameters remain constant between synchronization steps and change only when a copy of the Online Network is performed.
+
+    Therefore, if we visualize the parameters over time:
+
+    <ul>
+        <li>The Online Network follows a continuously changing trajectory.</li>
+        <li>The Target Network follows a staircase-like trajectory.</li>
+    </ul>
+
+    <p>The staircase behavior occurs because the target parameters remain fixed for several steps and then suddenly change when the networks are synchronized.</p>
+
+    <h3>3.6. Alternative: Soft Updates</h3>
+
+    Besides hard synchronization, a Target Network can also be updated gradually using soft updates.
+
+    Instead of copying all parameters at once, the Target Network slowly moves toward the Online Network.
+
+    $$\theta^- \leftarrow \tau\theta+(1-\tau)\theta^-$$
+
+    Where:
+    <ul>
+        <li>$\theta$: Online Network parameters.</li>
+        <li>$\theta^-$: Target Network parameters.</li>
+        <li>$\tau$: Small update coefficient, usually much smaller than 1.</li>
+    </ul>
+
+    A small value of $\tau$ means the Target Network changes gradually.
+
+    This avoids the sudden parameter changes associated with hard synchronization.
+
+</section>
+
+<section id="dqn-training">
+    <h2>4. DQN Training Process</h2>
+
+    <h3>4.1. Calculating the Target Q-value</h3>
+
+    In standard DQN, the Target Network calculates the maximum Q-value associated with the next state.
+
+    The target is:
+
+    $$y_t=R_{t+1}+\gamma(1-Done)
+    \max_{a'}Q(S_{t+1},a';\theta^-)$$
+
+    Where:
+    <ul>
+        <li>$R_{t+1}$: Immediate reward.</li>
+        <li>$\gamma$: Discount factor.</li>
+        <li>$Done$: Terminal-state indicator.</li>
+        <li>$S_{t+1}$: Next state.</li>
+        <li>$\theta^-$: Target Network parameters.</li>
+    </ul>
+
+    The term $(1-Done)$ ensures that no future reward is included when the transition reaches a terminal state.
+
+    If the transition is terminal:
+
+    $$y_t=R_{t+1}$$
+
+    Otherwise:
+
+    $$y_t=R_{t+1}+\gamma\max_{a'}Q(S_{t+1},a';\theta^-)$$
+
+    <h3>4.2. Calculating the Online Q-value</h3>
+
+    The Online Network calculates the predicted Q-value corresponding to the action actually performed.
+
+    $$Q(S_t,A_t;\theta)$$
+
+    The network receives the current state and produces Q-values for the available actions.
+
+    We select the prediction corresponding to the action stored in the sampled transition.
+
+    <h3>4.3. Loss Function</h3>
+
+    Once we have the predicted Q-value from the Online Network and the target Q-value from the Target Network, we calculate the loss.
+
+    A common choice is the Mean Squared Error (MSE):
+
+    $$L(\theta)=
+    \mathbb{E}\left[
+    \left(y_t-Q(S_t,A_t;\theta)\right)^2
+    \right]$$
+
+    For a mini-batch of size $N$:
+
+    $$L(\theta)=\frac{1}{N}\sum_{i=1}^{N}
+    \left(y_i-Q(S_i,A_i;\theta)\right)^2$$
+
+    The loss measures the difference between the predicted Q-values and their target values.
+
+    <h3>4.4. Updating the Online Network</h3>
+
+    After calculating the loss, we use backpropagation and an optimizer to update the Online Network parameters.
+
+    The general gradient descent update is:
+
+    $$\theta \leftarrow \theta-\alpha\nabla_\theta L(\theta)$$
+
+    Where:
+    <ul>
+        <li>$\theta$: Online Network parameters.</li>
+        <li>$\alpha$: Learning rate.</li>
+        <li>$\nabla_\theta L(\theta)$: Gradient of the loss with respect to the Online Network parameters.</li>
+    </ul>
+
+    The Target Network does not receive this gradient update.
+
+    It remains frozen until the next synchronization step.
+
+    <h3>4.5. Complete DQN training cycle</h3>
+
+    The complete process is:
+
+    <ol>
+        <li>Initialize the Online Network with parameters $\theta$.</li>
+        <li>Initialize the Target Network with parameters $\theta^-=\theta$.</li>
+        <li>Initialize the Replay Buffer.</li>
+        <li>Observe the current state.</li>
+        <li>Select an action using an exploration strategy, such as epsilon-greedy.</li>
+        <li>Execute the action and observe the reward and next state.</li>
+        <li>Store the transition in the Replay Buffer.</li>
+        <li>Sample a mini-batch of transitions from the Replay Buffer.</li>
+        <li>Use the Online Network to calculate the predicted Q-values.</li>
+        <li>Use the Target Network to calculate the target Q-values.</li>
+        <li>Calculate the loss between the predicted values and the targets.</li>
+        <li>Update the Online Network through backpropagation and gradient descent.</li>
+        <li>After every $C$ training steps, copy the Online Network parameters into the Target Network.</li>
+        <li>Repeat the process.</li>
+    </ol>
+
+    <h3>4.6. Why does this stabilize learning?</h3>
+
+    The main advantage of the Target Network is that it prevents the target values from changing after every Online Network update.
+
+    The Online Network can improve its predictions without immediately changing the network responsible for generating the targets.
+
+    This reduces the moving-target problem and helps stabilize the learning process.
+
+    <p>Important: The Target Network does not eliminate all instability. It makes the learning targets more stable between synchronization steps, but DQN can still experience divergence or oscillations depending on the environment, learning rate, replay buffer, and other hyperparameters.</p>
+
+</section>
+
+<section id="overestimation">
+    <h2>5. Problems with Standard DQN: Overestimation Bias</h2>
+
+    <h3>5.1. What is Overestimation Bias?</h3>
+
+    Standard DQN can suffer from overestimation bias.
+
+    The problem occurs because the algorithm uses the maximum estimated Q-value to calculate its target.
+
+    $$y_t=R_{t+1}+\gamma\max_{a'}Q(S_{t+1},a';\theta^-)$$
+
+    However, neural networks do not produce perfectly accurate Q-value estimates.
+
+    Their predictions can contain estimation errors or noise.
+
+    When we take the maximum among several noisy estimates, the selected value tends to be positively biased.
+
+    In other words, the algorithm may systematically overestimate the value of the best available action.
+
+    <h3>5.2. Why does overestimation happen?</h3>
+
+    Consider a state with three possible actions.
+
+    Suppose the true Q-values are:
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>True Q-value</th>
+                <th>Estimated Q-value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Up</td>
+                <td>10</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <td>Down</td>
+                <td>9</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td>Left</td>
+                <td>7</td>
+                <td>6</td>
+            </tr>
+        </tbody>
+    </table>
+
+    The network estimates that the action "Up" has a value of 12, even though its true value is 10.
+
+    Standard DQN uses:
+
+    $$\max(12,8,6)=12$$
+
+    Therefore, the algorithm uses an overestimated value in its target.
+
+    This problem is related to the maximization operation.
+
+    When estimates contain noise, selecting the maximum tends to select values with positive estimation errors.
+
+    <h3>5.3. Why is this a problem?</h3>
+
+    Overestimation can negatively affect learning because:
+
+    <ul>
+        <li>The agent may believe that some actions are better than they actually are.</li>
+        <li>The estimated Q-values can become excessively optimistic.</li>
+        <li>The agent may prefer actions based on inaccurate estimates.</li>
+        <li>Overestimated targets can propagate through subsequent updates.</li>
+        <li>Training performance and stability can deteriorate.</li>
+    </ul>
+
+    Therefore, we need a method that reduces the influence of overestimated Q-values.
+
+</section>
+
+<section id="double-dqn">
+    <h2>6. Double DQN</h2>
+
+    <h3>6.1. Introduction</h3>
+
+    Double DQN is an extension of standard DQN designed to reduce overestimation bias.
+
+    It separates two operations that standard DQN performs using the same target network:
+
+    <ol>
+        <li>Selecting the best next action.</li>
+        <li>Evaluating the value of that selected action.</li>
+    </ol>
+
+    In Double DQN, these operations are performed using different networks.
+
+    <ul>
+        <li><strong>Online Network:</strong> Selects the next action.</li>
+        <li><strong>Target Network:</strong> Evaluates the selected action.</li>
+    </ul>
+
+    This separation helps reduce the positive bias caused by maximizing noisy value estimates.
+
+    <h3>6.2. The main idea: Selection vs. Evaluation</h3>
+
+    Consider two networks:
+
+    <ul>
+        <li>$Q_1$: Online Network.</li>
+        <li>$Q_2$: Target Network.</li>
+    </ul>
+
+    The Online Network selects the action with the highest estimated Q-value.
+
+    $$a^*=\arg\max_{a'}Q(S_{t+1},a';\theta)$$
+
+    The Target Network then evaluates the selected action.
+
+    $$Q(S_{t+1},a^*;\theta^-)$$
+
+    Therefore:
+    <ul>
+        <li>$Q_1$ determines which action is considered the best.</li>
+        <li>$Q_2$ estimates how good that action actually is.</li>
+    </ul>
+
+    This is the fundamental difference between DQN and Double DQN.
+
+    <h3>6.3. Double DQN target equation</h3>
+
+    The Double DQN target is:
+
+    $$y_t=R_{t+1}+\gamma(1-Done)
+    Q\left(S_{t+1},
+    \arg\max_{a'}Q(S_{t+1},a';\theta);
+    \theta^-\right)$$
+
+    Where:
+    <ul>
+        <li>$\theta$: Online Network parameters.</li>
+        <li>$\theta^-$: Target Network parameters.</li>
+        <li>$\arg\max_{a'}Q(S_{t+1},a';\theta)$: Action selected by the Online Network.</li>
+        <li>$Q(S_{t+1},a^*;\theta^-)$: Evaluation of that action by the Target Network.</li>
+    </ul>
+
+    For terminal transitions:
+
+    $$y_t=R_{t+1}$$
+
+    The Online Network still calculates the predicted Q-value for the current state-action pair:
+
+    $$Q(S_t,A_t;\theta)$$
+
+    We then calculate the loss:
+
+    $$L(\theta)=
+    \mathbb{E}\left[
+    (y_t-Q(S_t,A_t;\theta))^2
+    \right]$$
+
+    The Online Network is updated through gradient descent, while the target calculation is treated as a constant during that update.
+
+    <h3>6.4. Step-by-step example</h3>
+
+    Consider the following next-state action values predicted by the Online Network:
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Online Network ($Q_1$)</th>
+                <th>Target Network ($Q_2$)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Up</td>
+                <td>12</td>
+                <td>9</td>
+            </tr>
+            <tr>
+                <td>Down</td>
+                <td>8</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>Left</td>
+                <td>6</td>
+                <td>7</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <strong>Step 1: Online Network selects the best action.</strong>
+
+    The Online Network predicts:
+
+    $$Q_1(Up)=12$$
+    $$Q_1(Down)=8$$
+    $$Q_1(Left)=6$$
+
+    Therefore:
+
+    $$a^*=Up$$
+
+    <strong>Step 2: Target Network evaluates the selected action.</strong>
+
+    The Target Network evaluates the action "Up":
+
+    $$Q_2(Up)=9$$
+
+    <strong>Step 3: Calculate the target.</strong>
+
+    Assuming a reward of 1 and a discount factor of 0.99, with a non-terminal transition:
+
+    $$y=1+0.99(9)$$
+
+    $$y=9.91$$
+
+    Double DQN uses 9 as the estimated value of the selected action rather than using the maximum value predicted by the Target Network.
+
+    This illustrates how the two networks perform different operations.
+
+    <h3>6.5. How does Double DQN reduce overestimation?</h3>
+
+    Standard DQN uses the Target Network to select and evaluate the maximum action value.
+
+    Double DQN separates these operations.
+
+    By using the Online Network to select the action and the Target Network to evaluate it, the algorithm reduces the direct coupling between action selection and value estimation.
+
+    This generally reduces the overestimation bias.
+
+    However, Double DQN does not eliminate all estimation errors or guarantee that Q-values will never be overestimated.
+
+</section>
+
+<section id="comparison">
+    <h2>7. Standard DQN vs. Double DQN</h2>
+
+    <h3>7.1. Main differences</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Characteristic</th>
+                <th>Standard DQN</th>
+                <th>Double DQN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Online Network</td>
+                <td>Predicts current Q-values.</td>
+                <td>Predicts current Q-values and selects the next action.</td>
+            </tr>
+            <tr>
+                <td>Target Network</td>
+                <td>Selects and evaluates the maximum next-state Q-value.</td>
+                <td>Evaluates the action selected by the Online Network.</td>
+            </tr>
+            <tr>
+                <td>Target calculation</td>
+                <td>Maximum Q-value from Target Network.</td>
+                <td>Online selection + Target evaluation.</td>
+            </tr>
+            <tr>
+                <td>Overestimation bias</td>
+                <td>More susceptible.</td>
+                <td>Generally reduced.</td>
+            </tr>
+            <tr>
+                <td>Experience Replay</td>
+                <td>Yes</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>Target Network</td>
+                <td>Yes</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>Loss function</td>
+                <td>Usually MSE or Huber loss.</td>
+                <td>Usually MSE or Huber loss.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>7.2. Mathematical comparison</h3>
+
+    <strong>Standard DQN:</strong>
+
+    $$y_t^{DQN}=R_{t+1}+\gamma(1-Done)
+    \max_{a'}Q(S_{t+1},a';\theta^-)$$
+
+    The Target Network selects and evaluates the next action.
+
+    <strong>Double DQN:</strong>
+
+    $$y_t^{DoubleDQN}=R_{t+1}+\gamma(1-Done)
+    Q(S_{t+1},
+    \arg\max_{a'}Q(S_{t+1},a';\theta);
+    \theta^-)$$
+
+    The Online Network selects the action, and the Target Network evaluates it.
+
+    <h3>7.3. Shared components</h3>
+
+    Both algorithms use:
+
+    <ul>
+        <li>An Online Network.</li>
+        <li>A Target Network.</li>
+        <li>A Replay Buffer.</li>
+        <li>Mini-batch sampling.</li>
+        <li>Backpropagation.</li>
+        <li>Gradient descent.</li>
+        <li>An exploration strategy, commonly epsilon-greedy.</li>
+        <li>A target synchronization mechanism.</li>
+    </ul>
+
+    The primary difference is how the next-state target is calculated.
+
+</section>
+
+<section id="implementation">
+    <h2>8. Implementation Considerations</h2>
+
+    <h3>8.1. Standard DQN pseudocode</h3>
+
+    <pre><code>Initialize online_network with parameters theta
+Initialize target_network with parameters theta_minus = theta
+Initialize replay_buffer
+
+for each episode:
+
+    state = environment.reset()
+
+    while not done:
+
+        action = epsilon_greedy(online_network, state)
+
+        next_state, reward, done = environment.step(action)
+
+        replay_buffer.add(
+            state, action, reward, next_state, done
+        )
+
+        if replay_buffer.size() >= batch_size:
+
+            batch = replay_buffer.sample(batch_size)
+
+            current_q = online_network(
+                batch.states
+            ).gather(batch.actions)
+
+            with no_grad:
+                next_q = target_network(
+                    batch.next_states
+                ).max(dim=1).values
+
+                target_q = batch.rewards + gamma * (
+                    1 - batch.dones
+                ) * next_q
+
+            loss = loss_function(current_q, target_q)
+
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+        if training_step % C == 0:
+            target_network.load_state_dict(
+                online_network.state_dict()
+            )
+
+        state = next_state</code></pre>
+
+    <h3>8.2. Double DQN pseudocode</h3>
+
+    <pre><code>Initialize online_network with parameters theta
+Initialize target_network with parameters theta_minus = theta
+Initialize replay_buffer
+
+for each episode:
+
+    state = environment.reset()
+
+    while not done:
+
+        action = epsilon_greedy(online_network, state)
+
+        next_state, reward, done = environment.step(action)
+
+        replay_buffer.add(
+            state, action, reward, next_state, done
+        )
+
+        if replay_buffer.size() >= batch_size:
+
+            batch = replay_buffer.sample(batch_size)
+
+            current_q = online_network(
+                batch.states
+            ).gather(batch.actions)
+
+            with no_grad:
+
+                # Online network selects the action
+                next_actions = online_network(
+                    batch.next_states
+                ).argmax(dim=1)
+
+                # Target network evaluates the selected action
+                next_q = target_network(
+                    batch.next_states
+                ).gather(
+                    1, next_actions.unsqueeze(1)
+                ).squeeze(1)
+
+                target_q = batch.rewards + gamma * (
+                    1 - batch.dones
+                ) * next_q
+
+            loss = loss_function(current_q, target_q)
+
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+        if training_step % C == 0:
+            target_network.load_state_dict(
+                online_network.state_dict()
+            )
+
+        state = next_state</code></pre>
+
+    <p>These examples use PyTorch-style pseudocode. The exact implementation may vary depending on the environment and network architecture.</p>
+
+    <h3>8.3. Important implementation details</h3>
+
+    <ul>
+        <li>The Target Network should not receive optimizer updates.</li>
+        <li>Target calculations should be performed without gradient tracking.</li>
+        <li>The Online Network is updated using the loss.</li>
+        <li>Terminal transitions must not include future Q-values.</li>
+        <li>The Replay Buffer should contain enough experiences before training begins.</li>
+        <li>Target synchronization must be performed using the intended training-step interval.</li>
+        <li>The next-state action selection in Double DQN must use the Online Network.</li>
+        <li>The evaluation of that selected action must use the Target Network.</li>
+    </ul>
+
+</section>
+
+<section id="summary">
+    <h2>9. Final Summary</h2>
+
+    <h3>9.1. Important concepts</h3>
+
+    <ul>
+        <li><strong>DQN:</strong> Uses a neural network to approximate the Q-function.</li>
+        <li><strong>Online Network:</strong> The network that is continuously trained.</li>
+        <li><strong>Target Network:</strong> A frozen copy used to calculate target Q-values.</li>
+        <li><strong>Replay Buffer:</strong> Stores previous transitions.</li>
+        <li><strong>Mini-batch:</strong> A randomly sampled subset of the Replay Buffer.</li>
+        <li><strong>Hard Update:</strong> Copies the Online Network parameters into the Target Network after a predefined number of steps.</li>
+        <li><strong>Soft Update:</strong> Gradually updates Target Network parameters.</li>
+        <li><strong>Overestimation Bias:</strong> The tendency of maximization over noisy Q-value estimates to produce overly optimistic values.</li>
+        <li><strong>Double DQN:</strong> Separates action selection from action evaluation.</li>
+    </ul>
+
+    <h3>9.2. Equations to remember</h3>
+
+    <strong>Target Network initialization:</strong>
+
+    $$\theta^- \leftarrow \theta$$
+
+    <strong>Hard synchronization:</strong>
+
+    $$\theta^- \leftarrow \theta
+    \quad \text{every } C \text{ training steps}$$
+
+    <strong>Soft synchronization:</strong>
+
+    $$\theta^- \leftarrow \tau\theta+(1-\tau)\theta^-$$
+
+    <strong>Standard DQN target:</strong>
+
+    $$y_t=R_{t+1}+\gamma(1-Done)
+    \max_{a'}Q(S_{t+1},a';\theta^-)$$
+
+    <strong>DQN loss:</strong>
+
+    $$L(\theta)=
+    \mathbb{E}[(y_t-Q(S_t,A_t;\theta))^2]$$
+
+    <strong>Gradient descent:</strong>
+
+    $$\theta\leftarrow\theta-\alpha\nabla_\theta L(\theta)$$
+
+    <strong>Double DQN action selection:</strong>
+
+    $$a^*=\arg\max_{a'}Q(S_{t+1},a';\theta)$$
+
+    <strong>Double DQN target:</strong>
+
+    $$y_t=R_{t+1}+\gamma(1-Done)
+    Q(S_{t+1},a^*;\theta^-)$$
+
+    <h3>9.3. The most important difference</h3>
+
+    <blockquote>
+        <strong>Standard DQN:</strong> The Target Network selects the best next action and evaluates its value.
+
+        <strong>Double DQN:</strong> The Online Network selects the best next action, while the Target Network evaluates that action.
+    </blockquote>
+
+    This separation reduces the overestimation bias associated with the maximization operation in standard DQN.
+
+</section>
+
+</main>
+
+<footer>
+    <p>End of DQN and Double DQN class notes.</p>
+</footer>
+
+
+</body>
+</html>
